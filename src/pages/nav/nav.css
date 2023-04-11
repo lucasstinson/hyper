@@ -1,0 +1,152 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+.nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px;
+  background-color: #222629;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 50px;
+}
+
+.logo-title {
+  font-size: 32px;
+  color: #ffffff;
+  font-family: "Permanent Marker";
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+}
+
+input[type="search"] {
+  width: 300px;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.access-buttons-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.sign-up-button,
+.log-in-button {
+  padding: 8px 16px;
+  width: 100px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.sign-up-button {
+  border: 1px solid #222629;
+  background-color: #86c232;
+  color: #ffffff;
+}
+
+.log-in-button {
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  color: #222629;
+}
+
+@media (max-width: 600px) {
+  .nav {
+    padding: 10px;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .logo-img {
+    height: 30px;
+  }
+
+  .logo-title {
+    font-size: 24px;
+    color: #ffffff;
+    font-family: "Permanent Marker";
+  }
+
+  input[type="search"] {
+    width: 200px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+  }
+
+  .access-buttons-container {
+    position: fixed;
+    bottom: 0;
+    background-color: #222629;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .sign-up-button,
+  .log-in-button {
+    padding: 8px 16px;
+    width: 100px;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1080px) {
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .logo-img {
+    height: 40px;
+  }
+
+  .logo-title {
+    font-size: 28px;
+  }
+
+  input[type="search"] {
+    width: 250px;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+  }
+
+  .access-buttons-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .sign-up-button,
+  .log-in-button {
+    padding: 6px 12px;
+    width: 90px;
+  }
+}
