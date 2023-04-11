@@ -44,7 +44,7 @@ input[type="search"] {
 .sign-up-button,
 .log-in-button {
   padding: 8px 16px;
-  width: 100px;
+  width: 150px;
   border-radius: 15px;
   font-weight: 700;
   font-size: 16px;
@@ -96,14 +96,15 @@ input[type="search"] {
     background-color: #222629;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    gap: 10px;
     padding: 10px;
   }
 
   .sign-up-button,
   .log-in-button {
     padding: 8px 16px;
-    width: 100px;
+    width: 150px;
     border-radius: 15px;
     font-weight: 700;
     font-size: 16px;
