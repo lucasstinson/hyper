@@ -15,8 +15,11 @@
   align-items: center;
   text-decoration: none;
   color: white;
+  font-family: "Permanent Marker";
 }
 
 .footer-logo {
   height: 25px;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
