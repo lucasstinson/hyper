@@ -1,0 +1,30 @@
+.footer-container {
+  background-color: #222629;
+  display: flex;
+  gap: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+.github-link {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.footer-logo {
+  height: 25px;
+}
+
+.footer-text {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
