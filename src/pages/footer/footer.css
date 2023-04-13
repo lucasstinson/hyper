@@ -22,4 +22,8 @@
   height: 25px;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+@media (max-width: 600px) {
+  .footer-container {
+    display: none;
+  }
+}
