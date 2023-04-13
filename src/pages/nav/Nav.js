@@ -22,16 +22,16 @@ const Nav = () => {
           placeholder="@ Username"
         ></input>
       </div>
-      {/* <LoggedIn /> */}
+      <LoggedIn />
 
-      <div className="access-buttons-container">
+      {/* <div className="access-buttons-container">
         <Link to={"/signup"}>
           <button className="sign-up-button">Sign Up</button>
         </Link>
         <Link to={"/login"}>
           <button className="log-in-button">Log in</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
