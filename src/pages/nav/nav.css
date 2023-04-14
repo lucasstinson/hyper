@@ -38,6 +38,10 @@ input[type="search"]:hover {
   cursor: pointer;
 }
 
+input[type="search"]::placeholder {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .access-buttons-container {
   display: flex;
   gap: 20px;
