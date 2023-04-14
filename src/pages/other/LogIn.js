@@ -2,7 +2,6 @@ import React from "react";
 import "./login.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import { Link } from "react-router-dom";
-import SignUp from "./SignUp";
 
 const LogIn = () => {
   return (

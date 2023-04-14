@@ -41,15 +41,3 @@ const Post = (props) => {
 };
 
 export default Post;
-
-// post container
-// x button to close out page...button to the right to "shout"
-// image of user profile
-// input text free typing for 200 characters
-// also allow inclusion of images
-
-// x and post -- flex space-between
-// logo -- round logo
-// typing -- should not be able to see border of text box
-// include image -- image button on bottom (position: fixed or margin auto)
-//best to flex column --
