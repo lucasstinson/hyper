@@ -3,7 +3,7 @@ import "./nav.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import LoggedIn from "./Components/loggedIn";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (

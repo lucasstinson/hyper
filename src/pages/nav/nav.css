@@ -92,11 +92,12 @@ input[type="search"]:hover {
 .user-logo,
 .feed-logo,
 .messages-logo {
-  height: 40px;
+  height: 30px;
 }
 
-.notifications-logo {
-  height: 48px;
+.notifications-logo,
+.post-logo {
+  height: 36px;
 }
 
 .have-an-account-text {
@@ -109,6 +110,10 @@ input[type="search"]:hover {
     padding: 10px;
   }
 
+  .logo-title {
+    display: none;
+  }
+
   .logo-container {
     display: flex;
     align-items: center;
@@ -116,7 +121,7 @@ input[type="search"]:hover {
   }
 
   .logo-img {
-    height: 30px;
+    height: 32px;
   }
 
   .logo-title {
@@ -126,7 +131,7 @@ input[type="search"]:hover {
   }
 
   input[type="search"] {
-    width: 200px;
+    width: 70vw;
     border: none;
     border-radius: 15px;
     padding: 8px;
@@ -164,14 +169,13 @@ input[type="search"]:hover {
     justify-content: space-evenly;
   }
 
-  .user-logo,
-  .feed-logo,
-  .messages-logo {
-    height: 30px;
-  }
-
-  .notifications-logo {
-    height: 36px;
+  .directory-post-container {
+    position: fixed;
+    bottom: 8%;
+    right: 5%;
+    background-color: #86c332;
+    padding: 7px 9px 5px 9px;
+    border-radius: 25px;
   }
 }
 
@@ -217,15 +221,5 @@ input[type="search"]:hover {
 
   .directory-container {
     gap: 20px;
-  }
-
-  .user-logo,
-  .feed-logo,
-  .messages-logo {
-    height: 30px;
-  }
-
-  .notifications-logo {
-    height: 36px;
   }
 }

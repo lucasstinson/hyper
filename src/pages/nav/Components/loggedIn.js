@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import homeFeedWhite from "../../../assets/images/home-white.png";
 import homeFeedGreen from "../../../assets/images/home-green.png";
 import notificationsWhite from "../../../assets/images/notifications-white.png";
@@ -7,9 +7,13 @@ import messagesGreen from "../../../assets/images/mail-green.png";
 import messagesWhite from "../../../assets/images/mail-white.png";
 import userWhite from "../../../assets/images/user-white.png";
 import userGreen from "../../../assets/images/user-white.png";
+import post from "../../../assets/images/post-white.png";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
+import Post from "../../post/Post";
 
 const LoggedIn = () => {
+  const [showPost, setShowPost] = useState(false);
   return (
     <div className="directory-container">
       <div className="directory-profile-container">
@@ -17,11 +21,23 @@ const LoggedIn = () => {
           <img src={userWhite} className="user-logo" alt="user logo"></img>
         </Link>
       </div>
-
       <div className="directory-feed-container">
         <Link to={"/"}>
           <img src={homeFeedWhite} className="feed-logo" alt="feed logo"></img>
         </Link>
+      </div>
+      <div className="directory-post-container">
+        <img
+          src={post}
+          className="post-logo"
+          alt="post logo"
+          onClick={() => setShowPost(true)}
+        ></img>
+        {showPost &&
+          createPortal(
+            <Post onClose={() => setShowPost(false)} />,
+            document.querySelector(".App")
+          )}
       </div>
       <div className="directory-notifications-container">
         <Link to={"/notifications"}>
