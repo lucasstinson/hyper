@@ -7,7 +7,8 @@ import messagesGreen from "../../../assets/images/mail-green.png";
 import messagesWhite from "../../../assets/images/mail-white.png";
 import userWhite from "../../../assets/images/user-white.png";
 import userGreen from "../../../assets/images/user-white.png";
-import post from "../../../assets/images/post-white.png";
+import postWhite from "../../../assets/images/post-white.png";
+import postGreen from "../../../assets/images/post-green.png";
 import { Link } from "react-router-dom";
 import { createPortal } from "react-dom";
 import Post from "../../post/Post";
@@ -28,7 +29,7 @@ const LoggedIn = () => {
       </div>
       <div className="directory-post-container">
         <img
-          src={post}
+          src={postWhite}
           className="post-logo"
           alt="post logo"
           onClick={() => setShowPost(true)}

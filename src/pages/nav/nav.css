@@ -166,7 +166,7 @@ input[type="search"]:hover {
     gap: 10px;
     padding: 5px;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
   }
 
   .directory-post-container {
@@ -176,6 +176,10 @@ input[type="search"]:hover {
     background-color: #86c332;
     padding: 7px 9px 5px 9px;
     border-radius: 25px;
+  }
+
+  .post-logo {
+    height: 34px;
   }
 }
 

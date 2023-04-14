@@ -10,7 +10,7 @@ const LogIn = () => {
       <div className="log-in-form">
         <div className="log-in-form-top-container">
           <Link className="log-in-exit" to={"/"}>
-            X
+            x
           </Link>
           <img
             src={hyperLogo}

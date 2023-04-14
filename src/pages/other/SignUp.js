@@ -9,7 +9,7 @@ const SignUp = () => {
       <div className="sign-up-form">
         <div className="sign-up-form-top-container">
           <Link className="sign-up-exit" to={"/"}>
-            X
+            x
           </Link>
           <img
             src={hyperLogo}

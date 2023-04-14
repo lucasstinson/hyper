@@ -1,0 +1,139 @@
+.Post {
+  background-color: rgba(34, 38, 41, 0.3);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.post-container {
+  position: fixed;
+  top: 15%;
+  background-color: white;
+  border: 1px solid #222629;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  border-radius: 15px;
+  width: 25%;
+}
+
+.post-top-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-exit {
+  text-decoration: none;
+  color: #222629;
+  font-weight: 700;
+  border-radius: 50%;
+  padding: 4px 9px 5px 10px;
+}
+
+.post-exit:hover {
+  background-color: rgba(107, 110, 112, 0.3);
+}
+
+.shout-post {
+  position: relative;
+  top: 385px;
+  padding: 6px 12px;
+  width: 20%;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  background-color: #86c232;
+  color: #ffffff;
+}
+
+.shout-post:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.profile-post-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-post-logo {
+  height: 30px;
+  background-color: #222629;
+  border-radius: 25px;
+  border: 2px solid #222629;
+}
+
+.post-input-container {
+  display: flex;
+  width: 100%;
+  /* border: 1px solid red; */
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  height: 300px;
+  resize: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea::placeholder {
+  opacity: 0.5;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.post-picture-container {
+  display: flex;
+  padding-top: 10px;
+  border-top: 2px solid #86c232;
+}
+
+@media (max-width: 600px) {
+  .Post {
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .post-container {
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    gap: 20px;
+    padding: 10px;
+    width: 90%;
+    height: 10%;
+    position: fixed;
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shout-post {
+    position: inherit;
+  }
+
+  textarea {
+    border: 2px solid #86c232;
+  }
+
+  .post-picture-container {
+    display: block;
+    border: none;
+    padding: 0;
+  }
+}
