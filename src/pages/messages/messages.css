@@ -1,4 +1,4 @@
-.Notifications {
+.Messages {
   height: 100%;
   display: flex;
   align-items: center;
@@ -6,61 +6,64 @@
   font-size: 14px;
 }
 
-.notifications-container {
+.messages-container {
   display: flex;
   flex-direction: column;
   width: 40%;
   text-align: center;
 }
 
-.notifications-title-container {
+.messages-title-container {
   padding: 10px;
   border-bottom: 1px solid #222629;
   font-size: 30px;
 }
 
-.notifications-list-container {
+.messages-list-container {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
 }
 
-.notification-container {
+.message-container {
   padding: 10px;
   display: flex;
   gap: 20px;
   border: 1px solid #222629;
 }
 
-.notification-container:hover {
+.message-container:hover {
   background-color: rgba(107, 110, 112, 0.1);
 }
 
-.notification-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-
-.notification-user {
+.message-user {
   background-color: #222629;
   border: 2px solid #222629;
   border-radius: 25px;
-}
-.notification-text {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  height: 40px;
 }
 
-.notification-emoji,
-.notification-user {
-  height: 28px;
+.message-user-container {
+  display: flex;
+  align-items: center;
+}
+
+.message-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+}
+
+.messager-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 @media (max-width: 600px) {
-  .notifications-container {
+  .messages-container {
     display: flex;
     flex-direction: column;
     width: 90%;

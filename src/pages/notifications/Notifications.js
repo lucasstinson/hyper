@@ -23,7 +23,7 @@ const Notifications = () => {
               <img
                 src={userWhite}
                 className="notification-user"
-                alt="user image"
+                alt="user pic"
               ></img>
               <div className="notification-text">user name followed you</div>
               <div className="notification-shout"></div>
