@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: column;
   font-size: 14px;
+  overflow-y: scroll;
 }
 
 .messages-container {
@@ -11,6 +12,9 @@
   flex-direction: column;
   width: 40%;
   text-align: center;
+  height: 100%;
+  border-left: 1px solid rgba(34, 38, 41, 0.3);
+  border-right: 1px solid rgba(34, 38, 41, 0.3);
 }
 
 .messages-title-container {
@@ -21,6 +25,7 @@
 
 .messages-list-container {
   padding-top: 10px;
+  gap: 1px;
   display: flex;
   flex-direction: column;
 }
@@ -70,8 +75,18 @@
   .messages-container {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 95%;
     text-align: center;
     font-size: 13px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1080px) {
+  .messages-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    text-align: center;
+    font-size: 14px;
   }
 }

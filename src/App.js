@@ -8,6 +8,7 @@ import Notifications from "./pages/notifications/Notifications";
 import SignUp from "./pages/other/SignUp";
 import LogIn from "./pages/other/LogIn";
 import Footer from "./pages/footer/Footer";
+import Settings from "./pages/profile/Components/Settings";
 import "./app.css";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/profile/settings" element={<Settings />} />
         </Routes>
         <Footer />
       </HashRouter>

@@ -22,7 +22,7 @@
   height: 25px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1080px) {
   .footer-container {
     display: none;
   }
