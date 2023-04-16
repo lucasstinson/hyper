@@ -22,7 +22,7 @@ const Profile = () => {
             ></img>
             <div className="profile-data">
               <div className="profile-usersname">User's Name</div>
-              <div className="profile-@username">@Username</div>
+              <div className="profile-username">@User_name</div>
               <div className="bio-container">
                 <div className="bio-text">
                   This is my Bio and I am who I am and this will only be allowed

@@ -8,7 +8,7 @@ import Notifications from "./pages/notifications/Notifications";
 import SignUp from "./pages/other/SignUp";
 import LogIn from "./pages/other/LogIn";
 import Footer from "./pages/footer/Footer";
-import Settings from "./pages/profile/Components/Settings";
+import Settings from "./pages/settings/Settings";
 import "./app.css";
 
 const App = () => {

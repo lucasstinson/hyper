@@ -38,6 +38,10 @@
   gap: 5px;
 }
 
+.profile-username {
+  font-weight: 700;
+}
+
 .follow-container {
   display: flex;
   gap: 10px;

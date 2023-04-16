@@ -1,0 +1,88 @@
+.Settings {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  text-align: center;
+  height: 100%;
+  border-left: 1px solid rgba(34, 38, 41, 0.3);
+  border-right: 1px solid rgba(34, 38, 41, 0.3);
+}
+
+.settings-title-container {
+  padding: 10px;
+  border-bottom: 1px solid #222629;
+  font-size: 30px;
+}
+
+.settings-info-container {
+  padding-top: 5%;
+}
+
+.settings-profile-data {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-user-name-container,
+.settings-bio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10x;
+  align-items: center;
+}
+
+.settings-profile-usersname,
+.settings-bio-text {
+  width: 50%;
+}
+
+.settings-profile-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-profile-image {
+  height: 100px;
+  width: auto;
+  background-color: #222629;
+  border: 2px solid #222629;
+  border-radius: 50px;
+}
+
+.add-photo-image {
+  background-color: rgba(34, 38, 41, 0.9);
+  padding: 6px;
+  border-radius: 25px;
+  position: relative;
+  bottom: 65px;
+}
+
+@media (max-width: 600px) {
+  .settings-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1080px) {
+  .settings-container {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    font-size: 14px;
+  }
+}
