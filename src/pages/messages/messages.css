@@ -62,6 +62,10 @@
   width: 100%;
 }
 
+.messages-username {
+  font-weight: 700;
+}
+
 @media (max-width: 600px) {
   .messages-container {
     display: flex;

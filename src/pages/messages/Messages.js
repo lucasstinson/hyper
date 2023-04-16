@@ -20,7 +20,10 @@ const Messages = () => {
             </div>
             <div className="message-info-container">
               <div className="messager-info">
-                <div className="messager-name">user's name @user_name</div>
+                <div className="messager-name">
+                  user's name{" "}
+                  <span className="messages-username">@user_name</span>
+                </div>
                 <div className="message-last-date">Aug 12 2022</div>
               </div>
               <div className="message-last-message">
