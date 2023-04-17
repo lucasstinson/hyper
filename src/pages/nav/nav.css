@@ -99,9 +99,18 @@ input[type="search"]::placeholder {
   height: 30px;
 }
 
+.user-logo {
+  border: 2px solid #222629;
+  border-radius: 50px;
+}
+
 .notifications-logo,
 .post-logo {
   height: 36px;
+}
+
+.nav-underline.active {
+  border-bottom: 2px solid #86c232;
 }
 
 .have-an-account-text {
