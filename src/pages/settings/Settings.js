@@ -23,18 +23,20 @@ const Settings = () => {
           <div className="settings-profile-data">
             <div className="settings-user-name-container">
               <div className="settings-users-name">Name:</div>
-              <input
+              <textarea
+                type="text"
                 className="settings-profile-usersname"
                 defaultValue="User's Name"
-              ></input>
+              ></textarea>
             </div>
             <div className="settings-bio-container">
               <div className="settings-users-bio">Bio:</div>
-              <input
+              <textarea
+                type="text"
                 className="settings-bio-text"
                 defaultValue="This is my Bio and I am who I am and this will only be allowed
               80 character count"
-              ></input>
+              ></textarea>
             </div>
           </div>
         </div>
