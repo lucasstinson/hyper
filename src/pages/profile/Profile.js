@@ -8,8 +8,10 @@ import heartGray from "../../assets/images/heart-gray.png";
 import heartGreen from "../../assets/images/heart-green.png";
 import shareGray from "../../assets/images/share-gray.png";
 import shareGeen from "../../assets/images/share-gray.png";
+import { useAuth, logOut } from "../../firebase/firebase";
 
 const Profile = () => {
+  const currentUser = useAuth();
   return (
     <div className="Profile">
       <div className="profile-page-container">
@@ -41,11 +43,18 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="edit-profile-container">
-            <Link to="/profile/settings">
-              <button className="edit-profile-button">Edit Profile</button>
-            </Link>
-          </div>
+          {currentUser && (
+            <div className="edit-profile-container">
+              <Link to="/profile/settings">
+                <button className="edit-profile-button">Edit Profile</button>
+              </Link>
+              <Link to="/">
+                <button className="log-out-button" onClick={logOut}>
+                  Log Out
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="feed-list-container">
           <div className="feed-post-container">

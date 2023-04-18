@@ -2,8 +2,15 @@ import React from "react";
 import "./login.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import { Link } from "react-router-dom";
+import { logIn } from "../../firebase/firebase";
 
 const LogIn = () => {
+  const userDetails = () => {
+    const email = document.querySelector("#log-in-email").value;
+    const password = document.querySelector("#log-in-password").value;
+    // console.log(email, password);
+    logIn(email, password);
+  };
   return (
     <div className="log-in-container">
       <div className="log-in-form">
@@ -37,7 +44,9 @@ const LogIn = () => {
             ></input>
           </div>
 
-          <button className="sign-in-button">Log In</button>
+          <button className="sign-in-button" onClick={() => userDetails()}>
+            Log In
+          </button>
           <div className="create-an-account-container">
             <div className="create-an-account-text">
               Don't have an account?

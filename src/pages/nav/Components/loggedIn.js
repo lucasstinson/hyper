@@ -6,7 +6,6 @@ import notificationsGreen from "../../../assets/images/notifications-green.png";
 import messagesGreen from "../../../assets/images/mail-green.png";
 import messagesWhite from "../../../assets/images/mail-white.png";
 import userWhite from "../../../assets/images/user-white.png";
-import userGreen from "../../../assets/images/user-white.png";
 import postWhite from "../../../assets/images/post-white.png";
 import postGreen from "../../../assets/images/post-green.png";
 import { Link, useLocation } from "react-router-dom";

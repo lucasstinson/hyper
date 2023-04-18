@@ -67,6 +67,27 @@
   outline: none;
 }
 
+#sign-up-password:invalid {
+  border: 1px solid red;
+}
+
+#sign-up-password:valid {
+  border: 1px solid green;
+}
+
+.sign-up-password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-up-password-directions {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  text-align: center;
+}
+
 .register-button {
   padding: 8px 16px;
   width: 300px;

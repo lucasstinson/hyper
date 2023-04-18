@@ -3,6 +3,7 @@ import "./settings.css";
 import { Link } from "react-router-dom";
 import camera from "../../assets/images/camera.png";
 import userWhite from "../../assets/images/user-white.png";
+import { updateSettings } from "../../firebase/firebase";
 
 const Settings = () => {
   return (
@@ -38,6 +39,14 @@ const Settings = () => {
               80 character count"
               ></textarea>
             </div>
+            <div className="save-profile-container">
+              <button
+                className="save-profile-button"
+                onClick={() => updateSettings()}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -48,3 +57,5 @@ const Settings = () => {
 export default Settings;
 
 // user is able to edit Picture, Name and Bio
+
+// https://www.youtube.com/watch?v=9uYTQJEMj8I

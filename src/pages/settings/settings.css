@@ -85,6 +85,22 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.save-profile-button {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  background-color: rgb(134, 194, 50);
+  border: 1px solid rgb(134, 194, 50);
+  color: #ffffff;
+}
+
+.save-profile-button:hover {
+  cursor: pointer;
+  background-color: rgba(113, 170, 44, 0.7);
+}
+
 @media (max-width: 600px) {
   .settings-profile-usersname,
   .settings-bio-text {
@@ -111,6 +127,12 @@
     font-size: 14px;
   }
 
+  .settings-title-container {
+    padding: 5px;
+    border-bottom: 1px solid #222629;
+    font-size: 24px;
+  }
+
   .settings-profile-data {
     gap: 5px;
   }
@@ -120,7 +142,7 @@
   }
 
   .settings-profile-image {
-    height: 80px;
+    height: 75px;
     width: auto;
     background-color: #222629;
     border: 2px solid #222629;
@@ -135,5 +157,9 @@
     height: 30px;
     resize: none;
     font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .save-profile-container {
+    padding-bottom: 5px;
   }
 }
