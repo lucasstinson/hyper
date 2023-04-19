@@ -12,6 +12,7 @@ import {
   getFirestore,
   collection,
   addDoc,
+  setDoc,
   getDocs,
   updateDoc,
   deleteDoc,
@@ -87,7 +88,7 @@ const logOut = async () => {
 // adds book Data to firestore with unique ID
 const addUser = async (username, email, uniqueID) => {
   try {
-    const docRef = await addDoc(collection(db, "users"), {
+    const docRef = await setDoc(doc(db, "users", uniqueID), {
       uniqueID: uniqueID,
       email: email,
       name: "",
@@ -112,20 +113,39 @@ const useAuth = () => {
 };
 
 const updateSettings = async () => {
-  const querySnapshot = await getDocs(collection(db, "users"));
-  querySnapshot.forEach((doc) => {
-    if (doc.data().user == currentUser.user) {
-      // let id = doc.id;
-      let bio = doc.data().bio;
-      let email = doc.data().email;
-      let name = doc.data().name;
-      let photoURL = doc.data().photoURL;
-      let uniqueID = doc.data().uniqueID;
-      let username = doc.data().username;
-      console.log(bio, email, name, photoURL, uniqueID, username);
-    }
-  });
+  const name = document.querySelector(".settings-profile-usersname").value;
+  const bio = document.querySelector(".settings-bio-text").value;
+  const userRef = doc(db, "users", currentUser.currentUser.uid);
+
+  try {
+    const update = await updateDoc(userRef, {
+      name: name,
+      bio: bio,
+      photoURL: "test photo tho",
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+  }
 };
+//   const querySnapshot = await getDocs(collection(db, "users"));
+//   querySnapshot.forEach((doc) => {
+//     if (doc.data().user == currentUser.user) {
+//       // let id = doc.id;
+//       let bio = doc.data().bio;
+//       let email = doc.data().email;
+//       let name = doc.data().name;
+//       let photoURL = doc.data().photoURL;
+//       let uniqueID = doc.data().uniqueID;
+//       let username = doc.data().username;
+//       console.log(bio, email, name, photoURL, uniqueID, username);
+//     }
+//   });
+// };
+
+//
+
+// console.log(currentUser.currentUser.uid);
 
 const db = getFirestore(app);
 
