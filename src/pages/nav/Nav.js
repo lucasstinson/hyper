@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./nav.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import LoggedIn from "./Components/loggedIn";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
+import { UserContext } from "../../UserContext";
 
-const Nav = () => {
-  const currentUser = useAuth();
+const Nav = (props) => {
+  const context = useContext(UserContext);
+
+  const currentUser = context.currentUser;
 
   return (
     <div className="nav">

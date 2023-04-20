@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./settings.css";
 import {
   useAuth,
@@ -10,16 +10,15 @@ import { Link } from "react-router-dom";
 import camera from "../../assets/images/camera.png";
 import userWhite from "../../assets/images/user-white.png";
 import { updateSettings } from "../../firebase/firebase";
+import { UserContext } from "../../UserContext";
 
 const Settings = () => {
-  const currentUser = useAuth();
-
-  const [bio, setBio] = useState();
-
-  const [name, setName] = useState();
+  const context = useContext(UserContext);
+  const currentUser = context.currentUser;
+  const [name, setName] = context.name;
+  const [bio, setBio] = context.bio;
 
   const [photoURL, setPhotoURL] = useState(userWhite);
-
   const [photo, setPhoto] = useState(null);
 
   // displays the file name and shows a photo preview
@@ -43,18 +42,17 @@ const Settings = () => {
     updateSettings();
   };
 
-  async function userData() {
-    const profileData = await getProfileData();
-    setBio(profileData.bio);
-    setName(profileData.name);
-  }
+  // async function userData() {
+  //   const profileData = await getProfileData();
+  //   setBio(profileData.bio);
+  //   setName(profileData.name);
+  // }
 
   useEffect(() => {
     if (currentUser && currentUser.photoURL) {
       setPhotoURL(currentUser.photoURL);
     }
     photoPreview();
-    userData();
   }, [currentUser, photo]);
 
   return (
