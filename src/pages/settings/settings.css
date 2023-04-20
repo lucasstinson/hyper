@@ -60,19 +60,22 @@
 }
 
 .settings-profile-image {
-  height: 100px;
-  width: auto;
   background-color: #222629;
-  border: 2px solid #222629;
-  border-radius: 50px;
+  vertical-align: middle;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border-color: gray;
+  border-style: outset;
 }
 
 .add-photo-image {
   background-color: rgba(34, 38, 41, 0.9);
-  padding: 6px;
+  height: 20px;
+  padding: 4px;
   border-radius: 25px;
   position: relative;
-  bottom: 65px;
+  bottom: 90px;
 }
 
 .settings-profile-usersname,
@@ -99,6 +102,20 @@
 .save-profile-button:hover {
   cursor: pointer;
   background-color: rgba(113, 170, 44, 0.7);
+}
+
+.new-profile-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  border-radius: 50px;
+}
+
+#file-upload {
+  border: 1px solid red;
+  display: none;
 }
 
 @media (max-width: 600px) {

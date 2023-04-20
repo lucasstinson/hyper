@@ -17,9 +17,11 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
-// Your web app's Firebase configuration
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA5g776y6szsc1h9l7u_hzJ28jzAnAzK8s",
   authDomain: "hyper-fc336.firebaseapp.com",
@@ -30,11 +32,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth();
-const currentUser = getAuth();
+//Initialize Authentication
+const auth = getAuth(app);
+
+// Initialize Firestore
+const db = getFirestore(app);
+
+// Initialize Storage
+const storage = getStorage(app);
 
 // Create an account with an email and password
 const createUser = async (email, password, username) => {
@@ -57,7 +64,25 @@ const createUser = async (email, password, username) => {
   }
 };
 
-// // Sign in with email and password after creation
+// Add user data to firestore with unique ID
+const addUser = async (username, email, uniqueID) => {
+  try {
+    const docRef = await setDoc(doc(db, "users", uniqueID), {
+      uniqueID: uniqueID,
+      email: email,
+      name: "",
+      username: "@" + username,
+      photoURL: "",
+      bio: "",
+    });
+    console.log(docRef);
+  } catch (error) {
+    const errorMessage = error.message;
+    console.error("Error adding document: ", errorMessage);
+  }
+};
+
+// Sign in with email and password after creation
 const logIn = async (email, password, username) => {
   try {
     const credentials = await signInWithEmailAndPassword(auth, email, password);
@@ -85,22 +110,24 @@ const logOut = async () => {
   }
 };
 
-// adds book Data to firestore with unique ID
-const addUser = async (username, email, uniqueID) => {
+// updates User Settings
+const updateSettings = async () => {
+  const name = document.querySelector(".settings-profile-usersname").value;
+  const bio = document.querySelector(".settings-bio-text").value;
+  const photoURL = auth.currentUser.photoURL;
+  const userRef = doc(db, "users", auth.currentUser.uid);
+
   try {
-    const docRef = await setDoc(doc(db, "users", uniqueID), {
-      uniqueID: uniqueID,
-      email: email,
-      name: "",
-      username: "@" + username,
-      photoURL: "",
-      bio: "",
+    const update = await updateDoc(userRef, {
+      name: name,
+      bio: bio,
+      photoURL: photoURL,
     });
-    console.log(docRef);
   } catch (error) {
     const errorMessage = error.message;
-    console.error("Error adding document: ", errorMessage);
+    console.log(errorMessage);
   }
+  alert("Your account has been updated");
 };
 
 const useAuth = () => {
@@ -112,22 +139,32 @@ const useAuth = () => {
   return currentUser;
 };
 
-const updateSettings = async () => {
-  const name = document.querySelector(".settings-profile-usersname").value;
-  const bio = document.querySelector(".settings-bio-text").value;
-  const userRef = doc(db, "users", currentUser.currentUser.uid);
+// Storage
 
+const upload = async (file, currentUser) => {
+  const fileRef = ref(storage, currentUser.uid + ".png");
   try {
-    const update = await updateDoc(userRef, {
-      name: name,
-      bio: bio,
-      photoURL: "test photo tho",
-    });
+    const snapshot = await uploadBytes(fileRef, file);
+    const photoURL = await getDownloadURL(fileRef);
+    updateProfile(auth.currentUser, { photoURL: photoURL });
   } catch (error) {
     const errorMessage = error.message;
     console.log(errorMessage);
   }
 };
+
+const getProfileData = async () => {
+  const docRef = doc(db, "users", auth.currentUser.uid);
+  try {
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data();
+    return userData;
+  } catch (error) {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+  }
+};
+
 //   const querySnapshot = await getDocs(collection(db, "users"));
 //   querySnapshot.forEach((doc) => {
 //     if (doc.data().user == currentUser.user) {
@@ -145,8 +182,13 @@ const updateSettings = async () => {
 
 //
 
-// console.log(currentUser.currentUser.uid);
-
-const db = getFirestore(app);
-
-export { createUser, useAuth, logOut, logIn, addUser, updateSettings };
+export {
+  createUser,
+  useAuth,
+  logOut,
+  logIn,
+  addUser,
+  updateSettings,
+  upload,
+  getProfileData,
+};
