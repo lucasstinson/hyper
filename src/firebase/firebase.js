@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   updateProfile,
@@ -11,8 +9,6 @@ import {
 import {
   getFirestore,
   collection,
-  addDoc,
-  setDoc,
   getDocs,
   updateDoc,
   deleteDoc,
@@ -43,72 +39,72 @@ const db = getFirestore(app);
 // Initialize Storage
 const storage = getStorage(app);
 
-// Create an account with an email and password
-const createUser = async (email, password, username) => {
-  try {
-    const credentials = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = credentials.user;
-    const uniqueID = user.uid;
-    console.log("Your account has been created");
-    console.log("Username:", user.email);
-    console.log("Unique id", user.uid);
-    addUser(username, user.email, user.uid);
-    window.location.href = "#/profile/settings";
-  } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
+// // Create an account with an email and password
+// const createUser = async (email, password, username) => {
+//   try {
+//     const credentials = await createUserWithEmailAndPassword(
+//       auth,
+//       email,
+//       password
+//     );
+//     const user = credentials.user;
+//     const uniqueID = user.uid;
+//     console.log("Your account has been created");
+//     console.log("Username:", user.email);
+//     console.log("Unique id", user.uid);
+//     addUser(username, user.email, user.uid);
+//     window.location.href = "#/profile/settings";
+//   } catch (error) {
+//     const errorMessage = error.message;
+//     console.log(errorMessage);
+//   }
+// };
 
-// Add user data to firestore with unique ID
-const addUser = async (username, email, uniqueID) => {
-  try {
-    const docRef = await setDoc(doc(db, "users", uniqueID), {
-      uniqueID: uniqueID,
-      email: email,
-      name: "",
-      username: "@" + username,
-      photoURL: "",
-      bio: "",
-    });
-    console.log(docRef);
-  } catch (error) {
-    const errorMessage = error.message;
-    console.error("Error adding document: ", errorMessage);
-  }
-};
+// // Add user data to firestore with unique ID
+// const addUser = async (username, email, uniqueID) => {
+//   try {
+//     const docRef = await setDoc(doc(db, "users", uniqueID), {
+//       uniqueID: uniqueID,
+//       email: email,
+//       name: "",
+//       username: "@" + username,
+//       photoURL: "",
+//       bio: "",
+//     });
+//     console.log(docRef);
+//   } catch (error) {
+//     const errorMessage = error.message;
+//     console.error("Error adding document: ", errorMessage);
+//   }
+// };
 
-// Sign in with email and password after creation
-const logIn = async (email, password, username) => {
-  try {
-    const credentials = await signInWithEmailAndPassword(auth, email, password);
-    const user = credentials.user;
-    console.log("You have succesffully logged in");
-    console.log("Username:", user.email);
-    console.log(user.displayName);
-    console.log(user.photoURL);
-    window.location.href = "#/";
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
+// // Sign in with email and password after creation
+// const logIn = async (email, password, username) => {
+//   try {
+//     const credentials = await signInWithEmailAndPassword(auth, email, password);
+//     const user = credentials.user;
+//     console.log("You have succesffully logged in");
+//     console.log("Username:", user.email);
+//     console.log(user.displayName);
+//     console.log(user.photoURL);
+//     window.location.href = "#/";
+//   } catch (error) {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     console.log(errorMessage);
+//   }
+// };
 
-// log out
-const logOut = async () => {
-  try {
-    const signingOut = await signOut(auth);
-    console.log("You have succesffully logged Out");
-  } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
+// // log out
+// const logOut = async () => {
+//   try {
+//     const signingOut = await signOut(auth);
+//     console.log("You have succesffully logged Out");
+//   } catch (error) {
+//     const errorMessage = error.message;
+//     console.log(errorMessage);
+//   }
+// };
 
 // updates User Settings
 const updateSettings = async () => {
@@ -140,7 +136,6 @@ const useAuth = () => {
 };
 
 // Storage
-
 const upload = async (file, currentUser) => {
   const fileRef = ref(storage, currentUser.uid + ".png");
   try {
@@ -182,13 +177,4 @@ const getProfileData = async () => {
 
 //
 
-export {
-  createUser,
-  useAuth,
-  logOut,
-  logIn,
-  addUser,
-  updateSettings,
-  upload,
-  getProfileData,
-};
+export { auth, db, useAuth, updateSettings, upload, getProfileData };

@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import "./profile.css";
 import userWhite from "../../assets/images/user-white.png";
 import repostGray from "../../assets/images/repost-gray.png";
@@ -8,28 +8,45 @@ import heartGray from "../../assets/images/heart-gray.png";
 import heartGreen from "../../assets/images/heart-green.png";
 import shareGray from "../../assets/images/share-gray.png";
 import shareGeen from "../../assets/images/share-gray.png";
-import { useAuth, logOut } from "../../firebase/firebase";
+import { useAuth } from "../../firebase/firebase";
+import { logOut } from "../../firebase/profile";
+import { UserContext } from "../../UserContext";
 
 const Profile = () => {
-  const currentUser = useAuth();
+  const {
+    currentUser,
+    name,
+    setName,
+    bio,
+    setBio,
+    photoURL,
+    setPhotoURL,
+    username,
+    setUserName,
+  } = useContext(UserContext);
+
+  const [rerender, setRerender] = useState(false);
+
+  useEffect(() => {
+    setRerender(!rerender);
+    console.log("profile");
+  }, []);
+
   return (
     <div className="Profile">
       <div className="profile-page-container">
         <div className="profile-container">
           <div className="profile-info-container">
             <img
-              src={userWhite}
+              src={photoURL}
               className="profile-image"
               alt="profile pic"
             ></img>
             <div className="profile-data">
-              <div className="profile-usersname">User's Name</div>
-              <div className="profile-username">@User_name</div>
+              <div className="profile-usersname">{name}</div>
+              <div className="profile-username">{username}</div>
               <div className="bio-container">
-                <div className="bio-text">
-                  This is my Bio and I am who I am and this will only be allowed
-                  80 character count
-                </div>
+                <div className="bio-text">{bio}</div>
               </div>
               <div className="follow-container">
                 <div className="following-container">

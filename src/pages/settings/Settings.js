@@ -6,54 +6,39 @@ import {
   getProfileData,
   useProfile,
 } from "../../firebase/firebase";
-import { Link } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import camera from "../../assets/images/camera.png";
 import userWhite from "../../assets/images/user-white.png";
 import { updateSettings } from "../../firebase/firebase";
 import { UserContext } from "../../UserContext";
 
 const Settings = () => {
-  const context = useContext(UserContext);
-  const currentUser = context.currentUser;
-  const [name, setName] = context.name;
-  const [bio, setBio] = context.bio;
+  const { currentUser, name, bio, photoURL, setPhotoURL } =
+    useContext(UserContext);
 
-  const [photoURL, setPhotoURL] = useState(userWhite);
   const [photo, setPhoto] = useState(null);
-
-  // displays the file name and shows a photo preview
-  const getFilePreview = (e) => {
+  const [tempPhoto, setTempPhoto] = useState(photoURL);
+  // sets the photo to be shown as a preview
+  const setFilePreview = (e) => {
     if (e.target.files[0]) {
       setPhoto(e.target.files[0]);
-    }
-  };
-
-  const photoPreview = () => {
-    if (photo) {
-      setPhotoURL(URL.createObjectURL(photo));
+      setTempPhoto(URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const handleClick = () => {
     if (photo) {
       upload(photo, currentUser);
+      setPhotoURL(photo);
     }
 
     updateSettings();
   };
 
-  // async function userData() {
-  //   const profileData = await getProfileData();
-  //   setBio(profileData.bio);
-  //   setName(profileData.name);
-  // }
-
   useEffect(() => {
-    if (currentUser && currentUser.photoURL) {
-      setPhotoURL(currentUser.photoURL);
-    }
-    photoPreview();
-  }, [currentUser, photo]);
+    // photoPreview();
+    console.log("settings");
+  });
 
   return (
     <div className="Settings">
@@ -65,7 +50,7 @@ const Settings = () => {
           <div className="settings-profile-image-container">
             <label htmlFor="file-upload" className="new-profile-image">
               <img
-                src={photoURL}
+                src={tempPhoto}
                 className="settings-profile-image"
                 alt="profile pic"
                 title="Add photo"
@@ -80,7 +65,7 @@ const Settings = () => {
                 type="file"
                 id="file-upload"
                 accept="image/png, image/jpeg, image/svg"
-                onChange={getFilePreview}
+                onChange={setFilePreview}
               ></input>
             </label>
           </div>
@@ -122,3 +107,7 @@ export default Settings;
 // user is able to edit Picture, Name and Bio
 
 // https://www.youtube.com/watch?v=9uYTQJEMj8I
+
+// if user has an photoURL, display that
+// if not, display userWhite
+// if user updates, photo, display photo, but dont display photoURL again

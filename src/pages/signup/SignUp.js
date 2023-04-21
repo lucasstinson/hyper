@@ -3,7 +3,7 @@ import "./signup.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import Settings from "../settings/Settings";
 import { Link, redirect } from "react-router-dom";
-import { createUser } from "../../firebase/firebase.js";
+import { createUser } from "../../firebase/signup";
 
 const SignUp = () => {
   const submitUserDetails = () => {
@@ -12,6 +12,7 @@ const SignUp = () => {
     const username = document.querySelector("#sign-up-username").value;
     createUser(email, password, username);
   };
+
   return (
     <div className="sign-up-container">
       <div className="sign-up-form">

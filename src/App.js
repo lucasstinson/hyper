@@ -12,33 +12,53 @@ import Footer from "./pages/footer/Footer";
 import Settings from "./pages/settings/Settings";
 import { UserContext } from "./UserContext";
 import { getProfileData } from "./firebase/firebase";
+import userWhite from "./assets/images/user-white.png";
 import "./app.css";
 
 const App = () => {
   const currentUser = useAuth();
 
-  const [bio, setBio] = useState();
+  const [bio, setBio] = useState("");
 
-  const [name, setName] = useState();
+  const [name, setName] = useState("");
+
+  const [photoURL, setPhotoURL] = useState(userWhite);
+
+  const [username, setUserName] = useState("");
+
+  const [rerender, setRerender] = useState(false);
 
   async function userData() {
     const profileData = await getProfileData();
     setBio(profileData.bio);
     setName(profileData.name);
+    setUserName(profileData.username);
+    if (currentUser && currentUser.photoURL) {
+      setPhotoURL(profileData.photoURL);
+    }
   }
 
   useEffect(() => {
     userData();
-  }, []);
+    console.log("run app");
+  });
 
   return (
     <div className="App">
       <HashRouter>
         <UserContext.Provider
           value={{
-            currentUser: currentUser,
-            name: [name, setName],
-            bio: [bio, setBio],
+            currentUser,
+            name,
+            setName,
+            bio,
+            setBio,
+            photoURL,
+            setPhotoURL,
+            username,
+            setUserName,
+            rerender,
+            setRerender,
           }}
         >
           <Nav />
