@@ -107,6 +107,21 @@ const storage = getStorage(app);
 // };
 
 // updates User Settings
+
+const updateProfileImage = async (photo) => {
+  const profileImage = photo;
+  const userRef = doc(db, "users", auth.currentUser.uid);
+
+  try {
+    const update = await updateDoc(userRef, {
+      photoURL: profileImage,
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+  }
+};
+
 const updateSettings = async () => {
   const name = document.querySelector(".settings-profile-usersname").value;
   const bio = document.querySelector(".settings-bio-text").value;
@@ -140,6 +155,7 @@ const upload = async (file, currentUser) => {
     const snapshot = await uploadBytes(fileRef, file);
     const photoURL = await getDownloadURL(fileRef);
     updateProfile(auth.currentUser, { photoURL: photoURL });
+    updateProfileImage(photoURL);
   } catch (error) {
     const errorMessage = error.message;
     console.log(errorMessage);
@@ -175,4 +191,13 @@ const getProfileData = async () => {
 
 //
 
-export { auth, db, useAuth, updateSettings, upload, getProfileData };
+export {
+  auth,
+  db,
+  useAuth,
+  updateSettings,
+  upload,
+  getProfileData,
+  storage,
+  updateProfileImage,
+};

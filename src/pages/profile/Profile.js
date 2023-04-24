@@ -30,11 +30,11 @@ const Profile = () => {
   const handleLogOut = () => {
     logOut();
     setRerender(!rerender);
+    console.log(name, bio, photoURL, username);
   };
-  // useEffect(() => {
-  //   setRerender(!rerender);
-  //   console.log("profile");
-  // }, [currentUser]);
+  useEffect(() => {
+    console.log("profile");
+  });
 
   return (
     <div className="Profile">

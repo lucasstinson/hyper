@@ -5,26 +5,25 @@ import {
   upload,
   getProfileData,
   useProfile,
+  updateProfileImage,
 } from "../../firebase/firebase";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import camera from "../../assets/images/camera.png";
 import userWhite from "../../assets/images/user-white.png";
 import { updateSettings } from "../../firebase/firebase";
 import { UserContext } from "../../UserContext";
+import { getImage } from "../../firebase/signup";
+import Profile from "../profile/Profile";
+import { stripBasename } from "@remix-run/router";
 
 const Settings = () => {
-  const {
-    currentUser,
-    name,
-    bio,
-    photoURL,
-    rerender,
-    setRerender,
-    setPhotoURL,
-  } = useContext(UserContext);
+  const { currentUser, name, setName, bio, setBio, photoURL, setPhotoURL } =
+    useContext(UserContext);
 
   const [photo, setPhoto] = useState(null);
-  const [tempPhoto, setTempPhoto] = useState(photoURL); // issue if new user
+  const [tempPhoto, setTempPhoto] = useState(userWhite);
+
+  const [userSettings, setUserSettings] = useState(null);
 
   // sets the photo to be shown as a preview
   const setFilePreview = (e) => {
@@ -36,16 +35,17 @@ const Settings = () => {
 
   const saveSettings = () => {
     if (photo) {
-      setPhotoURL(photo);
       upload(photo, currentUser);
+      setPhotoURL(photo);
     }
     updateSettings();
-    setRerender(!rerender);
+    setName(document.querySelector(".settings-profile-usersname").value);
+    setBio(document.querySelector(".settings-users-bio").value);
   };
 
   useEffect(() => {
-    console.log("settings");
-  });
+    setTempPhoto(photoURL);
+  }, [photoURL]);
 
   return (
     <div className="Settings">
@@ -105,6 +105,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
+      {/* {userSettings} */}
     </div>
   );
 };

@@ -6,10 +6,9 @@ import { Link, redirect } from "react-router-dom";
 import { createUser } from "../../firebase/signup";
 import { UserContext } from "../../UserContext";
 import userWhite from "../../assets/images/user-white.png";
-import { upload } from "../../firebase/firebase";
 
 const SignUp = () => {
-  const { setBio, setName, setPhotoURL, currentUser } = useContext(UserContext);
+  const { setBio, setName, setPhotoURL } = useContext(UserContext);
 
   const submitUserDetails = () => {
     const email = document.querySelector("#sign-up-email").value;
