@@ -33,13 +33,16 @@ const App = () => {
     setBio(profileData.bio);
     setName(profileData.name);
     setUserName(profileData.username);
-    if (currentUser && currentUser.photoURL) {
-      setPhotoURL(profileData.photoURL);
+    if (currentUser.photoURL) {
+      setPhotoURL(currentUser.photoURL);
     }
   }
 
   useEffect(() => {
-    userData();
+    if (currentUser) {
+      userData();
+      console.log("setting user data");
+    }
     console.log("run app");
   });
 

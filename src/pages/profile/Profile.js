@@ -27,10 +27,14 @@ const Profile = () => {
 
   const [rerender, setRerender] = useState(false);
 
-  useEffect(() => {
+  const handleLogOut = () => {
+    logOut();
     setRerender(!rerender);
-    console.log("profile");
-  }, []);
+  };
+  // useEffect(() => {
+  //   setRerender(!rerender);
+  //   console.log("profile");
+  // }, [currentUser]);
 
   return (
     <div className="Profile">
@@ -66,7 +70,7 @@ const Profile = () => {
                 <button className="edit-profile-button">Edit Profile</button>
               </Link>
               <Link to="/">
-                <button className="log-out-button" onClick={logOut}>
+                <button className="log-out-button" onClick={handleLogOut}>
                   Log Out
                 </button>
               </Link>

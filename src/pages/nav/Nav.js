@@ -7,10 +7,8 @@ import { Link, useRouteLoaderData } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
 import { UserContext } from "../../UserContext";
 
-const Nav = (props) => {
-  const context = useContext(UserContext);
-
-  const currentUser = context.currentUser;
+const Nav = () => {
+  const { currentUser } = useContext(UserContext);
 
   return (
     <div className="nav">

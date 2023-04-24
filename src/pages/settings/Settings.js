@@ -13,11 +13,19 @@ import { updateSettings } from "../../firebase/firebase";
 import { UserContext } from "../../UserContext";
 
 const Settings = () => {
-  const { currentUser, name, bio, photoURL, setPhotoURL } =
-    useContext(UserContext);
+  const {
+    currentUser,
+    name,
+    bio,
+    photoURL,
+    rerender,
+    setRerender,
+    setPhotoURL,
+  } = useContext(UserContext);
 
   const [photo, setPhoto] = useState(null);
-  const [tempPhoto, setTempPhoto] = useState(photoURL);
+  const [tempPhoto, setTempPhoto] = useState(photoURL); // issue if new user
+
   // sets the photo to be shown as a preview
   const setFilePreview = (e) => {
     if (e.target.files[0]) {
@@ -26,17 +34,16 @@ const Settings = () => {
     }
   };
 
-  const handleClick = () => {
+  const saveSettings = () => {
     if (photo) {
-      upload(photo, currentUser);
       setPhotoURL(photo);
+      upload(photo, currentUser);
     }
-
     updateSettings();
+    setRerender(!rerender);
   };
 
   useEffect(() => {
-    // photoPreview();
     console.log("settings");
   });
 
@@ -91,7 +98,7 @@ const Settings = () => {
               ></textarea>
             </div>
             <div className="save-profile-container">
-              <button className="save-profile-button" onClick={handleClick}>
+              <button className="save-profile-button" onClick={saveSettings}>
                 Save
               </button>
             </div>

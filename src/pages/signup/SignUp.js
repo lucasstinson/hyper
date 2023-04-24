@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./signup.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import Settings from "../settings/Settings";
 import { Link, redirect } from "react-router-dom";
 import { createUser } from "../../firebase/signup";
+import { UserContext } from "../../UserContext";
+import userWhite from "../../assets/images/user-white.png";
+import { upload } from "../../firebase/firebase";
 
 const SignUp = () => {
+  const { setBio, setName, setPhotoURL, currentUser } = useContext(UserContext);
+
   const submitUserDetails = () => {
     const email = document.querySelector("#sign-up-email").value;
     const password = document.querySelector("#sign-up-password").value;
     const username = document.querySelector("#sign-up-username").value;
     createUser(email, password, username);
+    setBio("");
+    setName("");
+    setPhotoURL(userWhite);
   };
 
   return (

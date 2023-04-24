@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import homeFeedWhite from "../../../assets/images/home-white.png";
 import homeFeedGreen from "../../../assets/images/home-green.png";
 import notificationsWhite from "../../../assets/images/notifications-white.png";
@@ -11,8 +11,10 @@ import postGreen from "../../../assets/images/post-green.png";
 import { Link, useLocation } from "react-router-dom";
 import { createPortal } from "react-dom";
 import Post from "../../post/Post";
+import { UserContext } from "../../../UserContext";
 
 const LoggedIn = () => {
+  const { photoURL } = useContext(UserContext);
   const [showPost, setShowPost] = useState(false);
   const location = useLocation();
   const [url, setUrl] = useState(null);
@@ -29,7 +31,7 @@ const LoggedIn = () => {
           className={"nav-underline" + (url === "/profile" ? " active" : "")}
         >
           <img
-            src={userWhite}
+            src={photoURL}
             className="user-logo"
             alt="user logo"
             onMouseOver={(e) => (e.currentTarget.style.borderColor = "#86c323")}

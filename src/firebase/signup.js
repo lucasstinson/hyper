@@ -1,4 +1,4 @@
-import { db, auth } from "./firebase";
+import { db, auth, upload } from "./firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 
@@ -32,8 +32,10 @@ const addUser = async (username, email, uniqueID) => {
       username: "@" + username,
       photoURL: "",
       bio: "",
+      followers: 0,
+      following: 0,
+      posts: 0,
     });
-    console.log(docRef);
   } catch (error) {
     const errorMessage = error.message;
     console.error("Error adding document: ", errorMessage);

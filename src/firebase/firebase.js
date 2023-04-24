@@ -110,20 +110,18 @@ const storage = getStorage(app);
 const updateSettings = async () => {
   const name = document.querySelector(".settings-profile-usersname").value;
   const bio = document.querySelector(".settings-bio-text").value;
-  const photoURL = auth.currentUser.photoURL;
   const userRef = doc(db, "users", auth.currentUser.uid);
 
   try {
     const update = await updateDoc(userRef, {
       name: name,
       bio: bio,
-      photoURL: photoURL,
     });
+    alert("Your account has been updated");
   } catch (error) {
     const errorMessage = error.message;
     console.log(errorMessage);
   }
-  alert("Your account has been updated");
 };
 
 const useAuth = () => {
