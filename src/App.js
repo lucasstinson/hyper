@@ -41,7 +41,7 @@ const App = () => {
         };
         loadProfileData();
       }
-    }, [750]);
+    }, [1000]);
   }, [currentUser, bio, name, photoURL]);
 
   return (
