@@ -33,7 +33,7 @@ const LoggedIn = () => {
           <img
             src={photoURL}
             className="user-logo"
-            alt="user logo"
+            alt=""
             onMouseOver={(e) => (e.currentTarget.style.borderColor = "#86c323")}
             onMouseLeave={(e) =>
               (e.currentTarget.style.borderColor = "#222629")

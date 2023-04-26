@@ -67,25 +67,49 @@
   outline: none;
 }
 
-#sign-up-password:invalid {
-  border: 1px solid red;
+#sign-up-email {
+  border: 1px solid #222629;
 }
 
-#sign-up-password:valid {
-  border: 1px solid green;
+.sign-up-email-directions.invalid {
+  color: red;
 }
 
+.sign-up-email-directions.valid {
+  color: green;
+}
+
+.sign-up-password-directions-container.valid {
+  color: green;
+}
+
+.sign-up-password-directions-container.invalid {
+  color: red;
+}
+
+.sign-up-username-directions.valid {
+  color: green;
+}
+
+.sign-up-username-directions.invalid {
+  color: red;
+}
+
+.sign-up-username-container,
 .sign-up-password-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.sign-up-password-directions {
+.sign-up-email-directions,
+.sign-up-password-directions,
+.sign-up-username-directions {
   display: flex;
   flex-direction: column;
   font-size: 12px;
   text-align: center;
+  max-width: 320px;
 }
 
 .register-button {
@@ -99,9 +123,23 @@
   color: #ffffff;
 }
 
-.register-button:hover {
+.register-button:enabled:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+:disabled {
+  opacity: 0.3;
+}
+
+.sign-up-error {
+  font-size: 14px;
+  text-align: center;
+  color: white;
+}
+
+.sign-up-error.active {
+  color: red;
 }
 
 @media (max-width: 600px) {

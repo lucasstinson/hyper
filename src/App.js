@@ -11,7 +11,7 @@ import LogIn from "./pages/login/LogIn";
 import Footer from "./pages/footer/Footer";
 import Settings from "./pages/settings/Settings";
 import { UserContext } from "./UserContext";
-import { getProfileData, getURL } from "./firebase/users";
+import { getEmails, getProfileData, getURL } from "./firebase/users";
 import userWhite from "./assets/images/user-white.png";
 import "./app.css";
 
@@ -28,23 +28,21 @@ const App = () => {
 
   const [rerender, setRerender] = useState(false);
 
-  async function userData() {
-    const profileData = await getProfileData();
-    setPhotoURL(profileData.photoURL);
-    setBio(profileData.bio);
-    setName(profileData.name);
-    setUserName(profileData.username);
-    // console.log(profileData.bio, profileData.name, profileData.username);
-  }
-
   useEffect(() => {
     console.log("run app");
     setTimeout(() => {
       if (currentUser) {
-        userData();
+        const loadProfileData = async () => {
+          const profileData = await getProfileData();
+          setPhotoURL(profileData.photoURL);
+          setBio(profileData.bio);
+          setName(profileData.name);
+          setUserName(profileData.username);
+        };
+        loadProfileData();
       }
-    }, [500]);
-  });
+    }, [750]);
+  }, [currentUser, bio, name, photoURL]);
 
   return (
     <div className="App">

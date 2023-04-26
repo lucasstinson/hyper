@@ -88,6 +88,18 @@
   gap: 5px;
 }
 
+.log-in-error {
+  font-size: 14px;
+  text-align: center;
+  position: relative;
+  bottom: 15px;
+  color: white;
+}
+
+.log-in-error.active {
+  color: red;
+}
+
 @media (max-width: 600px) {
   .log-in-form {
     background-color: white;
@@ -108,6 +120,16 @@
     height: 70%;
     align-items: center;
     padding-bottom: 20px;
+  }
+
+  .log-in-error {
+    position: relative;
+    bottom: 150px;
+    display: flex;
+    font-size: 14px;
+    text-align: center;
+    height: 25%;
+    color: white;
   }
 }
 
@@ -130,5 +152,14 @@
     height: 70%;
     align-items: center;
     padding-bottom: 20px;
+  }
+
+  .log-in-error {
+    position: relative;
+    bottom: 25px;
+    font-size: 14px;
+    text-align: center;
+    height: 25%;
+    color: white;
   }
 }

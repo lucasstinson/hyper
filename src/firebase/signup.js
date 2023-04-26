@@ -1,6 +1,6 @@
 import { db, auth, storage } from "./firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDocs, collection } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import { getURL } from "./users";
 
@@ -14,13 +14,15 @@ const createUser = async (email, password, username) => {
     const user = credentials.user;
     const uniqueID = user.uid;
     console.log("Your account has been created");
-    console.log("Username:", user.email);
-    console.log("Unique id", uniqueID);
     addUser(username, user.email, user.uid);
     window.location.href = "#/profile/settings";
   } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
+    const signUpError = document.querySelector(".sign-up-error");
+    signUpError.textContent = "There was an error. Please try again";
+    signUpError.classList.add("active");
+    setTimeout(() => {
+      signUpError.classList.remove("active");
+    }, 5000);
   }
 };
 
@@ -74,7 +76,36 @@ const addUser = async (username, email, uniqueID) => {
 //   }
 // };
 
-export { createUser, addUser };
+const getEmails = async () => {
+  let emails = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      let email = doc.data().email;
+      emails.push(email);
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+  return emails;
+};
+
+const getUsernames = async () => {
+  let usernames = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      let rawUsername = doc.data().username;
+      const username = rawUsername.split("@")[1];
+      usernames.push(username);
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+  return usernames;
+};
+
+export { createUser, addUser, getEmails, getUsernames };
 
 // default user image, then you need to have a call to the storage db
 // with the url and get the information back

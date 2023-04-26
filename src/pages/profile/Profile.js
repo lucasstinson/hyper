@@ -13,25 +13,9 @@ import { logOut } from "../../firebase/profile";
 import { UserContext } from "../../UserContext";
 
 const Profile = () => {
-  const {
-    currentUser,
-    name,
-    setName,
-    bio,
-    setBio,
-    photoURL,
-    setPhotoURL,
-    username,
-    setUserName,
-  } = useContext(UserContext);
+  const { currentUser, name, bio, photoURL, username } =
+    useContext(UserContext);
 
-  const [rerender, setRerender] = useState(false);
-
-  const handleLogOut = () => {
-    logOut();
-    setRerender(!rerender);
-    console.log(name, bio, photoURL, username);
-  };
   useEffect(() => {
     console.log("profile");
   });
@@ -70,7 +54,7 @@ const Profile = () => {
                 <button className="edit-profile-button">Edit Profile</button>
               </Link>
               <Link to="/">
-                <button className="log-out-button" onClick={handleLogOut}>
+                <button className="log-out-button" onClick={logOut}>
                   Log Out
                 </button>
               </Link>

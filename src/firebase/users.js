@@ -19,7 +19,7 @@ const getURL = async (photo) => {
   const fileName = photo;
   const imageRef = ref(storage, fileName);
   const image = await getDownloadURL(imageRef);
-  console.log(image);
   return image;
 };
+
 export { getProfileData, getURL };
