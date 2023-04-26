@@ -16,10 +16,6 @@ const Profile = () => {
   const { currentUser, name, bio, photoURL, username } =
     useContext(UserContext);
 
-  useEffect(() => {
-    console.log("profile");
-  });
-
   return (
     <div className="Profile">
       <div className="profile-page-container">
