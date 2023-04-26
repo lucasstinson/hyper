@@ -10,6 +10,11 @@ const Settings = () => {
   const { currentUser, name, setName, bio, setBio, photoURL, setPhotoURL } =
     useContext(UserContext);
 
+  // character count for each respective setting
+  const [nameCharacters, setNameCharacters] = useState(0);
+  const [bioCharacters, setBioCharacters] = useState(0);
+
+  // initializes photo handling and seeing image prior to save
   const [photo, setPhoto] = useState(null);
   const [tempPhoto, setTempPhoto] = useState(photoURL);
 
@@ -36,6 +41,12 @@ const Settings = () => {
   useEffect(() => {
     setTempPhoto(photoURL);
   }, [photoURL]);
+
+  // set character count on initial render
+  useEffect(() => {
+    setBioCharacters(bio.length);
+    setNameCharacters(name.length);
+  }, []);
 
   return (
     <div className="Settings">
@@ -69,23 +80,33 @@ const Settings = () => {
           <div className="settings-profile-data">
             <div className="settings-user-name-container">
               <div className="settings-users-name">Name:</div>
-              <textarea
-                type="text"
-                className="settings-profile-usersname"
-                placeholder="User Nickname"
-                defaultValue={name}
-                maxLength={12}
-              ></textarea>
+              <div className="name-text-container">
+                <textarea
+                  type="text"
+                  className="settings-profile-usersname"
+                  placeholder="User Nickname"
+                  defaultValue={name}
+                  maxLength={12}
+                  onChange={(e) => setNameCharacters(e.target.value.length)}
+                ></textarea>
+                <div className="name-character-count">
+                  {nameCharacters} / 12
+                </div>
+              </div>
             </div>
             <div className="settings-bio-container">
               <div className="settings-users-bio">Bio:</div>
-              <textarea
-                type="text"
-                className="settings-bio-text"
-                placeholder="Tell us about you"
-                defaultValue={bio}
-                maxLength={80}
-              ></textarea>
+              <div className="bio-text-container">
+                <textarea
+                  type="text"
+                  className="settings-bio-text"
+                  placeholder="Tell us about you"
+                  defaultValue={bio}
+                  maxLength={80}
+                  onChange={(e) => setBioCharacters(e.target.value.length)}
+                ></textarea>
+                <div className="bio-character-count">{bioCharacters} / 80</div>
+              </div>
             </div>
             <div className="save-profile-container">
               <button className="save-profile-button" onClick={saveSettings}>
