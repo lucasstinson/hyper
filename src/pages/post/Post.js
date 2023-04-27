@@ -25,6 +25,7 @@ const Post = (props) => {
     } else setDisabled(true);
     setPostText(document.querySelector("#post-input").value);
   }, [postCharacters]);
+
   return (
     <div className="Post">
       <div className="post-container">

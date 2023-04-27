@@ -40,8 +40,9 @@
 .feed-post-user {
   background-color: #222629;
   border: 2px solid #222629;
-  border-radius: 25px;
+  border-radius: 50px;
   height: 40px;
+  width: 40px;
 }
 
 .feed-post-user-container {

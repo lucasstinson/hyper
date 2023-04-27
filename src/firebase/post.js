@@ -15,18 +15,37 @@ import { connectAuthEmulator } from "firebase/auth";
 const addPost = async (postText) => {
   const userRef = doc(db, "users", auth.currentUser.uid);
 
-  const timestamp = new Date().toISOString().split("T").join(" ");
+  const timestampExtended = new Date().toISOString().split("T").join(" ");
+  const timestampDate = new Date();
+  let month = timestampDate.getMonth();
+  let day = timestampDate.getDate();
+  let year = timestampDate.getFullYear();
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sept",
+    "Oct",
+    "Nov",
+    "December",
+  ];
+  let newDate = months[month] + " " + day + ", " + year;
 
   const post = {
     text: postText,
-    createTime: timestamp,
+    createTimeExtended: timestampExtended,
+    createDate: newDate,
     Reposts: [],
     Likes: [],
   };
 
   try {
     const allPosts = await getAllCurrentUserPosts();
-    console.log(allPosts);
     const update = await updateDoc(userRef, {
       posts: [...allPosts, post],
     });
@@ -56,7 +75,13 @@ const getAllCurrentUserPosts = async () => {
   } catch (error) {
     const errorMessage = error.message;
   }
-  console.log(allPosts);
+  allPosts.sort((a, b) => {
+    let aTime = a.createTime;
+    let bTime = b.createTime;
+    if (aTime < bTime) return -1;
+    if (aTime > bTime) return 1;
+    return 0;
+  });
   return allPosts;
 };
 
@@ -76,4 +101,4 @@ const getAllPosts = async () => {
   return allPosts;
 };
 
-export { addPost, getAllPosts };
+export { addPost, getAllPosts, getAllCurrentUserPosts };

@@ -11,7 +11,8 @@ import LogIn from "./pages/login/LogIn";
 import Footer from "./pages/footer/Footer";
 import Settings from "./pages/settings/Settings";
 import { UserContext } from "./UserContext";
-import { getEmails, getProfileData, getURL } from "./firebase/users";
+import { getProfileData } from "./firebase/users";
+import { getAllPosts } from "./firebase/post";
 import userWhite from "./assets/images/user-white.png";
 import "./app.css";
 
@@ -43,6 +44,17 @@ const App = () => {
       }
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
+
+  useEffect(() => {
+    const loadAllPosts = async () => {
+      try {
+        const allPosts = await getAllPosts();
+      } catch (error) {
+        const errorMessage = error.errorMessage;
+      }
+    };
+    loadAllPosts();
+  }, []);
 
   return (
     <div className="App">

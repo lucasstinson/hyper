@@ -38,7 +38,7 @@ const addUser = async (username, email, uniqueID) => {
       bio: "",
       followers: 0,
       following: 0,
-      posts: 0,
+      posts: [],
     });
     updateProfile(auth.currentUser, { photoURL: photoURL });
   } catch (error) {
