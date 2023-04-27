@@ -5,7 +5,6 @@ import { signOut } from "firebase/auth";
 const logOut = async () => {
   try {
     const signingOut = await signOut(auth);
-    console.log("You have succesffully logged Out");
   } catch (error) {
     const errorMessage = error.message;
     console.log(errorMessage);
