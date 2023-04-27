@@ -12,8 +12,6 @@ const createUser = async (email, password, username) => {
       password
     );
     const user = credentials.user;
-    const uniqueID = user.uid;
-    console.log("Your account has been created");
     addUser(username, user.email, user.uid);
     window.location.href = "#/profile/settings";
   } catch (error) {
