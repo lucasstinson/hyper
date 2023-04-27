@@ -76,10 +76,10 @@ const getAllCurrentUserPosts = async () => {
     const errorMessage = error.message;
   }
   allPosts.sort((a, b) => {
-    let aTime = a.createTime;
-    let bTime = b.createTime;
-    if (aTime < bTime) return -1;
-    if (aTime > bTime) return 1;
+    let aTime = a.createTimeExtended;
+    let bTime = b.createTimeExtended;
+    if (aTime < bTime) return 1;
+    if (aTime > bTime) return -1;
     return 0;
   });
   return allPosts;
