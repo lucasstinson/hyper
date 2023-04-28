@@ -11,7 +11,7 @@ import shareGray from "../../../assets/images/share-gray.png";
 import shareGeen from "../../../assets/images/share-gray.png";
 import { getAllCurrentUserPosts } from "../../../firebase/post";
 const ProfileFeed = () => {
-  const { name, bio, photoURL, username } = useContext(UserContext);
+  const { name, photoURL, username } = useContext(UserContext);
 
   let [userPosts, setUserPosts] = useState([]);
 

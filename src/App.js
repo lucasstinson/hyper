@@ -29,6 +29,8 @@ const App = () => {
 
   const [rerender, setRerender] = useState(false);
 
+  const [allPosts, setAllPost] = useState("");
+
   useEffect(() => {
     console.log("run app");
     setTimeout(() => {
@@ -44,17 +46,6 @@ const App = () => {
       }
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
-
-  useEffect(() => {
-    const loadAllPosts = async () => {
-      try {
-        const allPosts = await getAllPosts();
-      } catch (error) {
-        const errorMessage = error.errorMessage;
-      }
-    };
-    loadAllPosts();
-  }, []);
 
   return (
     <div className="App">
