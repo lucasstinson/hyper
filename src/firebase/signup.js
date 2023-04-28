@@ -15,6 +15,7 @@ const createUser = async (email, password, username) => {
     addUser(username, user.email, user.uid);
     window.location.href = "#/profile/settings";
   } catch (error) {
+    console.log(error.message);
     const signUpError = document.querySelector(".sign-up-error");
     signUpError.textContent = "There was an error. Please try again";
     signUpError.classList.add("active");
@@ -38,7 +39,6 @@ const addUser = async (username, email, uniqueID) => {
       bio: "",
       followers: 0,
       following: 0,
-      posts: [],
     });
     updateProfile(auth.currentUser, { photoURL: photoURL });
   } catch (error) {
