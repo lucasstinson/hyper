@@ -141,6 +141,7 @@ const SignUp = () => {
       try {
         const emails = await getEmails();
         setUserEmails(emails);
+        console.log(emails);
       } catch (error) {
         const errorMessage = error.errorMessage;
       }
