@@ -12,7 +12,7 @@ const createUser = async (email, password, username) => {
     );
     const user = credentials.user;
     addUser(username, user.email, user.uid);
-    window.location.href = "#/profile/settings";
+    window.location.href = `#/profile/${user.uid}/settings`;
   } catch (error) {
     console.log(error.message);
     const signUpError = document.querySelector(".sign-up-error");
