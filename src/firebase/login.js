@@ -6,7 +6,7 @@ const logIn = async (email, password) => {
   try {
     const credentials = await signInWithEmailAndPassword(auth, email, password);
     const user = credentials.user;
-    window.location.href = "#/";
+    window.location.href = "#/feed";
   } catch (error) {
     const errorCode = error.code;
     const loginError = document.querySelector(".log-in-error");

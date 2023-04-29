@@ -36,7 +36,7 @@ const LogIn = () => {
     <div className="log-in-container">
       <div className="log-in-form">
         <div className="log-in-form-top-container">
-          <Link className="log-in-exit" to={"/"}>
+          <Link className="log-in-exit" to={"/feed"}>
             x
           </Link>
           <img
