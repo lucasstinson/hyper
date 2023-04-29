@@ -14,10 +14,11 @@ import Post from "../../post/Post";
 import { UserContext } from "../../../UserContext";
 
 const LoggedIn = () => {
-  const { photoURL } = useContext(UserContext);
+  const { photoURL, currentUser } = useContext(UserContext);
   const [showPost, setShowPost] = useState(false);
   const location = useLocation();
   const [url, setUrl] = useState(null);
+  const userID = currentUser.uid;
 
   useEffect(() => {
     setUrl(location.pathname);
@@ -27,7 +28,7 @@ const LoggedIn = () => {
     <div className="directory-container">
       <div className="directory-profile-container">
         <Link
-          to={"/profile"}
+          to={`/profile/${userID}`}
           className={"nav-underline" + (url === "/profile" ? " active" : "")}
         >
           <img
@@ -43,7 +44,7 @@ const LoggedIn = () => {
       </div>
       <div className="directory-feed-container">
         <Link
-          to={"/"}
+          to={"/feed"}
           className={"nav-underline" + (url === "/" ? " active" : "")}
         >
           <img
