@@ -161,7 +161,7 @@ const SignUp = () => {
     <div className="sign-up-container">
       <div className="sign-up-form">
         <div className="sign-up-form-top-container">
-          <Link className="sign-up-exit" to={"/"}>
+          <Link className="sign-up-exit" to={"/feed"}>
             x
           </Link>
           <img

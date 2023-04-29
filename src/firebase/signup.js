@@ -1,7 +1,6 @@
 import { db, auth, storage } from "./firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc, getDocs, collection } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
 import { getURL } from "./users";
 
 const createUser = async (email, password, username) => {
@@ -46,33 +45,6 @@ const addUser = async (username, email, uniqueID) => {
     console.error("Error adding document: ", errorMessage);
   }
 };
-
-// const upload = async (file, currentUser) => {
-//   const fileRef = ref(storage, currentUser.uid + ".png");
-//   try {
-//     const snapshot = await uploadBytes(fileRef, file);
-//     const photoURL = await getDownloadURL(fileRef);
-//     updateProfile(auth.currentUser, { photoURL: photoURL });
-//     updateProfileImage(photoURL);
-//   } catch (error) {
-//     const errorMessage = error.message;
-//     console.log(errorMessage);
-//   }
-// };
-
-// const updateProfileImage = async (photo) => {
-//   const profileImage = photo;
-//   const userRef = doc(db, "users", auth.currentUser.uid);
-
-//   try {
-//     const update = await updateDoc(userRef, {
-//       photoURL: profileImage,
-//     });
-//   } catch (error) {
-//     const errorMessage = error.message;
-//     console.log(errorMessage);
-//   }
-// };
 
 const getEmails = async () => {
   let emails = [];
