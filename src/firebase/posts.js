@@ -9,8 +9,10 @@ import {
   query,
   getDocs,
   where,
+  getDoc,
 } from "firebase/firestore";
 import { connectAuthEmulator } from "firebase/auth";
+import { async } from "@firebase/util";
 
 const addPost = async (postText) => {
   const userRef = doc(db, "users", auth.currentUser.uid);
@@ -45,14 +47,14 @@ const addPost = async (postText) => {
   };
 
   try {
-    const allPosts = await getAllCurrentUserPosts();
-    const postsRef = await addDoc(
-      collection(db, "users/" + auth.currentUser.uid + "/posts"),
-      post
+    const postsRef = collection(db, "users/" + auth.currentUser.uid + "/posts");
+    const addPostsRef = await addDoc(postsRef, post);
+    const update = await updateDoc(
+      doc(db, "users/" + auth.currentUser.uid + "/posts", addPostsRef.id),
+      {
+        id: addPostsRef.id,
+      }
     );
-    // const update = await updateDoc(userRef, {
-    //   posts: [...allPosts, post],
-    // });
   } catch (error) {
     const errorMessage = error.message;
     console.log(errorMessage);
@@ -60,31 +62,41 @@ const addPost = async (postText) => {
   }
 };
 
-const getAllCurrentUserPosts = async () => {
+const getAllCurrentUserPosts = async (userID) => {
   let allPosts = [];
 
-  const currentUserID = auth.currentUser.uid;
-  const userRef = collection(db, "users/" + currentUserID + "/posts");
-  const userQuery = query(userRef);
+  const userRef = doc(db, "users/", userID);
+  const userPostsRef = collection(db, "users/" + userID + "/posts");
 
   try {
-    const querySnapshot = await getDocs(userQuery);
+    const userSnap = await getDoc(userRef);
+    let username = userSnap.data().username;
+    let name = userSnap.data().name;
+    let photoURL = userSnap.data().photoURL;
+    let uniqueID = userID;
 
+    const querySnapshot = await getDocs(userPostsRef);
     querySnapshot.forEach((doc) => {
-      let post = doc.data();
+      let postData = doc.data();
+      let post = {
+        username: username,
+        name: name,
+        photoURL: photoURL,
+        uniqueID: uniqueID,
+        post: postData,
+      };
       allPosts.push(post);
     });
   } catch (error) {
     const errorMessage = error.message;
   }
   allPosts.sort((a, b) => {
-    let aTime = a.createTimeExtended;
-    let bTime = b.createTimeExtended;
+    let aTime = a.post.createTimeExtended;
+    let bTime = b.post.createTimeExtended;
     if (aTime < bTime) return 1;
     if (aTime > bTime) return -1;
     return 0;
   });
-
   return allPosts;
 };
 
@@ -99,10 +111,17 @@ const getAllPosts = async () => {
       let name = doc.data().name;
       let username = doc.data().username;
       let photoURL = doc.data().photoURL;
+      let userID = doc.data().uniqueID;
 
-      let loadAllPosts = async (uniqueID, name, username, photoURL) => {
+      let loadAllPosts = async (uniqueID, name, username, photoURL, userID) => {
         try {
-          let postData = await getPosts(uniqueID, name, username, photoURL);
+          let postData = await getPosts(
+            uniqueID,
+            name,
+            username,
+            photoURL,
+            userID
+          );
           for (let i = 0; i < postData.length; i++) {
             allPosts.push(postData[i]);
           }
@@ -111,22 +130,15 @@ const getAllPosts = async () => {
         }
         return allPosts;
       };
-      newPosts = loadAllPosts(uniqueID, name, username, photoURL);
+      newPosts = loadAllPosts(uniqueID, name, username, photoURL, userID);
     });
   } catch (error) {
     const errorMessage = error.message;
   }
-  allPosts.sort((a, b) => {
-    let aTime = a.post.createTimeExtended;
-    let bTime = b.post.createTimeExtended;
-    if (aTime < bTime) return 1;
-    if (aTime > bTime) return -1;
-    return 0;
-  });
   return newPosts;
 };
 
-const getPosts = async (uniqueID, name, username, photoURL) => {
+const getPosts = async (uniqueID, name, username, photoURL, userID) => {
   let postsRef = collection(db, "users/" + uniqueID + "/posts");
   let posts = [];
   try {
@@ -137,6 +149,7 @@ const getPosts = async (uniqueID, name, username, photoURL) => {
         username: username,
         photoURL: photoURL,
         post: doc.data(),
+        uniqueID: userID,
       };
       posts.push(userPost);
     });
@@ -146,35 +159,35 @@ const getPosts = async (uniqueID, name, username, photoURL) => {
   return posts;
 };
 
-getAllPosts();
+const postThread = async (userID, postID) => {
+  let postArray = [];
+  const userRef = doc(db, "users/", userID);
+  const postRef = doc(db, "users/" + userID + "/posts/", postID);
+  try {
+    const userSnap = await getDoc(userRef);
+    let username = userSnap.data().username;
+    let name = userSnap.data().name;
+    let photoURL = userSnap.data().photoURL;
+    let uniqueID = userID;
 
-export { addPost, getAllPosts, getAllCurrentUserPosts };
+    const postSnap = await getDoc(postRef);
+    let post = postSnap.data();
 
-// username, usersname, photoURL
+    const postData = {
+      uniqueID: uniqueID,
+      username: username,
+      name: name,
+      photoURL: photoURL,
+      post: post,
+    };
+    postArray.push(postData);
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+  return postArray;
+};
+const postID = "T7P28we3x2iRCmH8wjHn";
+const userID = "Z3sah7MIHDcw6ekWU7bYBX2h1pp2";
+postThread(userID, postID);
 
-// const getAllCurrentUserPosts = async () => {
-//   let allPosts = [];
-
-//   const currentUserID = auth.currentUser.uid;
-//   const userRef = collection(db, "users/" + currentUserID + "/posts");
-//   const userQuery = query(userRef);
-
-//   try {
-//     const querySnapshot = await getDocs(userQuery);
-
-//     querySnapshot.forEach((doc) => {
-//       let post = doc.data();
-//       allPosts.push(post);
-//     });
-//   } catch (error) {
-//     const errorMessage = error.message;
-//   }
-//   allPosts.sort((a, b) => {
-//     let aTime = a.createTimeExtended;
-//     let bTime = b.createTimeExtended;
-//     if (aTime < bTime) return 1;
-//     if (aTime > bTime) return -1;
-//     return 0;
-//   });
-//   return allPosts;
-// };
+export { addPost, getAllPosts, getAllCurrentUserPosts, postThread };

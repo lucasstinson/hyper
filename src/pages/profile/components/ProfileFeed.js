@@ -1,55 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../UserContext";
-import { Link } from "react-router-dom";
-import { logOut } from "../../../firebase/profile";
-import userWhite from "../../../assets/images/user-white.png";
-import repostGray from "../../../assets/images/repost-gray.png";
-import repostGreen from "../../../assets/images/repost-green.png";
-import heartGray from "../../../assets/images/heart-gray.png";
-import heartGreen from "../../../assets/images/heart-green.png";
-import shareGray from "../../../assets/images/share-gray.png";
-import shareGeen from "../../../assets/images/share-gray.png";
-import { getAllCurrentUserPosts } from "../../../firebase/post";
-const ProfileFeed = () => {
-  const { name, photoURL, username } = useContext(UserContext);
+import { Link, useLocation } from "react-router-dom";
+import { getAllCurrentUserPosts } from "../../../firebase/posts";
+import FeedPosts from "./FeedPosts";
 
+const ProfileFeed = () => {
+  const { rerender } = useContext(UserContext);
+
+  const location = useLocation();
+  const userID = window.location.href.split("/")[5];
   let [userPosts, setUserPosts] = useState([]);
 
   const generateUserPosts = async () => {
     try {
-      const posts = await getAllCurrentUserPosts();
+      const posts = await getAllCurrentUserPosts(userID);
       let allPosts = posts.map((post) => (
-        <div className="feed-post-container" key={post.createTimeExtended}>
-          <div className="feed-post-user-container">
-            <img src={photoURL} className="feed-post-user" alt="user pic"></img>
-          </div>
-          <div className="feed-post-info-container">
-            <div className="feed-post-info">
-              <div className="feed-post-name">
-                {name} <span className="feed-post-username">{username}</span>
-              </div>
-              <div className="feed-post-time">{post.createDate}</div>
-            </div>
-            <div className="feed-post">{post.text}</div>
-            <div className="feed-post-actions-container">
-              <div className="repost-container">
-                <img
-                  src={repostGray}
-                  className="repost-icon"
-                  alt="repost"
-                ></img>
-                <div className="repost-count">{post.Likes.length}</div>
-              </div>
-              <div className="like-container">
-                <img src={heartGray} className="heart-icon" alt="like"></img>
-                <div className="like-count">{post.Reposts.length}</div>
-              </div>
-              <div className="share-container">
-                <img src={shareGray} className="share-icon" alt="share"></img>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Link
+          to={`/post/${post.post.id}`}
+          state={{ uid: post.uniqueID }}
+          className="post-link"
+          data-post-id={post.post.id}
+          key={post.post.createTimeExtended}
+          data-user-id={post.uniqueID}
+        >
+          <FeedPosts post={post} userID={userID} />
+        </Link>
       ));
       setUserPosts(allPosts);
     } catch (error) {
@@ -59,13 +34,7 @@ const ProfileFeed = () => {
 
   useEffect(() => {
     generateUserPosts();
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      generateUserPosts();
-    }, [5000]);
-  });
+  }, [userID, rerender]);
 
   return <div className="feed-list-container">{userPosts}</div>;
 };

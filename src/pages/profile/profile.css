@@ -54,14 +54,15 @@
   gap: 5px;
 }
 
-.edit-profile-container {
+.profile-button-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: space-evenly;
 }
 
-.edit-profile-button {
+.edit-profile-button,
+.message-profile-button {
   padding: 6px 12px;
   border-radius: 15px;
   font-weight: 700;
@@ -72,7 +73,8 @@
   color: #ffffff;
 }
 
-.log-out-button {
+.log-out-button,
+.follow-button {
   padding: 6px 12px;
   border-radius: 15px;
   width: 100%;
@@ -84,13 +86,20 @@
   color: #222629;
 }
 
-.edit-profile-button:hover {
+.edit-profile-button:hover,
+.message-profile-button:hover {
   cursor: pointer;
   background-color: rgba(113, 170, 44, 0.7);
 }
 
-.log-out-button:hover {
+.log-out-button:hover,
+.follow-button:hover {
   background-color: rgba(34, 38, 41, 0.05);
+}
+
+.post-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 @media (max-width: 600px) {
@@ -108,7 +117,8 @@
     align-items: center;
   }
 
-  .edit-profile-button {
+  .edit-profile-button,
+  .message-profile-button {
     width: 85px;
     padding: 6px 12px;
     border-radius: 15px;
@@ -119,7 +129,8 @@
     color: #ffffff;
   }
 
-  .log-out-button {
+  .log-out-button,
+  .follow-button {
     width: 85px;
     padding: 5px 11px;
     border-radius: 15px;

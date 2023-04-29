@@ -162,42 +162,12 @@ const upload = async (file, currentUser) => {
   }
 };
 
-const getProfileData = async () => {
-  const docRef = doc(db, "users", auth.currentUser.uid);
-  try {
-    const docSnap = await getDoc(docRef);
-    const userData = docSnap.data();
-    return userData;
-  } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
-
-//   const querySnapshot = await getDocs(collection(db, "users"));
-//   querySnapshot.forEach((doc) => {
-//     if (doc.data().user == currentUser.user) {
-//       // let id = doc.id;
-//       let bio = doc.data().bio;
-//       let email = doc.data().email;
-//       let name = doc.data().name;
-//       let photoURL = doc.data().photoURL;
-//       let uniqueID = doc.data().uniqueID;
-//       let username = doc.data().username;
-//       console.log(bio, email, name, photoURL, uniqueID, username);
-//     }
-//   });
-// };
-
-//
-
 export {
   auth,
   db,
   useAuth,
   updateSettings,
   upload,
-  getProfileData,
   storage,
   updateProfileImage,
 };

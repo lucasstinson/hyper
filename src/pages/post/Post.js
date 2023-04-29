@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./post.css";
 import pictureGreen from "../../assets/images/picture-green.png";
-import userWhite from "../../assets/images/user-white.png";
 import { UserContext } from "../../UserContext";
-import { addPost, createPost } from "../../firebase/post";
+import { addPost } from "../../firebase/posts";
 
 const Post = (props) => {
-  const { photoURL } = useContext(UserContext);
+  const { photoURL, setRerender, rerender } = useContext(UserContext);
 
   const [disabled, setDisabled] = useState(true);
 
@@ -17,6 +16,7 @@ const Post = (props) => {
   const createPost = async () => {
     addPost(postText);
     props.onClose();
+    setRerender(!rerender);
   };
 
   useEffect(() => {

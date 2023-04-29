@@ -3,8 +3,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { storage } from "./firebase";
 import { ref, getDownloadURL } from "firebase/storage";
 
-const getProfileData = async () => {
-  const docRef = doc(db, "users", auth.currentUser.uid);
+const getProfileData = async (userID) => {
+  const docRef = doc(db, "users", userID);
   try {
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();

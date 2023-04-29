@@ -14,9 +14,6 @@ import ProfileFeed from "./components/ProfileFeed";
 import ProfileInfo from "./components/ProfileInfo";
 
 const Profile = () => {
-  const { currentUser, name, bio, photoURL, username } =
-    useContext(UserContext);
-
   return (
     <div className="Profile">
       <div className="profile-page-container">

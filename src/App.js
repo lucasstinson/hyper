@@ -10,9 +10,10 @@ import SignUp from "./pages/signup/SignUp";
 import LogIn from "./pages/login/LogIn";
 import Footer from "./pages/footer/Footer";
 import Settings from "./pages/settings/Settings";
+import UserPost from "./pages/feed/components/UserPost";
 import { UserContext } from "./UserContext";
 import { getProfileData } from "./firebase/users";
-import { getAllPosts } from "./firebase/post";
+import { getAllPosts } from "./firebase/posts";
 import userWhite from "./assets/images/user-white.png";
 import "./app.css";
 
@@ -29,14 +30,12 @@ const App = () => {
 
   const [rerender, setRerender] = useState(false);
 
-  const [allPosts, setAllPost] = useState("");
-
   useEffect(() => {
     console.log("run app");
     setTimeout(() => {
       if (currentUser) {
         const loadProfileData = async () => {
-          const profileData = await getProfileData();
+          const profileData = await getProfileData(currentUser.uid);
           setPhotoURL(profileData.photoURL);
           setBio(profileData.bio);
           setName(profileData.name);
@@ -67,13 +66,15 @@ const App = () => {
         >
           <Nav />
           <Routes>
-            <Route path="/" element={<Feed />} />
+            <Route path="/feed" element={<Feed />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route path="/profile/settings" element={<Settings />} />
+            <Route path="/profile/:id/settings" element={<Settings />} />
+            <Route path="/post/:id" element={<UserPost />} />
+            <Route path="/profile/:id" element={<Profile />} />
           </Routes>
           <Footer />
         </UserContext.Provider>

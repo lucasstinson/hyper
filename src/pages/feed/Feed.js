@@ -8,7 +8,9 @@ import heartGray from "../../assets/images/heart-gray.png";
 import heartGreen from "../../assets/images/heart-green.png";
 import shareGray from "../../assets/images/share-gray.png";
 import shareGeen from "../../assets/images/share-gray.png";
-import { getAllPosts } from "../../firebase/post";
+import { getAllPosts } from "../../firebase/posts";
+import { Link } from "react-router-dom";
+import FeedPosts from "../profile/components/FeedPosts";
 
 const Feed = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -16,43 +18,24 @@ const Feed = () => {
   const generateAllPosts = async () => {
     try {
       const posts = await getAllPosts();
+      posts.sort((a, b) => {
+        let aTime = a.post.createTimeExtended;
+        let bTime = b.post.createTimeExtended;
+        if (aTime < bTime) return 1;
+        if (aTime > bTime) return -1;
+        return 0;
+      });
       let allPosts = posts.map((post) => (
-        <div className="feed-post-container" key={post.post.createTimeExtended}>
-          <div className="feed-post-user-container">
-            <img
-              src={post.photoURL}
-              className="feed-post-user"
-              alt="user pic"
-            ></img>
-          </div>
-          <div className="feed-post-info-container">
-            <div className="feed-post-info">
-              <div className="feed-post-name">
-                {post.name}{" "}
-                <span className="feed-post-username">{post.username}</span>
-              </div>
-              <div className="feed-post-time">{post.post.createDate}</div>
-            </div>
-            <div className="feed-post">{post.post.text}</div>
-            <div className="feed-post-actions-container">
-              <div className="repost-container">
-                <img
-                  src={repostGray}
-                  className="repost-icon"
-                  alt="repost"
-                ></img>
-                <div className="repost-count">{post.post.Reposts.length}</div>
-              </div>
-              <div className="like-container">
-                <img src={heartGray} className="heart-icon" alt="like"></img>
-                <div className="like-count">{post.post.Likes.length}</div>
-              </div>
-              <div className="share-container">
-                <img src={shareGray} className="share-icon" alt="share"></img>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Link
+          to={`/post/${post.post.id}`}
+          state={{ uid: post.uniqueID }}
+          className="post-link"
+          data-post-id={post.post.id}
+          key={post.post.createTimeExtended}
+          data-user-id={post.uniqueID}
+        >
+          <FeedPosts post={post} userID={post.uniqueID} />
+        </Link>
       ));
       setUserPosts(allPosts);
     } catch (error) {
@@ -67,7 +50,7 @@ const Feed = () => {
   useEffect(() => {
     setTimeout(() => {
       generateAllPosts();
-    });
+    }, [500]);
   }, []);
 
   return (

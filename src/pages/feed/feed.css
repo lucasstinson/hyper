@@ -86,6 +86,10 @@
   gap: 5px;
 }
 
+.feed-post-name:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 600px) {
   .feed-container {
     display: flex;
