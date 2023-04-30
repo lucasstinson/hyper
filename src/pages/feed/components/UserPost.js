@@ -34,10 +34,11 @@ const UserPost = (props) => {
   useEffect(() => {
     generateUserPost();
   }, []);
+
   useEffect(() => {
     setTimeout(() => {
       generateUserPost();
-    }, [1000]);
+    }, [10000]);
   });
 
   return (

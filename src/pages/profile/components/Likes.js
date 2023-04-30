@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import heartGray from "../../../assets/images/heart-gray.png";
 import heartGreen from "../../../assets/images/heart-green.png";
 import { UserContext } from "../../../UserContext";
-import { updateLikes } from "../../../firebase/likes";
+import { addLike, deleteLike } from "../../../firebase/likes";
 
 const Likes = (props) => {
   const { currentUser, name } = useContext(UserContext);
@@ -11,9 +11,48 @@ const Likes = (props) => {
   let usersPostID = post.post.id;
   let currentUserID = currentUser.uid;
 
-  const handleClick = (e) => {
-    updateLikes(usersID, usersPostID, currentUserID);
+  const [likes, setLikes] = useState(post.post.Likes.length);
+
+  const [heartEmoji, setHeartEmoji] = useState("");
+
+  const [userLikeStatus, setUserLikeStatus] = useState("");
+
+  const likeIDs = () => {
+    let IDs = [];
+    for (let i = 0; i < post.post.Likes.length; i++) {
+      IDs.push(post.post.Likes[i].uniqueID);
+    }
+    return IDs;
   };
+
+  const handleEmoji = () => {
+    if (likeIDs().includes(currentUserID)) {
+      setHeartEmoji(heartGreen);
+      setUserLikeStatus(true);
+    } else {
+      setHeartEmoji(heartGray);
+      setUserLikeStatus(false);
+    }
+  };
+
+  const handleClick = (e) => {
+    if (userLikeStatus) {
+      setLikes(likes - 1);
+      setHeartEmoji(heartGray);
+      setUserLikeStatus(!userLikeStatus);
+      deleteLike(usersID, usersPostID, currentUserID);
+    } else {
+      setLikes(likes + 1);
+      setHeartEmoji(heartGreen);
+      setUserLikeStatus(!userLikeStatus);
+      addLike(usersID, usersPostID, currentUserID);
+    }
+  };
+
+  useEffect(() => {
+    likeIDs();
+    handleEmoji();
+  }, []);
 
   return (
     <div
@@ -22,8 +61,8 @@ const Likes = (props) => {
         handleClick(e);
       }}
     >
-      <img src={heartGray} className="heart-icon" alt="like"></img>
-      <div className="like-count">{post.post.Likes.length}</div>
+      <img src={heartEmoji} className="heart-icon" alt=""></img>
+      <div className="like-count">{likes}</div>
     </div>
   );
 };
