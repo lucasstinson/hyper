@@ -15,7 +15,7 @@ const ProfileFeed = () => {
     try {
       const posts = await getAllCurrentUserPosts(userID);
       let allPosts = posts.map((post) => (
-        <Link
+        <div
           to={`/post/${post.post.id}`}
           state={{ uid: post.uniqueID }}
           className="post-link"
@@ -24,7 +24,7 @@ const ProfileFeed = () => {
           data-user-id={post.uniqueID}
         >
           <FeedPosts post={post} userID={userID} />
-        </Link>
+        </div>
       ));
       setUserPosts(allPosts);
     } catch (error) {

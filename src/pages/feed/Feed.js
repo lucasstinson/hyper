@@ -26,7 +26,7 @@ const Feed = () => {
         return 0;
       });
       let allPosts = posts.map((post) => (
-        <Link
+        <div
           to={`/post/${post.post.id}`}
           state={{ uid: post.uniqueID }}
           className="post-link"
@@ -35,7 +35,7 @@ const Feed = () => {
           data-user-id={post.uniqueID}
         >
           <FeedPosts post={post} userID={post.uniqueID} />
-        </Link>
+        </div>
       ));
       setUserPosts(allPosts);
     } catch (error) {
