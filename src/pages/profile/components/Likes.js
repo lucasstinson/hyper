@@ -9,11 +9,14 @@ const Likes = (props) => {
   const { post } = props;
   let usersID = post.uniqueID;
   let usersPostID = post.post.id;
-  let currentUserID = currentUser.uid;
+  let currentUserID = "";
+  if (currentUser) {
+    currentUserID = currentUser.uid;
+  }
 
   const [likes, setLikes] = useState(post.post.Likes.length);
 
-  const [heartEmoji, setHeartEmoji] = useState("");
+  const [heartEmoji, setHeartEmoji] = useState(heartGray);
 
   const [userLikeStatus, setUserLikeStatus] = useState("");
 
@@ -50,21 +53,32 @@ const Likes = (props) => {
   };
 
   useEffect(() => {
-    likeIDs();
-    handleEmoji();
+    if (currentUser) {
+      likeIDs();
+      handleEmoji();
+    }
   }, []);
 
-  return (
-    <div
-      className="like-container disabled-link"
-      onClick={(e) => {
-        handleClick(e);
-      }}
-    >
-      <img src={heartEmoji} className="heart-icon" alt=""></img>
-      <div className="like-count">{likes}</div>
-    </div>
-  );
+  if (currentUser) {
+    return (
+      <div
+        className="like-container"
+        onClick={(e) => {
+          handleClick(e);
+        }}
+      >
+        <img src={heartEmoji} className="heart-icon" alt=""></img>
+        <div className="like-count">{likes}</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="like-container">
+        <img src={heartEmoji} className="heart-icon" alt=""></img>
+        <div className="like-count">{likes}</div>
+      </div>
+    );
+  }
 };
 
 export default Likes;

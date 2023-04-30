@@ -32,13 +32,20 @@ const addLike = async (usersID, usersPostID, currentUserID) => {
     uniqueID: currentUserID,
   };
 
+  let newLikes = [];
   try {
+    const getLikes = await getDoc(postRef);
+    let likes = getLikes.data().Likes;
+    for (let i = 0; i < likes.length; i++) {
+      newLikes.push(likes[i]);
+    }
+    newLikes.push(like);
+
     const update = await updateDoc(postRef, {
-      Likes: [like],
+      Likes: newLikes,
     });
   } catch (error) {
     const errorMessage = error.message;
-    console.log(errorMessage);
   }
 };
 
@@ -49,7 +56,7 @@ const deleteLike = async (usersID, usersPostID, currentUserID) => {
 
   try {
     const getLikes = await getDoc(postRef);
-    let likes = getLikes.data();
+    let likes = getLikes.data().Likes;
     for (let i = 0; i < likes.length; i++) {
       if (likes[i].uniqueID != currentUserID) {
         newLikes.push(likes[i]);
@@ -60,7 +67,6 @@ const deleteLike = async (usersID, usersPostID, currentUserID) => {
     });
   } catch (error) {
     const errorMessage = error.message;
-    console.log(errorMessage);
   }
 };
 
