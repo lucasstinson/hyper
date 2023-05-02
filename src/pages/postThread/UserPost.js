@@ -7,16 +7,16 @@ import FeedPosts from "../post/components/FeedPosts";
 import Comments from "./components/Comments";
 import PostComment from "./components/PostComment";
 import { UserContext } from "../../UserContext";
+import { createUser } from "../../firebase/signup";
+import AddComment from "./components/AddComment";
 
 const UserPost = (props) => {
-  const { rerender } = useContext(UserContext);
+  const { rerender, currentUser } = useContext(UserContext);
   const location = useLocation();
   const postID = window.location.href.split("/")[5];
   const userID = location.state.uid;
 
   const [userPost, setUserPost] = useState([]);
-  const [showPost, setShowPost] = useState(false);
-
   const generatePostThread = async () => {
     try {
       const postData = await postThread(userID, postID);
@@ -30,16 +30,7 @@ const UserPost = (props) => {
         >
           <FeedPosts post={post} userID={post.uniqueID} />
           <Comments post={post} userID={userID} postID={postID} />
-          <div className="add-comment-container">
-            <button className="add-comment" onClick={() => setShowPost(true)}>
-              + Add a Comment
-            </button>
-            {showPost &&
-              createPortal(
-                <PostComment onClose={() => setShowPost(false)} post={post} />,
-                document.querySelector(".App")
-              )}
-          </div>
+          <AddComment post={post} />
         </div>
       ));
       setUserPost(thread);
@@ -54,7 +45,7 @@ const UserPost = (props) => {
 
   useEffect(() => {
     generatePostThread();
-  }, [showPost, rerender]);
+  }, [rerender]);
 
   return (
     <div className="Feed">
