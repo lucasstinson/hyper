@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PostComment from "./PostComment";
 import { createPortal } from "react-dom";
 import { UserContext } from "../../../UserContext";
+import { Link } from "react-router-dom";
 
 const AddComment = (props) => {
   const { currentUser } = useContext(UserContext);
@@ -21,7 +22,13 @@ const AddComment = (props) => {
       </div>
     );
   } else {
-    return;
+    return (
+      <div className="add-comment-container">
+        <Link to={"/login"}>
+          <button className="add-comment">+ Add a Comment</button>
+        </Link>
+      </div>
+    );
   }
 };
 
