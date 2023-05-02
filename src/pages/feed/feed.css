@@ -88,13 +88,15 @@
   height: 18px;
 }
 
-.repost-container,
+.reply-container,
 .like-container,
 .share-container {
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 5px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .feed-post-name:hover {

@@ -29,7 +29,9 @@ const LoggedIn = () => {
       <div className="directory-profile-container">
         <Link
           to={`/profile/${userID}`}
-          className={"nav-underline" + (url === "/profile" ? " active" : "")}
+          className={
+            "nav-underline" + (url === `/profile/${userID}` ? " active" : "")
+          }
         >
           <img
             src={photoURL}
@@ -45,7 +47,7 @@ const LoggedIn = () => {
       <div className="directory-feed-container">
         <Link
           to={"/feed"}
-          className={"nav-underline" + (url === "/" ? " active" : "")}
+          className={"nav-underline" + (url === "/feed" ? " active" : "")}
         >
           <img
             src={homeFeedWhite}

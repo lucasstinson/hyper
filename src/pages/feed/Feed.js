@@ -10,7 +10,7 @@ import shareGray from "../../assets/images/share-gray.png";
 import shareGeen from "../../assets/images/share-gray.png";
 import { getAllPosts } from "../../firebase/posts";
 import { Link } from "react-router-dom";
-import FeedPosts from "../profile/components/FeedPosts";
+import FeedPosts from "../post/components/FeedPosts";
 
 const Feed = () => {
   const [userPosts, setUserPosts] = useState([]);
@@ -28,7 +28,6 @@ const Feed = () => {
       let allPosts = posts.map((post) => (
         <div
           to={`/post/${post.post.id}`}
-          state={{ uid: post.uniqueID }}
           className="post-link"
           data-post-id={post.post.id}
           key={post.post.createTimeExtended}

@@ -4,11 +4,7 @@ import {
   updateDoc,
   collection,
   addDoc,
-  serverTimestamp,
-  Timestamp,
-  query,
   getDocs,
-  where,
   getDoc,
 } from "firebase/firestore";
 import { connectAuthEmulator } from "firebase/auth";
@@ -44,6 +40,7 @@ const addPost = async (postText) => {
     createDate: newDate,
     Reposts: [],
     Likes: [],
+    Replies: [],
   };
 
   try {
@@ -186,8 +183,5 @@ const postThread = async (userID, postID) => {
   }
   return postArray;
 };
-const postID = "T7P28we3x2iRCmH8wjHn";
-const userID = "Z3sah7MIHDcw6ekWU7bYBX2h1pp2";
-postThread(userID, postID);
 
 export { addPost, getAllPosts, getAllCurrentUserPosts, postThread };

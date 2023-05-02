@@ -10,7 +10,7 @@ import SignUp from "./pages/signup/SignUp";
 import LogIn from "./pages/login/LogIn";
 import Footer from "./pages/footer/Footer";
 import Settings from "./pages/settings/Settings";
-import UserPost from "./pages/feed/components/UserPost";
+import UserPost from "./pages/postThread/UserPost";
 import { UserContext } from "./UserContext";
 import { getProfileData } from "./firebase/users";
 import { getAllPosts } from "./firebase/posts";

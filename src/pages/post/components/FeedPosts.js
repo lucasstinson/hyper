@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import userWhite from "../../../assets/images/user-white.png";
 import repostGray from "../../../assets/images/repost-gray.png";
 import repostGreen from "../../../assets/images/repost-green.png";
-import heartGray from "../../../assets/images/heart-gray.png";
-import heartGreen from "../../../assets/images/heart-green.png";
+
 import shareGray from "../../../assets/images/share-gray.png";
 import shareGeen from "../../../assets/images/share-gray.png";
 import Likes from "./Likes";
+import Replies from "./Replies";
 
 const FeedPosts = (props) => {
   const { post } = props;
@@ -51,10 +51,15 @@ const FeedPosts = (props) => {
           <div className="feed-post">{post.post.text}</div>
         </Link>
         <div className="feed-post-actions-container">
-          <div className="repost-container">
+          {/* <div className="repost-container">
             <img src={repostGray} className="repost-icon" alt="repost"></img>
             <div className="repost-count">{post.post.Reposts.length}</div>
-          </div>
+          </div> */}
+          {/* <div className="reply-container">
+            <img src={replyGray} className="reply-icon" alt=""></img>
+            <div className="reply-count">{post.post.Replies.length}</div>
+          </div> */}
+          <Replies post={post} />
           <Likes post={post} />
           <div className="share-container">
             <img src={shareGray} className="share-icon" alt="share"></img>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../UserContext";
 import { Link, useLocation } from "react-router-dom";
 import { getAllCurrentUserPosts } from "../../../firebase/posts";
-import FeedPosts from "./FeedPosts";
+import FeedPosts from "../../post/components/FeedPosts";
 
 const ProfileFeed = () => {
   const { rerender } = useContext(UserContext);
@@ -17,7 +17,6 @@ const ProfileFeed = () => {
       let allPosts = posts.map((post) => (
         <div
           to={`/post/${post.post.id}`}
-          state={{ uid: post.uniqueID }}
           className="post-link"
           data-post-id={post.post.id}
           key={post.post.createTimeExtended}

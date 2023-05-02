@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import "./nav.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
-import LoggedIn from "./Components/loggedIn";
+import LoggedIn from "./components/loggedIn";
 import { useState } from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
