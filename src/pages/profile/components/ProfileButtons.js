@@ -1,17 +1,70 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../UserContext";
 import { Link } from "react-router-dom";
 import { logOut } from "../../../firebase/profile";
+import {
+  addfollower,
+  getFollowers,
+  deletefollower,
+} from "../../../firebase/followers";
 
 const ProfileButtons = () => {
   const { currentUser } = useContext(UserContext);
-  const userID = window.location.href.split("/")[5];
+  const profileID = window.location.href.split("/")[5];
+  const [followStatus, setFollowStatus] = useState(false);
+  const [followButton, setFollowButton] = useState("Follow");
+
+  const handleFollow = async (profileID) => {
+    try {
+      const IDs = await getFollowers(profileID);
+      console.log(currentUser.uid);
+      if (IDs.includes(currentUser.uid)) {
+        setFollowStatus(true);
+        setFollowButton("Unfollow");
+      } else {
+        setFollowStatus(false);
+        setFollowButton("Follow");
+      }
+    } catch (error) {
+      const errorMessage = error.message;
+    }
+  };
+  const updateColor = () => {
+    const followElement = document.querySelector(".follow-button");
+    if (!followStatus) {
+      followElement.style.background = "#222629";
+      followElement.style.color = "white";
+    } else {
+      followElement.style.background = "white";
+      followElement.style.color = "#222629";
+    }
+  };
+
+  const handleClick = () => {
+    if (followStatus) {
+      deletefollower(profileID, currentUser.uid);
+      setFollowStatus(false);
+      setFollowButton("Follow");
+      updateColor();
+    } else {
+      addfollower(profileID, currentUser.uid);
+      setFollowStatus(true);
+      setFollowButton("Unfollow");
+      updateColor();
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      handleFollow(profileID);
+    }
+  }, [currentUser]);
 
   if (currentUser) {
-    if (userID == currentUser.uid) {
+    if (profileID == currentUser.uid) {
       return (
         <div className="profile-button-container">
-          <Link to={`/profile/${userID}/settings`}>
+          <Link to={`/profile/${profileID}/settings`}>
             <button className="edit-profile-button">Edit Profile</button>
           </Link>
           <Link to="/feed">
@@ -21,15 +74,15 @@ const ProfileButtons = () => {
           </Link>
         </div>
       );
-    } else if (userID != currentUser.uid) {
+    } else if (profileID != currentUser.uid) {
       return (
         <div className="profile-button-container">
           <Link to={"/messages"}>
             <button className="message-profile-button">Message</button>
           </Link>
-          <Link to="/feed">
-            <button className="follow-button">Follow</button>
-          </Link>
+          <button className="follow-button" onClick={handleClick}>
+            {followButton}
+          </button>
         </div>
       );
     }
@@ -44,21 +97,6 @@ const ProfileButtons = () => {
     </Link> */}
       </div>
     );
-  }
-
-  {
-    /* {currentUser && (
-        <div className="edit-profile-container">
-          <Link to={`/profile/${userID}/settings`}>
-            <button className="edit-profile-button">Edit Profile</button>
-          </Link>
-          <Link to="/">
-            <button className="log-out-button" onClick={logOut}>
-              Log Out
-            </button>
-          </Link>
-        </div>
-      )} */
   }
 };
 
