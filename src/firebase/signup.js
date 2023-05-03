@@ -1,7 +1,6 @@
-import { db, auth, storage } from "./firebase";
+import { db, auth } from "./firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc, getDocs, collection } from "firebase/firestore";
-import { getURL } from "./users";
 
 const createUser = async (email, password, username) => {
   try {
@@ -36,8 +35,8 @@ const addUser = async (username, email, uniqueID) => {
       username: "@" + username,
       photoURL: photoURL,
       bio: "",
-      followers: 0,
-      following: 0,
+      followers: [],
+      following: [],
     });
     updateProfile(auth.currentUser, { photoURL: photoURL });
   } catch (error) {
