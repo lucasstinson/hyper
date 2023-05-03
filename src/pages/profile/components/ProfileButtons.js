@@ -7,6 +7,7 @@ import {
   getFollowers,
   deletefollower,
 } from "../../../firebase/followers";
+import { async } from "@firebase/util";
 
 const ProfileButtons = () => {
   const { currentUser } = useContext(UserContext);
@@ -17,7 +18,6 @@ const ProfileButtons = () => {
   const handleFollow = async (profileID) => {
     try {
       const IDs = await getFollowers(profileID);
-      console.log(currentUser.uid);
       if (IDs.includes(currentUser.uid)) {
         setFollowStatus(true);
         setFollowButton("Unfollow");
@@ -57,6 +57,7 @@ const ProfileButtons = () => {
   useEffect(() => {
     if (currentUser) {
       handleFollow(profileID);
+      updateColor();
     }
   }, [currentUser]);
 

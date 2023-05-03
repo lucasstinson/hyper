@@ -5,6 +5,7 @@ import userWhite from "../../../assets/images/user-white.png";
 import ProfileButtons from "./ProfileButtons";
 import { getProfileData } from "../../../firebase/users";
 import { useAuth } from "../../../firebase/firebase";
+import { getFollowers } from "../../../firebase/followers";
 
 const ProfileInfo = () => {
   const { bio, name, photoURL, username } = useContext(UserContext);
@@ -22,6 +23,22 @@ const ProfileInfo = () => {
   const [userPhotoURL, setUserPhotoURL] = useState(userWhite);
 
   const [userUsername, setUserUserName] = useState("");
+
+  const [followCount, setFollowCount] = useState(0);
+
+  const getFollowerCount = async (userID) => {
+    try {
+      const followers = await getFollowers(userID);
+      console.log(followers.length);
+      setFollowCount(followers.length);
+    } catch (error) {
+      const errorMessage = error.message;
+    }
+  };
+
+  useEffect(() => {
+    getFollowerCount(userID);
+  });
 
   useEffect(() => {
     setTimeout(() => {
@@ -73,7 +90,7 @@ const ProfileInfo = () => {
               <div className="following-text">Following</div>
             </div>
             <div className="followers-container">
-              <div className="followers-count">66</div>
+              <div className="followers-count">{followCount}</div>
               <div className="followers-text">Followers</div>
             </div>
           </div>

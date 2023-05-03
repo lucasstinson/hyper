@@ -11,6 +11,8 @@ import Replies from "./Replies";
 
 const FeedPosts = (props) => {
   const { post } = props;
+  // let url = `lucasstinson.github.io/hyper/#/post/${post.post.id}`;
+  // console.log(url);
   return (
     <div className="feed-post-container">
       <div className="feed-post-user-container">
