@@ -30,13 +30,15 @@ const ProfileButtons = () => {
     }
   };
   const updateColor = () => {
-    const followElement = document.querySelector(".follow-button");
-    if (!followStatus) {
-      followElement.style.background = "#222629";
-      followElement.style.color = "white";
-    } else {
-      followElement.style.background = "white";
-      followElement.style.color = "#222629";
+    if (profileID != currentUser.uid) {
+      const followElement = document.querySelector(".follow-button");
+      if (!followStatus) {
+        followElement.style.background = "#222629";
+        followElement.style.color = "white";
+      } else {
+        followElement.style.background = "white";
+        followElement.style.color = "#222629";
+      }
     }
   };
 

@@ -86,6 +86,11 @@
   color: #222629;
 }
 
+.edit-profile-button,
+.log-out-button {
+  width: 110px;
+}
+
 .edit-profile-button:hover,
 .message-profile-button:hover {
   cursor: pointer;

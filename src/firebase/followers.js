@@ -52,7 +52,6 @@ const getFollowers = async (profileID) => {
     for (let i = 0; i < followers.length; i++) {
       followerIDs.push(followers[i].uniqueID);
     }
-    console.log(followerIDs);
     return followerIDs;
   } catch (error) {
     const errorMessage = error.message;

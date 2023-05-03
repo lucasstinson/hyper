@@ -29,7 +29,6 @@ const ProfileInfo = () => {
   const getFollowerCount = async (userID) => {
     try {
       const followers = await getFollowers(userID);
-      console.log(followers.length);
       setFollowCount(followers.length);
     } catch (error) {
       const errorMessage = error.message;
@@ -38,7 +37,7 @@ const ProfileInfo = () => {
 
   useEffect(() => {
     getFollowerCount(userID);
-  });
+  }, [followCount, userID]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -85,10 +84,6 @@ const ProfileInfo = () => {
             <div className="bio-text">{userBio}</div>
           </div>
           <div className="follow-container">
-            <div className="following-container">
-              <div className="following-count">149</div>
-              <div className="following-text">Following</div>
-            </div>
             <div className="followers-container">
               <div className="followers-count">{followCount}</div>
               <div className="followers-text">Followers</div>
