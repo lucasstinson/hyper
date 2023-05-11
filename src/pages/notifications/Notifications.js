@@ -3,6 +3,7 @@ import "./notifications.css";
 import userWhite from "../../assets/images/user-white.png";
 import like from "../../assets/images/heart-green.png";
 import profileGreen from "../../assets/images/profile-green.png";
+import NotificationsList from "./components/NotificationsList";
 
 const Notifications = () => {
   return (
@@ -11,26 +12,7 @@ const Notifications = () => {
         <div className="notifications-title-container">
           <div className="notifications-title">Notifications</div>
         </div>
-        <div className="notifications-list-container">
-          <div className="notification-container">
-            <div className="notification-action-container">
-              <img
-                src={profileGreen}
-                className="notification-emoji"
-                alt="action-emoji"
-              ></img>
-            </div>
-            <div className="notification-info-container">
-              <img
-                src={userWhite}
-                className="notification-user"
-                alt="user pic"
-              ></img>
-              <div className="notification-text">user name followed you</div>
-              <div className="notification-shout"></div>
-            </div>
-          </div>
-        </div>
+        <NotificationsList />
       </div>
     </div>
   );

@@ -120,6 +120,19 @@ input[type="search"]::placeholder {
   gap: 5px;
 }
 
+.notification-sticker {
+  text-decoration: none;
+  visibility: hidden;
+  color: black;
+  font-weight: 700;
+  font-size: 14px;
+  position: absolute;
+  padding: 2px 5px;
+  background-color: #86c232;
+  border-radius: 50%;
+  margin-top: -40px;
+}
+
 @media (max-width: 600px) {
   .nav {
     padding: 10px;

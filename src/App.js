@@ -14,6 +14,7 @@ import UserPost from "./pages/postThread/UserPost";
 import { UserContext } from "./UserContext";
 import { getProfileData } from "./firebase/users";
 import { getAllPosts } from "./firebase/posts";
+import { getNotifications } from "./firebase/notifications";
 import userWhite from "./assets/images/user-white.png";
 import "./app.css";
 
@@ -30,6 +31,8 @@ const App = () => {
 
   const [rerender, setRerender] = useState(false);
 
+  const [notificationCount, setNotificationCount] = useState("");
+
   useEffect(() => {
     console.log("run app");
     setTimeout(() => {
@@ -42,9 +45,36 @@ const App = () => {
           setUserName(profileData.username);
         };
         loadProfileData();
+        const loadNotifications = async () => {
+          try {
+            const test = await getNotifications(currentUser.uid);
+            setNotificationCount(test.count);
+          } catch (error) {
+            const errorMessage = error.message;
+          }
+        };
+        loadNotifications();
       }
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
+
+  // useState(() => {
+  //   setTimeout(() => {
+  //     console.log("notifications");
+  //     if (currentUser) {
+  //       console.log("notifications-currentuser");
+  //       const notifications = async () => {
+  //         try {
+  //           const test = await getNotifications(currentUser.uid);
+  //           setNotificationCount(test.count);
+  //         } catch (error) {
+  //           const errorMessage = error.message;
+  //         }
+  //       };
+  //       notifications();
+  //     }
+  //   }, [2000]);
+  // }, [currentUser]);
 
   return (
     <div className="App">
@@ -62,6 +92,8 @@ const App = () => {
             setUserName,
             rerender,
             setRerender,
+            notificationCount,
+            setNotificationCount,
           }}
         >
           <Nav />

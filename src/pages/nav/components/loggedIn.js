@@ -14,15 +14,29 @@ import Post from "../../post/Post";
 import { UserContext } from "../../../UserContext";
 
 const LoggedIn = () => {
-  const { photoURL, currentUser } = useContext(UserContext);
+  const { photoURL, currentUser, notificationCount } = useContext(UserContext);
   const [showPost, setShowPost] = useState(false);
   const location = useLocation();
   const [url, setUrl] = useState(null);
   const userID = currentUser.uid;
 
+  const [visibility, setVisibility] = useState("hidden");
+
+  const notificationCheck = () => {
+    if (notificationCount > 0) {
+      setVisibility("visible");
+    } else {
+      setVisibility("hidden");
+    }
+  };
+
   useEffect(() => {
     setUrl(location.pathname);
   }, [location]);
+
+  useEffect(() => {
+    notificationCheck();
+  }, [notificationCount]);
 
   return (
     <div className="directory-container">
@@ -87,6 +101,12 @@ const LoggedIn = () => {
             onMouseOver={(e) => (e.currentTarget.src = notificationsGreen)}
             onMouseLeave={(e) => (e.currentTarget.src = notificationsWhite)}
           ></img>
+          <div
+            className="notification-sticker"
+            style={{ visibility: visibility }}
+          >
+            {notificationCount}
+          </div>
         </Link>
         <div className="notifcations-sticker"></div>
       </div>
