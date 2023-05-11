@@ -13,7 +13,7 @@ const Nav = () => {
   return (
     <div className="nav">
       <div className="logo-container">
-        <Link to="/feed" className="feed-link">
+        <Link to="/" className="feed-link">
           <img src={hyperLogo} className="logo-img" alt="hyperspeed"></img>
           <div className="logo-title">Hyper</div>
         </Link>

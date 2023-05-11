@@ -66,7 +66,7 @@ const App = () => {
         >
           <Nav />
           <Routes>
-            <Route path="/feed" element={<Feed />} />
+            <Route path="/" element={<Feed />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/profile" element={<Profile />} />

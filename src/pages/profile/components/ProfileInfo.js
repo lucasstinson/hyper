@@ -8,7 +8,7 @@ import { useAuth } from "../../../firebase/firebase";
 import { getFollowers } from "../../../firebase/followers";
 
 const ProfileInfo = () => {
-  const { bio, name, photoURL, username } = useContext(UserContext);
+  const { bio, name, photoURL, username, rerender } = useContext(UserContext);
 
   const currentUser = useAuth();
 
@@ -38,6 +38,12 @@ const ProfileInfo = () => {
   useEffect(() => {
     getFollowerCount(userID);
   }, [followCount, userID]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      getFollowerCount(userID);
+    }, [200]);
+  }, [rerender]);
 
   useEffect(() => {
     setTimeout(() => {

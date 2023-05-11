@@ -51,7 +51,6 @@ const addComment = async (postText, postUserID, postID, currentUserID) => {
   try {
     const getReplies = await getDoc(postRef);
     let replies = getReplies.data().Replies;
-    console.log(replies);
     for (let i = 0; i < replies.length; i++) {
       newReplies.push(replies[i]);
     }

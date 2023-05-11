@@ -10,7 +10,7 @@ import {
 import { async } from "@firebase/util";
 
 const ProfileButtons = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, rerender, setRerender } = useContext(UserContext);
   const profileID = window.location.href.split("/")[5];
   const [followStatus, setFollowStatus] = useState(false);
   const [followButton, setFollowButton] = useState("Follow");
@@ -32,7 +32,7 @@ const ProfileButtons = () => {
   const updateColor = () => {
     if (profileID != currentUser.uid) {
       const followElement = document.querySelector(".follow-button");
-      if (!followStatus) {
+      if (followStatus) {
         followElement.style.background = "#222629";
         followElement.style.color = "white";
       } else {
@@ -54,14 +54,20 @@ const ProfileButtons = () => {
       setFollowButton("Unfollow");
       updateColor();
     }
+    setRerender(!rerender);
   };
 
   useEffect(() => {
     if (currentUser) {
       handleFollow(profileID);
-      updateColor();
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (currentUser) {
+      updateColor();
+    }
+  }, [followStatus]);
 
   if (currentUser) {
     if (profileID == currentUser.uid) {
@@ -70,7 +76,7 @@ const ProfileButtons = () => {
           <Link to={`/profile/${profileID}/settings`}>
             <button className="edit-profile-button">Edit Profile</button>
           </Link>
-          <Link to="/feed">
+          <Link to="/">
             <button className="log-out-button" onClick={logOut}>
               Log Out
             </button>

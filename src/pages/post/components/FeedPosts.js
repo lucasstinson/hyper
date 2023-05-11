@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import userWhite from "../../../assets/images/user-white.png";
 import repostGray from "../../../assets/images/repost-gray.png";
 import repostGreen from "../../../assets/images/repost-green.png";
 
 import shareGray from "../../../assets/images/share-gray.png";
-import shareGeen from "../../../assets/images/share-gray.png";
+import shareGreen from "../../../assets/images/share-green.png";
 import Likes from "./Likes";
 import Replies from "./Replies";
 
 const FeedPosts = (props) => {
   const { post } = props;
-  // let url = `lucasstinson.github.io/hyper/#/post/${post.post.id}`;
-  // console.log(url);
+
+  const [visibility, setVisibility] = useState("hidden");
+
+  const handleClick = (e) => {
+    const toolTip = e.target.nextSibling;
+    const postLink = `https://lucasstinson.github.io/hyper/#/post/${post.post.id}`;
+    navigator.clipboard.writeText(postLink);
+    toolTip.textContent = "Copied to Clipboard";
+    setVisibility("visible");
+
+    setTimeout(() => {
+      setVisibility("hidden");
+      toolTip.textContent = "Copy to Clipboard";
+    }, 2000);
+  };
+
   return (
     <div className="feed-post-container">
       <div className="feed-post-user-container">
@@ -21,11 +35,7 @@ const FeedPosts = (props) => {
           state={{ uid: post.uniqueID }}
           className="post-link"
         >
-          <img
-            src={post.photoURL}
-            className="feed-post-user"
-            alt="user pic"
-          ></img>
+          <img src={post.photoURL} className="feed-post-user" alt=""></img>
         </Link>
       </div>
       <div className="feed-post-info-container">
@@ -63,8 +73,22 @@ const FeedPosts = (props) => {
           </div> */}
           <Replies post={post} />
           <Likes post={post} />
-          <div className="share-container">
-            <img src={shareGray} className="share-icon" alt="share"></img>
+          <div
+            className="share-container"
+            onMouseOver={(e) => setVisibility("visible")}
+            onMouseLeave={(e) => setVisibility("hidden")}
+          >
+            <img
+              src={shareGray}
+              className="share-icon"
+              alt="share"
+              onClick={(e) => handleClick(e)}
+              onMouseOver={(e) => (e.currentTarget.src = shareGreen)}
+              onMouseLeave={(e) => (e.currentTarget.src = shareGray)}
+            ></img>
+            <span style={{ visibility: visibility }} className="tool-tip-text">
+              Copy to Clipboard
+            </span>
           </div>
         </div>
       </div>

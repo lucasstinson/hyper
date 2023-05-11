@@ -99,6 +99,20 @@
   color: inherit;
 }
 
+.tool-tip-text {
+  font-size: 14px;
+  visibility: hidden;
+  background-color: #222629;
+  color: #ffffff;
+  font-style: inherit;
+  border-radius: 5px;
+  padding: 3px 5px;
+  position: absolute;
+  margin-bottom: 45px;
+  text-align: center;
+  margin-left: -55px;
+}
+
 .feed-post-name:hover {
   text-decoration: underline;
 }

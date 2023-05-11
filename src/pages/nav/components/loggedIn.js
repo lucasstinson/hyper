@@ -46,8 +46,8 @@ const LoggedIn = () => {
       </div>
       <div className="directory-feed-container">
         <Link
-          to={"/feed"}
-          className={"nav-underline" + (url === "/feed" ? " active" : "")}
+          to={"/"}
+          className={"nav-underline" + (url === "/" ? " active" : "")}
         >
           <img
             src={homeFeedWhite}
