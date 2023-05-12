@@ -1,4 +1,4 @@
-import { auth, db } from "./firebase";
+import { db } from "./firebase";
 import {
   doc,
   getDoc,
@@ -33,8 +33,15 @@ const getNotifications = async (currentUserID) => {
       }
       notifications.push(followers[i]);
     }
+    notifications.sort((a, b) => {
+      let aTime = a.timestampExtended;
+      let bTime = b.createTimeExtended;
+      if (aTime < bTime) return 1;
+      if (aTime > bTime) return -1;
+      return 0;
+    });
+    // console.log(notifications);
     return { notifications, count };
-    // return notifications
   } catch (error) {
     const errorMessage = error.message;
   }
@@ -48,11 +55,12 @@ const getLikes = async (currentUserID) => {
     querySnapshot.forEach((doc) => {
       for (let i = 0; i < doc.data().Likes.length; i++) {
         if (doc.data().Likes[i].uniqueID != currentUserID) {
-          likes.push(doc.data().Likes[i]);
+          const like = doc.data().Likes[i];
+          like.type = "like";
+          likes.push(like);
         }
       }
     });
-    // console.log(likes);
     return likes;
   } catch (error) {
     const errorMessage = error.message;
@@ -67,11 +75,12 @@ const getReplies = async (currentUserID) => {
     querySnapshot.forEach((doc) => {
       for (let i = 0; i < doc.data().Replies.length; i++) {
         if (doc.data().Replies[i].uniqueID != currentUserID) {
-          replies.push(doc.data().Replies[i]);
+          const reply = doc.data().Replies[i];
+          reply.type = "reply";
+          replies.push(reply);
         }
       }
     });
-    // console.log(replies);
     return replies;
   } catch (error) {
     const errorMessage = error.message;
@@ -85,9 +94,10 @@ const getFollowers = async (currentUserID) => {
     const docSnap = await getDoc(followRef);
 
     for (let i = 0; i < docSnap.data().followers.length; i++) {
-      followers.push(docSnap.data().followers[i]);
+      let follower = docSnap.data().followers[i];
+      follower.type = "follower";
+      followers.push(follower);
     }
-    // console.log(followers);
     return followers;
   } catch (error) {
     const errorMessage = error.message;
