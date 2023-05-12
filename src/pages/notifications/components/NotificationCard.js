@@ -8,7 +8,6 @@ import { UserContext } from "../../../UserContext";
 
 const NotificationCard = (props) => {
   const { notification } = props;
-  console.log(notification);
 
   if (notification.type == "like") {
     return (

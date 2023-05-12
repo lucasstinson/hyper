@@ -5,6 +5,9 @@ import {
   getDocs,
   updateDoc,
   collection,
+  update,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getUsernames } from "./signup";
@@ -34,13 +37,7 @@ const getNotifications = async (currentUserID) => {
       }
       notifications.push(followers[i]);
     }
-    notifications.sort((a, b) => {
-      let aTime = a.timestampExtended;
-      let bTime = b.createTimeExtended;
-      if (aTime < bTime) return 1;
-      if (aTime > bTime) return -1;
-      return 0;
-    });
+
     return { notifications, count };
   } catch (error) {
     const errorMessage = error.message;
@@ -135,7 +132,28 @@ const getUserInfo = async (notifications) => {
   return allNotifications;
 };
 
-const updateRead = () => {};
+const updateRead = async (currentUserID) => {};
+
+const updateLikesRead = async (currentUserID) => {};
+
+const updateRepliesRead = async (currentUserID) => {};
+
+const updateFollowsRead = async (currentUserID) => {
+  const followRef = doc(db, "users", currentUserID);
+  try {
+    // await updateDoc(followRef, {
+    //   followers: arrayUnion(true),
+    // });
+    // await updateDoc(followRef, {
+    //   "followers.Read": arrayRemove(false),
+    // });
+    // for (let i = 0; i < followsDoc.followers.length; i++) {
+    //   updateDoc(followRef, {followRef.followers[i].Read: true});
+    // }
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
 
 export {
   getLikes,
@@ -143,6 +161,7 @@ export {
   getFollowers,
   getNotifications,
   getUserNotifications,
+  updateFollowsRead,
 };
 
 // console.log(getNotifications);

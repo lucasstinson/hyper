@@ -7,7 +7,7 @@ const addfollower = async (profileID, userID) => {
   const timestampExtended = new Date().toISOString().split("T").join(" ");
 
   const follower = {
-    timeStampExtended: timestampExtended,
+    timestampExtended: timestampExtended,
     uniqueID: userID,
     Read: false,
   };
