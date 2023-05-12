@@ -47,8 +47,8 @@ const App = () => {
         loadProfileData();
         const loadNotifications = async () => {
           try {
-            const test = await getNotifications(currentUser.uid);
-            setNotificationCount(test.count);
+            const notifications = await getNotifications(currentUser.uid);
+            setNotificationCount(notifications.count);
           } catch (error) {
             const errorMessage = error.message;
           }

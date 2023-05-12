@@ -4,46 +4,42 @@ import like from "../../../assets/images/heart-green.png";
 import profileGreen from "../../../assets/images/profile-green.png";
 import { getNotifications } from "../../../firebase/notifications";
 import { UserContext } from "../../../UserContext";
+import NotificationCard from "./NotificationCard";
 
 const NotificationsList = () => {
   const { currentUser, setNotificationCount } = useContext(UserContext);
 
+  const [notifications, setNotifications] = useState([]);
+
+  const generateNotifications = async () => {
+    try {
+      const notifications = await getNotifications(currentUser.uid);
+      let allNotifications = notifications.notifications.map((notification) => {
+        <NotificationCard notification={notification} />;
+      });
+    } catch (error) {
+      const errorMessage = error.message;
+    }
+  };
+
   useState(() => {
     if (currentUser) {
-      const notifications = async () => {
+      const loadNotifications = async () => {
         try {
-          const test = await getNotifications(currentUser.uid);
-          setNotificationCount(test.count);
+          const notifications = await getNotifications(currentUser.uid);
+          setNotificationCount(notifications.count);
+          console.log(notifications.notifications);
         } catch (error) {
           const errorMessage = error.message;
         }
       };
-      notifications();
-      // setTimeout(() => {
-      //   console.log(test.count);
-      // }, [1000]);
+      loadNotifications();
     }
   }, []);
 
   return (
     <div className="notifications-list-container">
-      <div className="notification-container">
-        <div className="notification-action-container">
-          <img
-            src={profileGreen}
-            className="notification-emoji"
-            alt="action-emoji"
-          ></img>
-        </div>
-        <div className="notification-info-container">
-          <img src={userWhite} className="notification-user" alt=""></img>
-          <div className="notification-text">
-            <span className="notification-username">user name</span> followed
-            you
-          </div>
-          <div className="notification-shout"></div>
-        </div>
-      </div>
+      <NotificationCard />
     </div>
   );
 };

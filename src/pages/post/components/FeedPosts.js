@@ -67,10 +67,6 @@ const FeedPosts = (props) => {
             <img src={repostGray} className="repost-icon" alt="repost"></img>
             <div className="repost-count">{post.post.Reposts.length}</div>
           </div> */}
-          {/* <div className="reply-container">
-            <img src={replyGray} className="reply-icon" alt=""></img>
-            <div className="reply-count">{post.post.Replies.length}</div>
-          </div> */}
           <Replies post={post} />
           <Likes post={post} />
           <div
