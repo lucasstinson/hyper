@@ -69,6 +69,21 @@
   height: 25px;
 }
 
+.notifcation-user,
+.notification-username {
+  font-weight: 700;
+  color: black;
+}
+
+.notification-username:hover {
+  text-decoration: underline;
+}
+
+.profile-link {
+  text-decoration-line: none;
+  color: black;
+}
+
 @media (max-width: 600px) {
   .notifications-container {
     display: flex;

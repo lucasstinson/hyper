@@ -26,9 +26,11 @@ const NotificationsList = () => {
         if (aTime > bTime) return -1;
         return 0;
       });
-      console.log(notifications);
       let allNotifications = notifications.map((notification) => (
-        <NotificationCard notification={notification} />
+        <NotificationCard
+          notification={notification}
+          userID={currentUser.uid}
+        />
       ));
       setNotifications(allNotifications);
     } catch (error) {
