@@ -7,6 +7,7 @@ import {
   collection,
 } from "firebase/firestore";
 import { storage } from "./firebase";
+import { getUsernames } from "./signup";
 
 const getNotifications = async (currentUserID) => {
   let notifications = [];
@@ -40,7 +41,6 @@ const getNotifications = async (currentUserID) => {
       if (aTime > bTime) return -1;
       return 0;
     });
-    // console.log(notifications);
     return { notifications, count };
   } catch (error) {
     const errorMessage = error.message;
@@ -104,7 +104,45 @@ const getFollowers = async (currentUserID) => {
   }
 };
 
+const getUserNotifications = async (currentUserID) => {
+  let updatedNotifications = [];
+
+  try {
+    const { notifications } = await getNotifications(currentUserID);
+    const userTaggedNotificaitons = await getUserInfo(notifications);
+    updatedNotifications = userTaggedNotificaitons;
+    return updatedNotifications;
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const getUserInfo = async (notifications) => {
+  let allNotifications = [];
+  try {
+    for (let i = 0; notifications.length; i++) {
+      const userSnap = await getDoc(
+        doc(db, "users", notifications[i].uniqueID)
+      );
+      const notification = notifications[i];
+      notification.username = userSnap.data().username;
+      notification.photoURL = userSnap.data().photoURL;
+      allNotifications.push(notification);
+    }
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+  return allNotifications;
+};
+
 const updateRead = () => {};
-export { getLikes, getReplies, getFollowers, getNotifications };
+
+export {
+  getLikes,
+  getReplies,
+  getFollowers,
+  getNotifications,
+  getUserNotifications,
+};
 
 // console.log(getNotifications);

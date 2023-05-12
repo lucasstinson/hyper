@@ -41,6 +41,10 @@
   background-color: rgba(107, 110, 112, 0.1);
 }
 
+.notification-action-container {
+  display: flex;
+  align-items: center;
+}
 .notification-info-container {
   display: flex;
   flex-direction: column;
@@ -51,7 +55,9 @@
 .notification-user {
   background-color: #222629;
   border: 2px solid #222629;
-  border-radius: 25px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
 }
 .notification-text {
   display: flex;
@@ -59,9 +65,8 @@
   gap: 5px;
 }
 
-.notification-emoji,
-.notification-user {
-  height: 28px;
+.notification-emoji {
+  height: 25px;
 }
 
 @media (max-width: 600px) {

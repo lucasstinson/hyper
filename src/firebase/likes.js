@@ -37,6 +37,7 @@ const addLike = async (usersID, usersPostID, currentUserID) => {
     createDate: newDate,
     uniqueID: currentUserID,
     Read: false,
+    id: usersPostID,
   };
 
   let newLikes = [];
