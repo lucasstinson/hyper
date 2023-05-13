@@ -8,6 +8,7 @@ import {
   update,
   arrayUnion,
   arrayRemove,
+  Timestamp,
 } from "firebase/firestore";
 import { storage } from "./firebase";
 import { getUsernames } from "./signup";
@@ -139,8 +140,21 @@ const updateLikesRead = async (currentUserID) => {};
 const updateRepliesRead = async (currentUserID) => {};
 
 const updateFollowsRead = async (currentUserID) => {
+  let updatedFollowers = [];
   const followRef = doc(db, "users", currentUserID);
   try {
+    const userSnap = await getDoc(followRef);
+    let followers = userSnap.data().followers;
+    for (let i = 0; i < followers.length; i++) {
+      let follower = {
+        Read: true,
+        timestampExtend: followers[i].timestampExtended,
+        uniqueID: followers[i].uniqueID,
+      };
+      updatedFollowers.push(follower);
+    }
+
+    console.log(updatedFollowers);
     // await updateDoc(followRef, {
     //   followers: arrayUnion(true),
     // });

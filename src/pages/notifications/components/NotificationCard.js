@@ -16,6 +16,7 @@ const NotificationCard = (props) => {
         to={`/post/${notification.id}`}
         state={{ uid: userID }}
         className="post-link"
+        key={notification.timestampExtended}
       >
         <div className="notification-container">
           <div className="notification-action-container">

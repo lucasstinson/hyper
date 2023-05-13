@@ -14,7 +14,7 @@ const NotificationsList = () => {
   const { currentUser, setNotificationCount } = useContext(UserContext);
 
   const [notifications, setNotifications] = useState([]);
-  // updateFollowsRead("mg3GwHGO7CdiTszy3Dq1U7wJrtI3");
+  updateFollowsRead("mg3GwHGO7CdiTszy3Dq1U7wJrtI3");
 
   const generateNotifications = async () => {
     try {
@@ -30,6 +30,7 @@ const NotificationsList = () => {
         <NotificationCard
           notification={notification}
           userID={currentUser.uid}
+          key={notification.timestampExtended}
         />
       ));
       setNotifications(allNotifications);
@@ -40,7 +41,7 @@ const NotificationsList = () => {
 
   useState(() => {
     generateNotifications();
-  }, []);
+  }, [notifications]);
 
   useState(() => {
     if (currentUser) {
