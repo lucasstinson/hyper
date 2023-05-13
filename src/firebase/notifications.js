@@ -38,7 +38,6 @@ const getNotifications = async (currentUserID) => {
       }
       notifications.push(followers[i]);
     }
-
     return { notifications, count };
   } catch (error) {
     const errorMessage = error.message;
@@ -133,11 +132,95 @@ const getUserInfo = async (notifications) => {
   return allNotifications;
 };
 
-const updateRead = async (currentUserID) => {};
+const updateRead = async (currentUserID) => {
+  try {
+    const likesRead = await updateLikesRead(currentUserID);
+    const repliesRead = await updateRepliesRead(currentUserID);
+    const followersRead = await updateFollowsRead(currentUserID);
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
 
-const updateLikesRead = async (currentUserID) => {};
+const updateLikesRead = async (currentUserID) => {
+  const postsRef = collection(db, "users/" + currentUserID + "/posts");
 
-const updateRepliesRead = async (currentUserID) => {};
+  try {
+    const querySnapshot = await getDocs(postsRef);
+
+    querySnapshot.forEach((doc) => {
+      let updatedLikes = [];
+      let postID = doc.data().id;
+
+      for (let i = 0; i < doc.data().Likes.length; i++) {
+        if (doc.data().Likes[i].uniqueID != currentUserID) {
+          const like = doc.data().Likes[i];
+          like.Read = true;
+          updatedLikes.push(like);
+        } else {
+          const like = doc.data().Likes[i];
+          updatedLikes.push(like);
+        }
+      }
+
+      updateLikes(currentUserID, postID, updatedLikes);
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const updateLikes = async (currentUserID, postID, updatedLikes) => {
+  const postRef = doc(db, "users/" + currentUserID + "/posts", postID);
+
+  try {
+    const updatingLikes = await updateDoc(postRef, {
+      Likes: updatedLikes,
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const updateRepliesRead = async (currentUserID) => {
+  const postsRef = collection(db, "users/" + currentUserID + "/posts");
+
+  try {
+    const querySnapshot = await getDocs(postsRef);
+
+    querySnapshot.forEach((doc) => {
+      let updatedReplies = [];
+      let postID = doc.data().id;
+
+      for (let i = 0; i < doc.data().Replies.length; i++) {
+        if (doc.data().Replies[i].uniqueID != currentUserID) {
+          const reply = doc.data().Replies[i];
+          reply.Read = true;
+          updatedReplies.push(reply);
+        } else {
+          const reply = doc.data().Replies[i];
+          updatedReplies.push(reply);
+        }
+      }
+
+      updateReplies(currentUserID, postID, updatedReplies);
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const updateReplies = async (currentUserID, postID, updatedReplies) => {
+  const postRef = doc(db, "users/" + currentUserID + "/posts", postID);
+
+  try {
+    const updatingReplies = await updateDoc(postRef, {
+      Replies: updatedReplies,
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
 
 const updateFollowsRead = async (currentUserID) => {
   let updatedFollowers = [];
@@ -148,22 +231,14 @@ const updateFollowsRead = async (currentUserID) => {
     for (let i = 0; i < followers.length; i++) {
       let follower = {
         Read: true,
-        timestampExtend: followers[i].timestampExtended,
+        timestampExtended: followers[i].timestampExtended,
         uniqueID: followers[i].uniqueID,
       };
       updatedFollowers.push(follower);
     }
-
-    console.log(updatedFollowers);
-    // await updateDoc(followRef, {
-    //   followers: arrayUnion(true),
-    // });
-    // await updateDoc(followRef, {
-    //   "followers.Read": arrayRemove(false),
-    // });
-    // for (let i = 0; i < followsDoc.followers.length; i++) {
-    //   updateDoc(followRef, {followRef.followers[i].Read: true});
-    // }
+    await updateDoc(followRef, {
+      followers: updatedFollowers,
+    });
   } catch (error) {
     const errorMessage = error.message;
   }
@@ -176,6 +251,9 @@ export {
   getNotifications,
   getUserNotifications,
   updateFollowsRead,
+  updateRepliesRead,
+  updateLikesRead,
+  updateRead,
 };
 
 // console.log(getNotifications);

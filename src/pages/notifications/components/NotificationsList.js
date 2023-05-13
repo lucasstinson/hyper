@@ -5,7 +5,7 @@ import profileGreen from "../../../assets/images/profile-green.png";
 import {
   getNotifications,
   getUserNotifications,
-  updateFollowsRead,
+  updateRead,
 } from "../../../firebase/notifications";
 import { UserContext } from "../../../UserContext";
 import NotificationCard from "./NotificationCard";
@@ -14,7 +14,10 @@ const NotificationsList = () => {
   const { currentUser, setNotificationCount } = useContext(UserContext);
 
   const [notifications, setNotifications] = useState([]);
-  updateFollowsRead("mg3GwHGO7CdiTszy3Dq1U7wJrtI3");
+  // updateFollowsRead("mg3GwHGO7CdiTszy3Dq1U7wJrtI3");
+  // updateRepliesRead("mg3GwHGO7CdiTszy3Dq1U7wJrtI3");
+  // updateLikesRead("mg3GwHGO7CdiTszy3Dq1U7wJrtI3");
+  setNotificationCount(0);
 
   const generateNotifications = async () => {
     try {
@@ -41,6 +44,9 @@ const NotificationsList = () => {
 
   useState(() => {
     generateNotifications();
+    if (currentUser) {
+      updateRead(currentUser.uid);
+    }
   }, [notifications]);
 
   useState(() => {

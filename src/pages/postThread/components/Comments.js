@@ -16,7 +16,7 @@ const Comments = (props) => {
   useEffect(() => {
     setTimeout(() => {
       generateComments(userID, postID);
-    }, [5000]);
+    }, [1000]);
   }, [rerender]);
 
   const generateComments = async (userID, postID) => {

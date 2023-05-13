@@ -17,6 +17,7 @@ const NotificationCard = (props) => {
         state={{ uid: userID }}
         className="post-link"
         key={notification.timestampExtended}
+        data-id={notification.timestampExtended}
       >
         <div className="notification-container">
           <div className="notification-action-container">
@@ -59,6 +60,8 @@ const NotificationCard = (props) => {
         to={`/post/${notification.id}`}
         state={{ uid: userID }}
         className="post-link"
+        key={notification.timestampExtended}
+        data-id={notification.timestampExtended}
       >
         <div className="notification-container">
           <div className="notification-action-container">
@@ -97,7 +100,12 @@ const NotificationCard = (props) => {
     );
   } else if (notification.type == "follower") {
     return (
-      <Link to={`/profile/${notification.uniqueID}`} className="post-link">
+      <Link
+        to={`/profile/${notification.uniqueID}`}
+        className="post-link"
+        key={notification.timestampExtended}
+        data-id={notification.timestampExtended}
+      >
         <div className="notification-container">
           <div className="notification-action-container">
             <img
