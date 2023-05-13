@@ -67,7 +67,7 @@ const ProfileButtons = () => {
     if (currentUser) {
       updateColor();
     }
-  }, [followStatus]);
+  }, [followStatus, rerender]);
 
   if (currentUser) {
     if (profileID == currentUser.uid) {
