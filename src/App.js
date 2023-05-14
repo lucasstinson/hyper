@@ -17,6 +17,7 @@ import { getAllPosts } from "./firebase/posts";
 import { getNotifications } from "./firebase/notifications";
 import userWhite from "./assets/images/user-white.png";
 import "./app.css";
+import ChatRoom from "./pages/messages/components/ChatRoom";
 
 const App = () => {
   const currentUser = useAuth();
@@ -103,6 +104,7 @@ const App = () => {
             <Route path="/login" element={<LogIn />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/messages" element={<Messages />} />
+            <Route path="/messages/chatroom" element={<ChatRoom />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/profile/:id/settings" element={<Settings />} />
             <Route path="/post/:id" element={<UserPost />} />
