@@ -35,7 +35,6 @@ const App = () => {
   const [notificationCount, setNotificationCount] = useState("");
 
   useEffect(() => {
-    console.log("run app");
     setTimeout(() => {
       if (currentUser) {
         const loadProfileData = async () => {
@@ -58,24 +57,6 @@ const App = () => {
       }
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
-
-  // useState(() => {
-  //   setTimeout(() => {
-  //     console.log("notifications");
-  //     if (currentUser) {
-  //       console.log("notifications-currentuser");
-  //       const notifications = async () => {
-  //         try {
-  //           const test = await getNotifications(currentUser.uid);
-  //           setNotificationCount(test.count);
-  //         } catch (error) {
-  //           const errorMessage = error.message;
-  //         }
-  //       };
-  //       notifications();
-  //     }
-  //   }, [2000]);
-  // }, [currentUser]);
 
   return (
     <div className="App">
