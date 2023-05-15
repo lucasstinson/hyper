@@ -104,7 +104,7 @@ const App = () => {
             <Route path="/login" element={<LogIn />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/messages" element={<Messages />} />
-            <Route path="/messages/chatroom" element={<ChatRoom />} />
+            <Route path="/messages/:id" element={<ChatRoom />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/profile/:id/settings" element={<Settings />} />
             <Route path="/post/:id" element={<UserPost />} />

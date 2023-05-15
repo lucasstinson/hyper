@@ -27,50 +27,6 @@ const ChatMessages = () => {
         </div>
         <div className="chatRoom-sent-date">timestamp</div>
       </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
-      <div className="chatRoom-message-data">
-        <div className="chatRoom-last-message">text</div>
-        <div className="chatRoom-sent-date">timestamp</div>
-      </div>
     </div>
   );
 };

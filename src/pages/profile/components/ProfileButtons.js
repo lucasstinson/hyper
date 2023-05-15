@@ -7,6 +7,7 @@ import {
   getFollowers,
   deletefollower,
 } from "../../../firebase/followers";
+import { findConversation } from "../../../firebase/messages";
 import { async } from "@firebase/util";
 
 const ProfileButtons = () => {
@@ -14,6 +15,7 @@ const ProfileButtons = () => {
   const profileID = window.location.href.split("/")[5];
   const [followStatus, setFollowStatus] = useState(false);
   const [followButton, setFollowButton] = useState("Follow");
+  const [conversationID, setConversationID] = useState("");
 
   const handleFollow = async (profileID) => {
     try {
@@ -57,6 +59,18 @@ const ProfileButtons = () => {
     setRerender(!rerender);
   };
 
+  const messageClick = async () => {
+    try {
+      const conversationUID = await findConversation(
+        currentUser.uid,
+        profileID
+      );
+      window.location.href = `#/messages/${conversationUID}`;
+    } catch (error) {
+      const errorMessage = error.message;
+    }
+  };
+
   useEffect(() => {
     if (currentUser) {
       handleFollow(profileID);
@@ -86,9 +100,12 @@ const ProfileButtons = () => {
     } else if (profileID != currentUser.uid) {
       return (
         <div className="profile-button-container">
-          <Link to={"/messages"}>
-            <button className="message-profile-button">Message</button>
-          </Link>
+          <button
+            className="message-profile-button"
+            onClick={() => messageClick()}
+          >
+            Message
+          </button>
           <button className="follow-button" onClick={handleClick}>
             {followButton}
           </button>

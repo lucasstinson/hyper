@@ -10,6 +10,7 @@
 .chatRoom-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 40%;
   text-align: center;
   height: 100%;
@@ -38,7 +39,8 @@
   flex-direction: column;
   padding-bottom: 10px;
   overflow-y: scroll;
-  border-bottom: 1px solid rgb(34, 38, 41);
+  height: 100%;
+  /* border-bottom: 1px solid rgb(34, 38, 41); */
 }
 
 .chatRoom-message-data {
@@ -71,7 +73,6 @@
 }
 
 .chat-text-bar {
-  position: relative;
   padding-top: 20px;
   padding-bottom: 50px;
   width: 100%;
@@ -79,6 +80,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  border-top: 1px solid rgb(34, 38, 41);
 }
 
 #message-input {
