@@ -99,6 +99,7 @@
 
 .log-out-button:hover,
 .follow-button:hover {
+  cursor: pointer;
   background-color: rgba(34, 38, 41, 0.05);
 }
 

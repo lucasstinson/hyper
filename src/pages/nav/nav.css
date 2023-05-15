@@ -1,4 +1,5 @@
 .nav {
+  z-index: 2;
   display: flex;
   justify-content: space-evenly;
   padding: 15px;
@@ -196,15 +197,6 @@ input[type="search"]::placeholder {
     padding: 5px;
     align-items: center;
     justify-content: space-around;
-  }
-
-  .directory-post-container {
-    position: fixed;
-    bottom: 8%;
-    right: 5%;
-    background-color: #86c332;
-    padding: 7px 9px 5px 9px;
-    border-radius: 25px;
   }
 
   .post-logo {

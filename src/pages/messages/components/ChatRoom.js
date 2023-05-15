@@ -13,7 +13,7 @@ const ChatRoom = () => {
     <div className="chatRoom">
       <div className="chatRoom-container">
         <div className="chatRoom-title-container">
-          <Link to={"/messages"}>
+          <Link to={"/messages"} className="back-to-messages">
             <img
               className="chatRoom-go-back-arrow"
               src={backArrowGray}
@@ -26,6 +26,14 @@ const ChatRoom = () => {
           <div className="chatRoom-go-back"></div>
         </div>
         <ChatMessages />
+        <div className="chat-text-bar">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Type your message here"
+          ></input>
+          <button className="send-message">Send</button>
+        </div>
       </div>
     </div>
   );
