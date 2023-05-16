@@ -14,19 +14,30 @@ import Post from "../../post/Post";
 import { UserContext } from "../../../UserContext";
 
 const LoggedIn = () => {
-  const { photoURL, currentUser, notificationCount } = useContext(UserContext);
+  const { photoURL, currentUser, notificationCount, messageCount } =
+    useContext(UserContext);
   const [showPost, setShowPost] = useState(false);
   const location = useLocation();
   const [url, setUrl] = useState(null);
   const userID = currentUser.uid;
 
-  const [visibility, setVisibility] = useState("hidden");
+  const [notificationVisibility, setNotificaitonVisibility] =
+    useState("hidden");
+  const [messageVisibility, setMessageVisibility] = useState("hidden");
 
   const notificationCheck = () => {
     if (notificationCount > 0) {
-      setVisibility("visible");
+      setNotificaitonVisibility("visible");
     } else {
-      setVisibility("hidden");
+      setNotificaitonVisibility("hidden");
+    }
+  };
+
+  const messageCheck = () => {
+    if (messageCount > 0) {
+      setMessageVisibility("visible");
+    } else {
+      setMessageVisibility("hidden");
     }
   };
 
@@ -37,6 +48,10 @@ const LoggedIn = () => {
   useEffect(() => {
     notificationCheck();
   }, [notificationCount]);
+
+  useEffect(() => {
+    messageCheck();
+  }, [messageCount]);
 
   return (
     <div className="directory-container">
@@ -103,7 +118,7 @@ const LoggedIn = () => {
           ></img>
           <div
             className="notification-sticker"
-            style={{ visibility: visibility }}
+            style={{ visibility: notificationVisibility }}
           >
             {notificationCount}
           </div>
@@ -122,8 +137,14 @@ const LoggedIn = () => {
             onMouseOver={(e) => (e.currentTarget.src = messagesGreen)}
             onMouseLeave={(e) => (e.currentTarget.src = messagesWhite)}
           ></img>
+          <div
+            className="messages-sticker"
+            style={{ visibility: messageVisibility }}
+          >
+            {messageCount}
+          </div>
         </Link>
-        <div className="messages-sticker"></div>
+        <div className="message-sticker"></div>
       </div>
     </div>
   );

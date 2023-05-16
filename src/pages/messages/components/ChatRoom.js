@@ -3,13 +3,19 @@ import "./chatroom.css";
 import userWhite from "../../../assets/images/user-white.png";
 import backArrowGray from "../../../assets/images/go-back-gray.png";
 import backArrowGreen from "../../../assets/images/go-back-green.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ChatMessages from "./ChatMessages";
-import { getChatData, sendMessage } from "../../../firebase/messages";
+import {
+  getChatData,
+  sendMessage,
+  updatePendingMessages,
+  pendingMessages,
+} from "../../../firebase/messages";
 import { UserContext } from "../../../UserContext";
 
 const ChatRoom = () => {
-  const { currentUser, rerender, setRerender } = useContext(UserContext);
+  const { currentUser, rerender, setRerender, messageCount, setMessageCount } =
+    useContext(UserContext);
 
   const [user, setUser] = useState({});
 
@@ -30,6 +36,18 @@ const ChatRoom = () => {
         setUser(user);
       };
       loadUserData();
+      updatePendingMessages(chatRoomID, currentUser.uid);
+      setTimeout(() => {
+        const loadMessages = async () => {
+          try {
+            const messages = await pendingMessages(currentUser.uid);
+            setMessageCount(messages);
+          } catch (error) {
+            const errorMessage = error.message;
+          }
+        };
+        loadMessages();
+      }, [3000]);
     }
   }, [currentUser]);
 

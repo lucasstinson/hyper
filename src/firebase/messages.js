@@ -122,7 +122,6 @@ const sendMessage = async (text, currentUserID, chatRoomID) => {
   };
 
   try {
-    //
     const messageRef = collection(
       db,
       "conversations/" + chatRoomID + "/messages"
@@ -158,10 +157,179 @@ const getMessages = async (chatRoomID) => {
   }
 };
 
+const getConversations = async (currentUserID) => {
+  const conversationRef = collection(db, "conversations/");
+
+  let conversations = [];
+  try {
+    const querySnapshot = await getDocs(conversationRef);
+    querySnapshot.forEach((doc) => {
+      let users = doc.data().users;
+      if (users.includes(currentUserID)) {
+        for (let i = 0; i < users.length; i++) {
+          if (users[i] != currentUserID) {
+            let conversation = {
+              id: doc.data().id,
+              user: users[i],
+            };
+            conversations.push(conversation);
+          }
+        }
+      }
+    });
+    for (let i = 0; i < conversations.length; i++) {
+      const userData = await getProfileData(conversations[i].user);
+      const lastMessage = await getLastMessage(
+        conversations[i].id,
+        currentUserID
+      );
+      conversations[i].username = userData.username;
+      conversations[i].photoURL = userData.photoURL;
+      conversations[i].name = userData.name;
+      conversations[i].lastMessage =
+        lastMessage.lastMessage.slice(0, 29) + "...";
+      conversations[i].lastMessageDate = lastMessage.lastMessageDate;
+      conversations[i].Read = lastMessage.Read;
+    }
+    conversations.sort((a, b) => {
+      let aTime = a.lastMessageDate;
+      let bTime = b.lastMessageDate;
+      if (aTime < bTime) return 1;
+      if (aTime > bTime) return -1;
+      return 0;
+    });
+    return conversations;
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const getLastMessage = async (chatRoomID, currentUserID) => {
+  const messagesRef = collection(
+    db,
+    "conversations/" + chatRoomID + "/messages"
+  );
+
+  let messages = [];
+  try {
+    const querySnapshot = await getDocs(messagesRef);
+    querySnapshot.forEach((doc) => {
+      messages.push(doc.data());
+    });
+    if (messages.length > 0) {
+      messages.sort((a, b) => {
+        let aTime = a.createTimeExtended;
+        let bTime = b.createTimeExtended;
+        if (aTime < bTime) return -1;
+        if (aTime > bTime) return 1;
+        return 0;
+      });
+      if (messages[messages.length - 1].uniqueID == currentUserID) {
+        let message = {
+          uniqueID: messages[messages.length - 1].uniqueID,
+          Read: true,
+          lastMessage: messages[messages.length - 1].text,
+          lastMessageDate: messages[messages.length - 1].createDate,
+        };
+        return message;
+      } else {
+        let message = {
+          uniqueID: messages[messages.length - 1].uniqueID,
+          Read: messages[messages.length - 1].Read,
+          lastMessage: messages[messages.length - 1].text,
+          lastMessageDate: messages[messages.length - 1].createDate,
+        };
+        return message;
+      }
+    } else {
+      let message = {
+        lastMessage: "Conversations haven't started",
+        lastMessageDate: "",
+        Read: true,
+      };
+      return message;
+    }
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const pendingMessages = async (currentUserID) => {
+  const conversationRef = collection(db, "conversations/");
+  let conversationIDs = [];
+  let lastMessages = [];
+  let count = 0;
+  try {
+    const querySnapshot = await getDocs(conversationRef);
+    querySnapshot.forEach((doc) => {
+      let users = doc.data().users;
+      if (users.includes(currentUserID)) {
+        conversationIDs.push(doc.data().id);
+      }
+    });
+    for (let i = 0; i < conversationIDs.length; i++) {
+      const lastMessage = await getLastMessage(conversationIDs[i]);
+      if (lastMessage.uniqueID == currentUserID) {
+        lastMessages.push(true);
+      } else {
+        lastMessages.push(lastMessage.Read);
+      }
+    }
+    for (let i = 0; i < lastMessages.length; i++) {
+      if (!lastMessages[i]) {
+        count++;
+      }
+    }
+    return count;
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const updatePendingMessages = async (chatRoomID, currentUserID) => {
+  const messagesRef = collection(
+    db,
+    "conversations/" + chatRoomID + "/messages"
+  );
+
+  const messageIDs = [];
+  try {
+    const querySnapshot = await getDocs(messagesRef);
+    querySnapshot.forEach((doc) => {
+      if (doc.data().uniqueID != currentUserID && doc.data().Read == false) {
+        messageIDs.push(doc.id);
+      }
+    });
+    for (let i = 0; i < messageIDs.length; i++) {
+      const updateMessages = await updateReadMessages(
+        chatRoomID,
+        messageIDs[i]
+      );
+    }
+    // return messages;
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
+const updateReadMessages = async (chatRoomID, id) => {
+  const messageRef = doc(db, "conversations/" + chatRoomID + "/messages", id);
+  try {
+    const updateRead = await updateDoc(messageRef, {
+      Read: true,
+    });
+  } catch (error) {
+    const errorMessage = error.message;
+  }
+};
+
 export {
   createConversation,
   findConversation,
   getChatData,
   sendMessage,
   getMessages,
+  getConversations,
+  pendingMessages,
+  updatePendingMessages,
 };

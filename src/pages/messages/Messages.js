@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./messages.css";
 import userWhite from "../../assets/images/user-white.png";
+import { UserContext } from "../../UserContext";
+import { getConversations } from "../../firebase/messages";
+import Conversations from "./components/Conversations";
 
 const Messages = () => {
+  const { currentUser } = useContext(UserContext);
+
+  const [conversations, setConversations] = useState([]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     const getConversations(currentUser.uid);
+  //   }
+  // }, [currentUser]);
+
   return (
     <div className="Messages">
       <div className="messages-container">
         <div className="messages-title-container">
           <div className="messages-title">Messages</div>
         </div>
-        <div className="messages-list-container">
-          <div className="message-container">
+        {/* <div className="messages-list-container"> */}
+        <Conversations />
+        {/* <div className="message-container">
             <div className="message-user-container">
               <img
                 src={userWhite}
@@ -30,8 +43,8 @@ const Messages = () => {
                 first 30 characters of messsage...
               </div>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
     </div>
   );

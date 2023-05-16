@@ -130,9 +130,22 @@ input[type="search"]::placeholder {
   position: absolute;
   padding: 2px 6px;
   background-color: #86c232;
-  /* border: 1px solid white; */
   border-radius: 50%;
   margin-top: -40px;
+}
+
+.messages-sticker {
+  text-decoration: none;
+  visibility: hidden;
+  color: #222629;
+  font-weight: 700;
+  font-size: 14px;
+  position: absolute;
+  padding: 2px 6px;
+  background-color: #86c232;
+  border-radius: 50%;
+  margin-top: -37px;
+  margin-left: -5px;
 }
 
 @media (max-width: 600px) {

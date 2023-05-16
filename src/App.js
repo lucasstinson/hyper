@@ -15,6 +15,7 @@ import { UserContext } from "./UserContext";
 import { getProfileData } from "./firebase/users";
 import { getAllPosts } from "./firebase/posts";
 import { getNotifications } from "./firebase/notifications";
+import { pendingMessages } from "./firebase/messages";
 import userWhite from "./assets/images/user-white.png";
 import "./app.css";
 import ChatRoom from "./pages/messages/components/ChatRoom";
@@ -33,6 +34,8 @@ const App = () => {
   const [rerender, setRerender] = useState(false);
 
   const [notificationCount, setNotificationCount] = useState("");
+
+  const [messageCount, setMessageCount] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -54,6 +57,15 @@ const App = () => {
           }
         };
         loadNotifications();
+        const loadMessages = async () => {
+          try {
+            const messages = await pendingMessages(currentUser.uid);
+            setMessageCount(messages);
+          } catch (error) {
+            const errorMessage = error.message;
+          }
+        };
+        loadMessages();
       }
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
@@ -76,6 +88,8 @@ const App = () => {
             setRerender,
             notificationCount,
             setNotificationCount,
+            messageCount,
+            setMessageCount,
           }}
         >
           <Nav />

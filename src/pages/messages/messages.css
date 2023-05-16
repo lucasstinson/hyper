@@ -39,14 +39,27 @@
 }
 
 .message-container:hover {
-  background-color: rgba(107, 110, 112, 0.1);
+  background-color: rgba(107, 110, 112, 0.2);
+}
+
+.message-container-unread {
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  border: 1px solid #222629;
+  background-color: rgba(107, 110, 112, 0.2);
+}
+
+.message-container-unread:hover {
+  background-color: rgba(107, 110, 112, 0.3);
 }
 
 .message-user {
   background-color: #222629;
   border: 2px solid #222629;
-  border-radius: 25px;
+  border-radius: 50px;
   height: 40px;
+  width: 40px;
 }
 
 .message-user-container {
@@ -70,6 +83,16 @@
 
 .messages-username {
   font-weight: 700;
+}
+
+.message-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
 }
 
 @media (max-width: 600px) {
