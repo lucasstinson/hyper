@@ -46,15 +46,26 @@ const ProfileInfo = () => {
   }, [rerender]);
 
   useEffect(() => {
-    let loadCurrentUser = async () => {
-      try {
-        if (currentUser) {
-          let currentUserID = await currentUser.uid;
-          if (userID == currentUserID) {
-            setUserPhotoURL(photoURL);
-            setUserBio(bio);
-            setUserName(name);
-            setUserUserName(username);
+    setTimeout(() => {
+      let loadCurrentUser = async () => {
+        try {
+          if (currentUser) {
+            let currentUserID = await currentUser.uid;
+            if (userID == currentUserID) {
+              setUserPhotoURL(photoURL);
+              setUserBio(bio);
+              setUserName(name);
+              setUserUserName(username);
+            } else {
+              const loadProfileData = async () => {
+                const profileData = await getProfileData(userID);
+                setUserPhotoURL(profileData.photoURL);
+                setUserBio(profileData.bio);
+                setUserName(profileData.name);
+                setUserUserName(profileData.username);
+              };
+              loadProfileData();
+            }
           } else {
             const loadProfileData = async () => {
               const profileData = await getProfileData(userID);
@@ -65,21 +76,12 @@ const ProfileInfo = () => {
             };
             loadProfileData();
           }
-        } else {
-          const loadProfileData = async () => {
-            const profileData = await getProfileData(userID);
-            setUserPhotoURL(profileData.photoURL);
-            setUserBio(profileData.bio);
-            setUserName(profileData.name);
-            setUserUserName(profileData.username);
-          };
-          loadProfileData();
+        } catch (error) {
+          const errorMessage = error.message;
         }
-      } catch (error) {
-        const errorMessage = error.message;
-      }
-    };
-    loadCurrentUser();
+      };
+      loadCurrentUser();
+    }, [[1000]]);
   }, [currentUser, userID]);
 
   return (

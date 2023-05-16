@@ -67,7 +67,7 @@ const App = () => {
         };
         loadMessages();
       }
-    }, [1000]);
+    }, [1500]);
   }, [currentUser, bio, name, photoURL]);
 
   return (
