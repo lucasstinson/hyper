@@ -70,7 +70,48 @@ const App = () => {
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
 
-  return (
+  if (currentUser) {
+    return (
+      <div className="App">
+        <HashRouter>
+          <UserContext.Provider
+            value={{
+              currentUser,
+              name,
+              setName,
+              bio,
+              setBio,
+              photoURL,
+              setPhotoURL,
+              username,
+              setUserName,
+              rerender,
+              setRerender,
+              notificationCount,
+              setNotificationCount,
+              messageCount,
+              setMessageCount,
+            }}
+          >
+            <Nav />
+            <Routes>
+              <Route path="/" element={<Feed />} />
+              {/* <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<LogIn />} /> */}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/messages/:id" element={<ChatRoom />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/profile/:id/settings" element={<Settings />} />
+              <Route path="/post/:id" element={<UserPost />} />
+              <Route path="/profile/:id" element={<Profile />} />
+            </Routes>
+            <Footer />
+          </UserContext.Provider>
+        </HashRouter>
+      </div>
+    );
+  } else {
     <div className="App">
       <HashRouter>
         <UserContext.Provider
@@ -98,18 +139,14 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/messages/:id" element={<ChatRoom />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/profile/:id/settings" element={<Settings />} />
             <Route path="/post/:id" element={<UserPost />} />
             <Route path="/profile/:id" element={<Profile />} />
           </Routes>
           <Footer />
         </UserContext.Provider>
       </HashRouter>
-    </div>
-  );
+    </div>;
+  }
 };
 
 export default App;
