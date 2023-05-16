@@ -14,7 +14,6 @@ const NotificationsList = () => {
   const { currentUser, setNotificationCount } = useContext(UserContext);
 
   const [notifications, setNotifications] = useState([]);
-  setNotificationCount(0);
 
   const generateNotifications = async () => {
     try {
@@ -43,6 +42,7 @@ const NotificationsList = () => {
     generateNotifications();
     if (currentUser) {
       updateRead(currentUser.uid);
+      setNotificationCount(0);
     }
   }, [notifications]);
 

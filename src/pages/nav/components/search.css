@@ -1,0 +1,144 @@
+.Search {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(34, 38, 41, 0.3);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.search-container {
+  position: fixed;
+  top: 10%;
+  background-color: white;
+  border: 1px solid #222629;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-content: center;
+  border-radius: 15px;
+  width: 25%;
+  height: 80%;
+  overflow: scroll;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 18px;
+  /* padding: 20px; */
+}
+
+.search-exit {
+  text-decoration: none;
+  color: #222629;
+  font-weight: 700;
+  border-radius: 50%;
+  padding: 4px 9px 5px 10px;
+}
+
+.search-exit:hover {
+  background-color: rgba(107, 110, 112, 0.3);
+}
+
+.search-title-container {
+  /* border: 1px solid red; */
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  /* padding: 0px 20px; */
+  gap: 20px;
+}
+
+.user-info-container {
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* justify-content: center; */
+}
+
+.user-info-container:hover {
+  background-color: rgb(34, 38, 41, 0.2);
+}
+
+.user {
+  font-weight: 700;
+}
+
+.user-photo {
+  border: 2px solid #222629;
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+}
+
+.user-container {
+  overflow-y: scroll;
+}
+
+@media (max-width: 600px) {
+  .Search {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(34, 38, 41, 0.3);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .search-container {
+    position: fixed;
+    top: 5%;
+    background-color: white;
+    border: 1px solid #222629;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-content: center;
+    border-radius: 15px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1080px) {
+  .Search {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(34, 38, 41, 0.3);
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+  }
+
+  .search-container {
+    position: fixed;
+    top: 12%;
+    background-color: white;
+    border: 1px solid #222629;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    border-radius: 15px;
+    width: 100%;
+    overflow-y: scroll;
+  }
+}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import { useAuth } from "../../firebase/firebase";
 import { UserContext } from "../../UserContext";
+import SearchBar from "./components/SearchBar";
 
 const Nav = () => {
   const { currentUser } = useContext(UserContext);
@@ -18,14 +19,7 @@ const Nav = () => {
           <div className="logo-title">Hyper</div>
         </Link>
       </div>
-      <div className="search-bar-container">
-        <input
-          type="search"
-          id="search-bar"
-          name="search-bar"
-          placeholder="@ Username"
-        ></input>
-      </div>
+      <SearchBar />
       {!currentUser && (
         <div className="access-buttons-container">
           <Link to={"/signup"}>

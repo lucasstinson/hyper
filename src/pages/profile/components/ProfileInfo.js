@@ -46,17 +46,15 @@ const ProfileInfo = () => {
   }, [rerender]);
 
   useEffect(() => {
-    setTimeout(() => {
-      let loadCurrentUser = async () => {
-        try {
-          if (currentUser) {
-            let currentUserID = await currentUser.uid;
-            if (userID == currentUserID) {
-              setUserPhotoURL(photoURL);
-              setUserBio(bio);
-              setUserName(name);
-              setUserUserName(username);
-            }
+    let loadCurrentUser = async () => {
+      try {
+        if (currentUser) {
+          let currentUserID = await currentUser.uid;
+          if (userID == currentUserID) {
+            setUserPhotoURL(photoURL);
+            setUserBio(bio);
+            setUserName(name);
+            setUserUserName(username);
           } else {
             const loadProfileData = async () => {
               const profileData = await getProfileData(userID);
@@ -67,13 +65,13 @@ const ProfileInfo = () => {
             };
             loadProfileData();
           }
-        } catch (error) {
-          const errorMessage = error.message;
         }
-      };
-      loadCurrentUser();
-    });
-  });
+      } catch (error) {
+        const errorMessage = error.message;
+      }
+    };
+    loadCurrentUser();
+  }, [currentUser, userID]);
 
   return (
     <div className="profile-container">
