@@ -19,6 +19,8 @@ const ChatRoom = () => {
 
   const [user, setUser] = useState({});
 
+  const [disabled, setDisabled] = useState(true);
+
   const chatRoomID = window.location.href.split("/")[5];
 
   const handleSend = async (e) => {
@@ -27,6 +29,14 @@ const ChatRoom = () => {
     sendMessage(text, currentUser.uid, chatRoomID);
     textbar.value = "";
     setRerender(!rerender);
+  };
+
+  const validInputs = (e) => {
+    if (e.target.value) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
   };
 
   useEffect(() => {
@@ -77,12 +87,13 @@ const ChatRoom = () => {
             type="text"
             id="message-input"
             placeholder="Type your message here"
+            onChange={(e) => validInputs(e)}
           ></input>
           <button
             className="send-message"
+            disabled={disabled}
             onClick={(e) => {
               handleSend(e);
-              // sendMessage(e.target.previousSibling.value, currentUser.uid, chatRoomID);
             }}
           >
             Send
