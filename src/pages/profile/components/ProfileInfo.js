@@ -65,6 +65,15 @@ const ProfileInfo = () => {
             };
             loadProfileData();
           }
+        } else {
+          const loadProfileData = async () => {
+            const profileData = await getProfileData(userID);
+            setUserPhotoURL(profileData.photoURL);
+            setUserBio(profileData.bio);
+            setUserName(profileData.name);
+            setUserUserName(profileData.username);
+          };
+          loadProfileData();
         }
       } catch (error) {
         const errorMessage = error.message;
