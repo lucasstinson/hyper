@@ -1,7 +1,4 @@
 import React, { useContext, useState } from "react";
-import userWhite from "../../../assets/images/user-white.png";
-import like from "../../../assets/images/heart-green.png";
-import profileGreen from "../../../assets/images/profile-green.png";
 import {
   getNotifications,
   getUserNotifications,
@@ -41,27 +38,25 @@ const NotificationsList = () => {
   useState(() => {
     generateNotifications();
     if (currentUser) {
-      setNotificationCount(0);
+      updateRead(currentUser.uid);
       setTimeout(() => {
-        updateRead(currentUser.uid);
-      }, [3000]);
+        setNotificationCount(0);
+      }, [500]);
     }
   }, [notifications]);
 
   useState(() => {
-    if (currentUser) {
+    setTimeout(() => {
       const loadNotifications = async () => {
         try {
-          const { notifications, count } = await getNotifications(
-            currentUser.uid
-          );
-          setNotificationCount(count);
+          const notifications = await getNotifications(currentUser.uid);
+          setNotificationCount(notifications.count);
         } catch (error) {
           const errorMessage = error.message;
         }
       };
       loadNotifications();
-    }
+    }, [5000]);
   }, []);
 
   return <div className="notifications-list-container">{notifications}</div>;

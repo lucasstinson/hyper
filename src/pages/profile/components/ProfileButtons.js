@@ -11,7 +11,7 @@ import { findConversation } from "../../../firebase/messages";
 import { async } from "@firebase/util";
 
 const ProfileButtons = () => {
-  const { currentUser, rerender, setRerender } = useContext(UserContext);
+  const { currentUser, rerender, setRerender, set } = useContext(UserContext);
   const profileIDArray = window.location.href.split("/");
   const profileID = profileIDArray[profileIDArray.length - 1];
   const [followStatus, setFollowStatus] = useState(false);
