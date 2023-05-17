@@ -13,7 +13,7 @@ A **live preview** of the project is [here](https://lucasstinson.github.io/hyper
 #### **Landing Page**
 
 <p align="left"> 
-<img src="./src/assets/images/landingPage.png" alt="html5" width="200" height="300"/> 
+<img src="./src/assets/images/landingPage.png" alt="html5" width="300" height="400"/> 
 </p>
 
 #### **Color Palette**
