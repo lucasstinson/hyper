@@ -30,7 +30,7 @@ const ChatMessages = () => {
   useEffect(() => {
     setTimeout(() => {
       generateMessages();
-    }, [1000]);
+    }, [1500]);
   }, [rerender]);
 
   return <div className="chatRoom-message-container">{messages}</div>;

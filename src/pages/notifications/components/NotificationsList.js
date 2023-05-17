@@ -41,8 +41,10 @@ const NotificationsList = () => {
   useState(() => {
     generateNotifications();
     if (currentUser) {
-      updateRead(currentUser.uid);
       setNotificationCount(0);
+      setTimeout(() => {
+        updateRead(currentUser.uid);
+      }, [3000]);
     }
   }, [notifications]);
 

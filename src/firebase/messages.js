@@ -11,12 +11,6 @@ import {
 
 import { getProfileData } from "./users";
 
-// Add a new document with a generated id
-// const docRef = await addDoc(collection(db, "cities"), {
-//   name: "Tokyo",
-//   country: "Japan"
-// });
-
 const createConversation = async (currentUserID, OtherUserID) => {
   const users = [currentUserID, OtherUserID];
   try {
@@ -28,10 +22,6 @@ const createConversation = async (currentUserID, OtherUserID) => {
       id: conversationID,
     });
     return conversationID;
-    // const conversationRef = await addDoc(
-    //   collection(db, "conversations/" + conversationID + "/messages"),
-    //   {}
-    // ); may want to add only when messages sent.
   } catch (error) {
     const errorMessage = error.message;
   }
@@ -85,8 +75,15 @@ const sendMessage = async (text, currentUserID, chatRoomID) => {
   let month = timestampDate.getMonth();
   let day = timestampDate.getDate();
   let year = timestampDate.getFullYear();
+
   let hour = timestampDate.getUTCHours();
+  if (hour < 10) {
+    hour = "0" + hour;
+  }
   let minutes = timestampDate.getUTCMinutes();
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
 
   let months = [
     "Jan",

@@ -12,7 +12,6 @@ const Conversations = (props) => {
   const generateConversations = async () => {
     try {
       const conversations = await getConversations(currentUser.uid);
-      console.log(conversations);
       const allConversations = conversations.map((conversation) => (
         <ConversationContainer
           conversation={conversation}
