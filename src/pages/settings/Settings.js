@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import "./settings.css";
 import { upload } from "../../firebase/firebase";
 import camera from "../../assets/images/camera.png";
-import userWhite from "../../assets/images/user-white.png";
 import { updateSettings } from "../../firebase/firebase";
 import { UserContext } from "../../UserContext";
 
@@ -39,7 +38,9 @@ const Settings = () => {
 
   // due to async, photoURL isnt loaded immediately and needs to be set
   useEffect(() => {
-    setTempPhoto(photoURL);
+    setTimeout(() => {
+      setTempPhoto(photoURL);
+    }, [1000]);
   }, [photoURL]);
 
   // set character count on initial render
