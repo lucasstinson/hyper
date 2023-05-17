@@ -3,11 +3,12 @@ import { getMessages, sendMessage } from "../../../firebase/messages";
 import MessageFormat from "./MessageFormat";
 import { UserContext } from "../../../UserContext";
 const ChatMessages = () => {
-  const { currentUser, rerender } = useContext(UserContext);
+  const { rerender } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
 
   const chatRoomIDArray = window.location.href.split("/");
   const chatRoomID = chatRoomIDArray[chatRoomIDArray.length - 1];
+
   const generateMessages = async () => {
     try {
       const messages = await getMessages(chatRoomID);
@@ -19,6 +20,12 @@ const ChatMessages = () => {
       const errorMessage = error.message;
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      generateMessages();
+    }, [1000]);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

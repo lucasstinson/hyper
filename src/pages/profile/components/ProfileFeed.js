@@ -33,7 +33,9 @@ const ProfileFeed = () => {
   };
 
   useEffect(() => {
-    generateUserPosts();
+    setTimeout(() => {
+      generateUserPosts();
+    }, [1000]);
   }, []);
 
   useEffect(() => {
