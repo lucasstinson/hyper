@@ -81,6 +81,7 @@ A **live preview** of the project is [here](https://lucasstinson.github.io/hyper
     - Example - Getting the user's profile data for a post, comment, conversation, notification should be the same action, but it is slightly different in each case. The get can be refactored.
   - There are some firebase functions/calls that can be more appropiately placed.
   - ~~There are some stylings that have mixed support.~~ This has been updated.
+- Documentation is needed throughout the project
 
 ### Assignment
 
