@@ -6,7 +6,8 @@ const ChatMessages = () => {
   const { currentUser, rerender } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
 
-  const chatRoomID = window.location.href.split("/")[5];
+  const chatRoomIDArray = window.location.href.split("/");
+  const chatRoomID = chatRoomIDArray[chatRoomIDArray.length - 1];
   const generateMessages = async () => {
     try {
       const messages = await getMessages(chatRoomID);

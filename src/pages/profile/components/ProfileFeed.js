@@ -7,7 +7,6 @@ import FeedPosts from "../../post/components/FeedPosts";
 const ProfileFeed = () => {
   const { rerender } = useContext(UserContext);
 
-  const location = useLocation();
   const userIDArray = window.location.href.split("/");
   const userID = userIDArray[userIDArray.length - 1];
 
@@ -35,7 +34,11 @@ const ProfileFeed = () => {
 
   useEffect(() => {
     generateUserPosts();
-  }, [userID, rerender]);
+  }, []);
+
+  useEffect(() => {
+    generateUserPosts();
+  }, [rerender]);
 
   return <div className="feed-list-container">{userPosts}</div>;
 };
