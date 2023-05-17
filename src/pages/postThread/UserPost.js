@@ -17,7 +17,7 @@ const UserPost = (props) => {
   const postIDArray = window.location.href.split("/");
   const postID = postIDArray[postIDArray.length - 1];
 
-  const userID = location.state.uid;
+  // const userID = location.state.uid;
 
   const [userPost, setUserPost] = useState([]);
   const generatePostThread = async () => {
