@@ -22,7 +22,7 @@ const UserPost = (props) => {
   const [userPost, setUserPost] = useState([]);
   const generatePostThread = async () => {
     try {
-      const postData = await postThread(userID, postID);
+      const postData = await postThread(postID);
       let thread = postData.map((post) => (
         <div
           to={`/post/${post.post.id}`}
@@ -32,7 +32,7 @@ const UserPost = (props) => {
           data-user-id={post.uniqueID}
         >
           <FeedPosts post={post} userID={post.uniqueID} />
-          <Comments post={post} userID={userID} postID={postID} />
+          <Comments post={post} userID={post.uniqueID} postID={postID} />
           <AddComment post={post} />
         </div>
       ));

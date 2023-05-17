@@ -6,6 +6,9 @@ import {
   addDoc,
   getDocs,
   getDoc,
+  query,
+  where,
+  collectionGroup,
 } from "firebase/firestore";
 import { connectAuthEmulator } from "firebase/auth";
 import { async } from "@firebase/util";
@@ -156,20 +159,63 @@ const getPosts = async (uniqueID, name, username, photoURL, userID) => {
   return posts;
 };
 
-const postThread = async (userID, postID) => {
+// const postThread = async (userID, postID) => {
+//   let postArray = [];
+//   const userRef = doc(db, "users/", userID);
+//   const postRef = doc(db, "users/" + userID + "/posts/", postID);
+//   try {
+//     const userSnap = await getDoc(userRef);
+//     let username = userSnap.data().username;
+//     let name = userSnap.data().name;
+//     let photoURL = userSnap.data().photoURL;
+//     let uniqueID = userID;
+
+//     const postSnap = await getDoc(postRef);
+//     let post = postSnap.data();
+
+//     const postData = {
+//       uniqueID: uniqueID,
+//       username: username,
+//       name: name,
+//       photoURL: photoURL,
+//       post: post,
+//     };
+//     postArray.push(postData);
+//   } catch (error) {
+//     const errorMessage = error.message;
+//   }
+//   // console.log(postArray);
+//   return postArray;
+// };
+
+const postThread = async (postID) => {
   let postArray = [];
-  const userRef = doc(db, "users/", userID);
-  const postRef = doc(db, "users/" + userID + "/posts/", postID);
+  let userIDs = [];
+  const userRef = collection(db, "users");
+
+  let userID = "";
   try {
-    const userSnap = await getDoc(userRef);
+    const querySnapshot = await getDocs(userRef);
+
+    querySnapshot.forEach((doc) => {
+      let user = doc.data().uniqueID;
+      userIDs.push(user);
+    });
+    for (let i = 0; i < userIDs.length; i++) {
+      let docRef = doc(db, "users/" + userIDs[i] + "/posts/", postID);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        userID = userIDs[i];
+      }
+    }
+
+    const userSnap = await getDoc(doc(db, "users/", userID));
     let username = userSnap.data().username;
     let name = userSnap.data().name;
     let photoURL = userSnap.data().photoURL;
     let uniqueID = userID;
 
-    const postSnap = await getDoc(postRef);
-    let post = postSnap.data();
-
+    let post = await postSnap(userID, postID);
     const postData = {
       uniqueID: uniqueID,
       username: username,
@@ -182,6 +228,17 @@ const postThread = async (userID, postID) => {
     const errorMessage = error.message;
   }
   return postArray;
+};
+
+const postSnap = async (userID, postID) => {
+  const postRef = doc(db, "users/" + userID + "/posts/", postID);
+  try {
+    const postSnapshot = await getDoc(postRef);
+    let post = postSnapshot.data();
+    return post;
+  } catch (error) {
+    const errorMessage = error.message;
+  }
 };
 
 export { addPost, getAllPosts, getAllCurrentUserPosts, postThread };
