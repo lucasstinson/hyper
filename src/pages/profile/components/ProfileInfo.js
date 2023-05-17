@@ -81,7 +81,7 @@ const ProfileInfo = () => {
         }
       };
       loadCurrentUser();
-    }, [[1000]]);
+    });
   }, [currentUser, userID]);
 
   return (

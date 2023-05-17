@@ -1,18 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserContext";
-import userWhite from "../../assets/images/user-white.png";
+
 import "./feed.css";
-import repostGray from "../../assets/images/repost-gray.png";
-import repostGreen from "../../assets/images/repost-green.png";
-import heartGray from "../../assets/images/heart-gray.png";
-import heartGreen from "../../assets/images/heart-green.png";
-import shareGray from "../../assets/images/share-gray.png";
-import shareGeen from "../../assets/images/share-gray.png";
 import { getAllPosts } from "../../firebase/posts";
-import { Link } from "react-router-dom";
 import FeedPosts from "../post/components/FeedPosts";
 
 const Feed = () => {
+  const { rerender } = useContext(UserContext);
   const [userPosts, setUserPosts] = useState([]);
 
   const generateAllPosts = async () => {
@@ -44,12 +38,12 @@ const Feed = () => {
   useEffect(() => {
     setTimeout(() => {
       generateAllPosts();
-    }, [10000]);
-  });
+    }, [1000]);
+  }, [rerender]);
   useEffect(() => {
     setTimeout(() => {
       generateAllPosts();
-    }, [500]);
+    }, [2000]);
   }, []);
 
   return (

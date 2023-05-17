@@ -37,22 +37,6 @@ const Conversations = (props) => {
   }, [currentUser]);
 
   return <div className="messages-list-container">{conversations}</div>;
-  // <div className="message-container">
-  //   <div className="message-user-container">
-  //     <img src={userWhite} className="message-user" alt="user pic"></img>
-  //   </div>
-  //   <div className="message-info-container">
-  //     <div className="messager-info">
-  //       <div className="messager-name">
-  //         user's name <span className="messages-username">@user_name</span>
-  //       </div>
-  //       <div className="message-last-date">Aug 12 2022</div>
-  //     </div>
-  //     <div className="message-last-message">
-  //       first 30 characters of messsage...
-  //     </div>
-  //   </div>
-  // </div>
 };
 
 export default Conversations;

@@ -6,7 +6,6 @@ const ChatMessages = () => {
   const { currentUser, rerender } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
 
-  // ('#yourDiv').scrollTop($('#yourDiv')[0].scrollHeight);
   const chatRoomID = window.location.href.split("/")[5];
   const generateMessages = async () => {
     try {
