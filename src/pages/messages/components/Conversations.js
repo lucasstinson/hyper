@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import ConversationContainer from "./ConversationContainer";
 
 const Conversations = (props) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = props;
 
   const [conversations, setConversations] = useState([]);
 
   const generateConversations = async () => {
     try {
       const conversations = await getConversations(currentUser.uid);
+      console.log(conversations);
       const allConversations = conversations.map((conversation) => (
         <ConversationContainer
           conversation={conversation}
@@ -31,9 +32,7 @@ const Conversations = (props) => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (currentUser) {
-      generateConversations();
-    }
+    generateConversations();
   }, [currentUser]);
 
   return <div className="messages-list-container">{conversations}</div>;

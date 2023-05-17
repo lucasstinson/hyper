@@ -14,7 +14,7 @@ const Messages = () => {
         <div className="messages-title-container">
           <div className="messages-title">Messages</div>
         </div>
-        <Conversations />
+        <Conversations currentUser={currentUser} />
       </div>
     </div>
   );

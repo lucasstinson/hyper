@@ -8,7 +8,9 @@ const ProfileFeed = () => {
   const { rerender } = useContext(UserContext);
 
   const location = useLocation();
-  const userID = window.location.href.split("/")[5];
+  const userIDArray = window.location.href.split("/");
+  const userID = userIDArray[userIDArray.length - 1];
+
   let [userPosts, setUserPosts] = useState([]);
 
   const generateUserPosts = async () => {
