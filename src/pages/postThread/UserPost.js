@@ -14,11 +14,8 @@ const UserPost = (props) => {
   const { rerender, currentUser } = useContext(UserContext);
   const location = useLocation();
 
-  // local routing
-  // const postID = window.location.href.split("/")[5];
-
-  // github/hasrouter routing
-  const postID = window.location.href.split("/")[6];
+  const postIDArray = window.location.href.split("/");
+  const postID = postIDArray[postIDArray.length - 1];
 
   const userID = location.state.uid;
 

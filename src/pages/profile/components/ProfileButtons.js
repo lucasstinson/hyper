@@ -12,7 +12,8 @@ import { async } from "@firebase/util";
 
 const ProfileButtons = () => {
   const { currentUser, rerender, setRerender } = useContext(UserContext);
-  const profileID = window.location.href.split("/")[5];
+  const profileIDArray = window.location.href.split("/");
+  const profileID = profileIDArray[profileIDArray.length - 1];
   const [followStatus, setFollowStatus] = useState(false);
   const [followButton, setFollowButton] = useState("Follow");
   const [conversationID, setConversationID] = useState("");

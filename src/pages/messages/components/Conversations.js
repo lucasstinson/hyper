@@ -9,12 +9,6 @@ const Conversations = (props) => {
 
   const [conversations, setConversations] = useState([]);
 
-  useEffect(() => {
-    if (currentUser) {
-      pendingMessages(currentUser.uid);
-    }
-  }, [currentUser]);
-
   const generateConversations = async () => {
     try {
       const conversations = await getConversations(currentUser.uid);
@@ -29,6 +23,12 @@ const Conversations = (props) => {
       const errorMessage = error.message;
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      pendingMessages(currentUser.uid);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (currentUser) {
