@@ -13,7 +13,6 @@ import Settings from "./pages/settings/Settings";
 import UserPost from "./pages/postThread/UserPost";
 import { UserContext } from "./UserContext";
 import { getProfileData } from "./firebase/users";
-import { getAllPosts } from "./firebase/posts";
 import { getNotifications } from "./firebase/notifications";
 import { pendingMessages } from "./firebase/messages";
 import userWhite from "./assets/images/user-white.png";
@@ -52,64 +51,137 @@ const App = () => {
           try {
             const notifications = await getNotifications(currentUser.uid);
             setNotificationCount(notifications.count);
-          } catch (error) {
-            const errorMessage = error.message;
-          }
+          } catch (error) {}
         };
         loadNotifications();
         const loadMessages = async () => {
           try {
             const messages = await pendingMessages(currentUser.uid);
             setMessageCount(messages);
-          } catch (error) {
-            const errorMessage = error.message;
-          }
+          } catch (error) {}
         };
         loadMessages();
       }
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
 
-  return (
-    <div className="App">
-      <HashRouter>
-        <UserContext.Provider
-          value={{
-            currentUser,
-            name,
-            setName,
-            bio,
-            setBio,
-            photoURL,
-            setPhotoURL,
-            username,
-            setUserName,
-            rerender,
-            setRerender,
-            notificationCount,
-            setNotificationCount,
-            messageCount,
-            setMessageCount,
-          }}
-        >
-          <Nav />
-          <Routes>
-            <Route path="/" element={<Feed />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/messages" element={<Messages />} />
-            <Route path="/messages/:id" element={<ChatRoom />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/profile/:id/settings" element={<Settings />} />
-            <Route path="/post/:id" element={<UserPost />} />
-            <Route path="/profile/:id" element={<Profile />} />
-          </Routes>
-          <Footer />
-        </UserContext.Provider>
-      </HashRouter>
-    </div>
-  );
+  if (currentUser) {
+    return (
+      <div className="App">
+        <HashRouter>
+          <UserContext.Provider
+            value={{
+              currentUser,
+              name,
+              setName,
+              bio,
+              setBio,
+              photoURL,
+              setPhotoURL,
+              username,
+              setUserName,
+              rerender,
+              setRerender,
+              notificationCount,
+              setNotificationCount,
+              messageCount,
+              setMessageCount,
+            }}
+          >
+            <Nav />
+            <Routes>
+              <Route path="/" element={<Feed />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/messages/:id" element={<ChatRoom />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/profile/:id/settings" element={<Settings />} />
+              <Route path="/post/:id" element={<UserPost />} />
+              <Route path="/profile/:id" element={<Profile />} />
+            </Routes>
+            <Footer />
+          </UserContext.Provider>
+        </HashRouter>
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <HashRouter>
+          <UserContext.Provider
+            value={{
+              currentUser,
+              name,
+              setName,
+              bio,
+              setBio,
+              photoURL,
+              setPhotoURL,
+              username,
+              setUserName,
+              rerender,
+              setRerender,
+              notificationCount,
+              setNotificationCount,
+              messageCount,
+              setMessageCount,
+            }}
+          >
+            <Nav />
+            <Routes>
+              <Route path="/" element={<Feed />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/post/:id" element={<UserPost />} />
+              <Route path="/profile/:id" element={<Profile />} />
+            </Routes>
+            <Footer />
+          </UserContext.Provider>
+        </HashRouter>
+      </div>
+    );
+  }
+  // return (
+  //   <div className="App">
+  //     <HashRouter>
+  //       <UserContext.Provider
+  //         value={{
+  //           currentUser,
+  //           name,
+  //           setName,
+  //           bio,
+  //           setBio,
+  //           photoURL,
+  //           setPhotoURL,
+  //           username,
+  //           setUserName,
+  //           rerender,
+  //           setRerender,
+  //           notificationCount,
+  //           setNotificationCount,
+  //           messageCount,
+  //           setMessageCount,
+  //         }}
+  //       >
+  //         <Nav />
+  //         <Routes>
+  //           <Route path="/" element={<Feed />} />
+  //           <Route path="/signup" element={<SignUp />} />
+  //           <Route path="/login" element={<LogIn />} />
+  //           <Route path="/profile" element={<Profile />} />
+  //           <Route path="/messages" element={<Messages />} />
+  //           <Route path="/messages/:id" element={<ChatRoom />} />
+  //           <Route path="/notifications" element={<Notifications />} />
+  //           <Route path="/profile/:id/settings" element={<Settings />} />
+  //           <Route path="/post/:id" element={<UserPost />} />
+  //           <Route path="/profile/:id" element={<Profile />} />
+  //         </Routes>
+  //         <Footer />
+  //       </UserContext.Provider>
+  //     </HashRouter>
+  //   </div>
+  // );
 };
 
 export default App;
