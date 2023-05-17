@@ -14,7 +14,11 @@ const ProfileInfo = () => {
 
   const location = useLocation();
 
-  const userID = window.location.href.split("/")[5];
+  // local
+  // const userID = window.location.href.split("/")[5];
+
+  // github/hasrouter routing
+  const userID = window.location.href.split("/")[6];
 
   const [userBio, setUserBio] = useState("");
 

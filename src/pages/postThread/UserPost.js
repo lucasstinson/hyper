@@ -13,7 +13,13 @@ import AddComment from "./components/AddComment";
 const UserPost = (props) => {
   const { rerender, currentUser } = useContext(UserContext);
   const location = useLocation();
-  const postID = window.location.href.split("/")[5];
+
+  // local routing
+  // const postID = window.location.href.split("/")[5];
+
+  // github/hasrouter routing
+  const postID = window.location.href.split("/")[6];
+
   const userID = location.state.uid;
 
   const [userPost, setUserPost] = useState([]);

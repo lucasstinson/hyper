@@ -21,7 +21,12 @@ const ChatRoom = () => {
 
   const [disabled, setDisabled] = useState(true);
 
-  const chatRoomID = window.location.href.split("/")[5];
+  // local routing
+  // const chatRoomID = window.location.href.split("/")[5];
+
+  // github/hasrouter routing
+
+  const chatRoomID = window.location.href.split("/")[6];
 
   const handleSend = async (e) => {
     const text = e.target.previousSibling.value;
