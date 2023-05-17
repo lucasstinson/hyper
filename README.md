@@ -1,6 +1,6 @@
 # Hyper React App
 
-A recreation of Twitter using, HTML, CSS, React, React Router and Firebase. This app is my first attempt at a fully functioning
+A recreation of Twitter using, HTML, CSS, React, React Router and Firebase. This app also includes my first time using "useContext" as well as fully incorporating firebase.
 
 ## Project: Javascript Final Project
 
