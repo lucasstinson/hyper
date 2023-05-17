@@ -74,7 +74,7 @@ A **live preview** of the project is [here](https://lucasstinson.github.io/hyper
 - There are times when loading takes an exceptionally long time due to certain asynchronous aspects of reading, writing and intentional delays.
   - The intentional delays on API calls are to allow enough time for the asynchronous calls to complete, however, there are some that appear to be too long, but further testing is needed to very best delay time.
   - Example - Updating a profile picture may not rerender the photo.
-- ~~There needs to be proper rerouting on a logged in user versus a logged out one ~~ This has been added.
+- ~~There needs to be proper rerouting on a logged in user versus a logged out one.~~ This has been added.
 - When a user logs in notifications, messages, posts are loaded. Due to the amounts of reads there is a delay between a new notification/message/post being received. The calls should be reviewed.
 - Refactoring including KISS, DRY and Single Responsibility
   - There are some instances where code is 80% reused and a portion is slightly altered. Any time the same exact action is being called. Then the same code can be used.
