@@ -1,9 +1,11 @@
 import "./search.css";
 import { getUserInfo } from "../../../firebase/search";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../UserContext";
 
 const Search = (props) => {
+  const { setRerender, rerender } = useContext(UserContext);
   const { userText } = props;
   const [users, setUsers] = useState([]);
 
@@ -25,7 +27,12 @@ const Search = (props) => {
           onClick={props.onClose}
           state={{ uid: post.uniqueID }}
         >
-          <div className="user-info-container">
+          <div
+            className="user-info-container"
+            onClick={() => {
+              setRerender(!rerender);
+            }}
+          >
             <img className="user-photo" src={post.photoURL} alt=""></img>
             <div className="user">@{post.username}</div>
           </div>
