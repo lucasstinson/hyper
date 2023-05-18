@@ -83,7 +83,7 @@ const LogIn = () => {
             </div>
           </div>
         </div>
-        <div className="log-in-error"> {"error"}</div>
+        <div className="log-in-error"> </div>
       </div>
     </div>
   );

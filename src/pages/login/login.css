@@ -103,12 +103,13 @@
 @media (max-width: 600px) {
   .log-in-form {
     background-color: white;
+    border: none;
     display: flex;
     flex-direction: column;
     border-radius: 15px;
     gap: 20px;
     width: 100%;
-    height: 100%;
+    height: 85%;
   }
 
   .log-in-form-main-container {
@@ -124,7 +125,7 @@
 
   .log-in-error {
     position: relative;
-    bottom: 150px;
+    bottom: 50px;
     display: flex;
     font-size: 14px;
     text-align: center;
@@ -141,7 +142,8 @@
     border-radius: 15px;
     gap: 20px;
     width: 100%;
-    height: 100%;
+    border: none;
+    height: 80%;
   }
 
   .log-in-form-main-container {

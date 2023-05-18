@@ -20,6 +20,7 @@ const logIn = async (email, password) => {
     loginError.classList.add("active");
     setTimeout(() => {
       loginError.classList.remove("active");
+      loginError.textContent = " ";
     }, 5000);
   }
 };
