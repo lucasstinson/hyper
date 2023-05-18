@@ -58,6 +58,7 @@ const Settings = () => {
         <div className="settings-info-container">
           <div className="settings-profile-image-container">
             <label htmlFor="file-upload" className="new-profile-image">
+              <div className="settings-profile-image-title">Photo:</div>
               <img
                 src={tempPhoto}
                 className="settings-profile-image"

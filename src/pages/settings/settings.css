@@ -89,6 +89,10 @@
   color: #ffffff;
 }
 
+.settings-profile-image-title {
+  font-weight: 700;
+}
+
 .save-profile-button:hover {
   cursor: pointer;
   background-color: rgba(113, 170, 44, 0.7);
