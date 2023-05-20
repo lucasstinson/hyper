@@ -1,8 +1,5 @@
 import React from "react";
 import "./notifications.css";
-import userWhite from "../../assets/images/user-white.png";
-import like from "../../assets/images/heart-green.png";
-import profileGreen from "../../assets/images/profile-green.png";
 import NotificationsList from "./components/NotificationsList";
 
 const Notifications = () => {
@@ -19,18 +16,3 @@ const Notifications = () => {
 };
 
 export default Notifications;
-
-// the top of the page under the nave bar should show notifications underlined and centered
-// underneath that should be all the notifications,
-// either white background or a gray background(unread)
-// should be linkable to the tweets that were liked
-
-// notification will have an emoji for the action
-// heart for like, user icon for follow,
-// the profile image of whoever performed that action
-// note or comment related to that action, "Luke" followed you
-// if retweeted...then will also show the tweet
-// the links will be clickable
-// like will link to post liked
-// retweet will link to the post retweeted
-// follow will link to your followers page you can also click the persons name

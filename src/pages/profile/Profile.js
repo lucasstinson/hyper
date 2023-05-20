@@ -3,6 +3,7 @@ import "./profile.css";
 import ProfileFeed from "./components/ProfileFeed";
 import ProfileInfo from "./components/ProfileInfo";
 
+// Profile page
 const Profile = () => {
   return (
     <div className="Profile">

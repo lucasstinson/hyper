@@ -5,20 +5,30 @@ import { getReplies } from "../../../firebase/comment";
 import { UserContext } from "../../../UserContext";
 
 const Comments = (props) => {
+  // context hook to grab rerender flag
   const { rerender } = useContext(UserContext);
-  const { post, postID, userID } = props;
+
+  // state variables of post
+  const { postID, userID } = props;
+
+  // Initial variable of comment counts related to a post
   const [userComments, setUserComments] = useState([]);
 
+  // will generate the comment count on launch
   useEffect(() => {
     generateComments(userID, postID);
   }, []);
 
+  // upon rerender changing, will render comments after 1 sec delay.
   useEffect(() => {
     setTimeout(() => {
       generateComments(userID, postID);
     }, [1000]);
   }, [rerender]);
 
+  // gets all comments and profile data related to each comment on a
+  //  post, then sets the userComments state variable to the JSX
+  // mapped comments.
   const generateComments = async (userID, postID) => {
     try {
       const replyData = await getReplies(userID, postID);

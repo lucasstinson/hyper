@@ -1,24 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./post.css";
-import pictureGreen from "../../assets/images/picture-green.png";
+// import pictureGreen from "../../assets/images/picture-green.png";
 import { UserContext } from "../../UserContext";
 import { addPost } from "../../firebase/posts";
 
 const Post = (props) => {
+  // context hook used to grab current users state variables
   const { photoURL, setRerender, rerender } = useContext(UserContext);
 
+  // Initial state of submit button
   const [disabled, setDisabled] = useState(true);
 
+  // Initial character count of currently updating comment
   const [postCharacters, setPostCharacters] = useState(0);
 
+  // Initial text of currently updating comment
   const [postText, setPostText] = useState("");
 
+  // upon clicking the submit button, the post is added to firebase
+  // the post modal will close the rerender flag will be updated.
   const createPost = async () => {
     addPost(postText);
     props.onClose();
     setRerender(!rerender);
   };
 
+  // will update the disabled status and text state based on change
   useEffect(() => {
     if (postCharacters > 0) {
       setDisabled(false);

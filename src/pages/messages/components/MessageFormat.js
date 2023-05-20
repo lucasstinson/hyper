@@ -2,8 +2,15 @@ import React, { useContext } from "react";
 import { UserContext } from "../../../UserContext";
 
 const MessageFormat = (props) => {
+  // context hook to current logged in user info.
   const { currentUser } = useContext(UserContext);
+
+  // state variables of message
   const { message } = props;
+
+  // if the message is from the currently logged in user it will be
+  // styled with a green color and aligned to the right.
+  // else the color will be green and aligned left.
   if (message.uniqueID == currentUser.uid) {
     return (
       <div className="chatRoom-message-data" key={message.createTimeExtended}>

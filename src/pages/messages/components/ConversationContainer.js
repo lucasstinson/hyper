@@ -4,10 +4,14 @@ import { createUser } from "../../../firebase/signup";
 import { UserContext } from "../../../UserContext";
 
 const ConversationContainer = (props) => {
-  const { currentUser, setMessageCount, messageCount } =
-    useContext(UserContext);
+  const { setMessageCount, messageCount } = useContext(UserContext);
+
+  // state variables of conversation
   const { conversation } = props;
 
+  // if a conversation has been read/ seen it will be rendered with
+  // a white color
+  // else the conversation will be displayed with a gray color
   if (conversation.Read) {
     return (
       <div className="message-container" key={conversation.id}>

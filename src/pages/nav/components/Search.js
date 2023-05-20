@@ -5,10 +5,18 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../../../UserContext";
 
 const Search = (props) => {
+  // context hook for rerender flag.
   const { setRerender, rerender } = useContext(UserContext);
+
+  // state based on text of searched user
   const { userText } = props;
+
+  // Initial users that are being rendered in ssearch
   const [users, setUsers] = useState([]);
 
+  // gets all user information based on passed user name text
+  // if the usernames contain the text the user state will be
+  // will set the the JSX mapped users.
   const generateUsers = async (text) => {
     try {
       const getUsers = await getUserInfo();
@@ -44,6 +52,7 @@ const Search = (props) => {
     }
   };
 
+  // render the current user pool each time the search text changes.
   useEffect(() => {
     generateUsers(userText);
   }, [userText]);

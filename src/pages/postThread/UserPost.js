@@ -1,25 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./userpost.css";
-import { useLocation } from "react-router-dom";
-import { createPortal } from "react-dom";
 import { postThread } from "../../firebase/posts";
 import FeedPosts from "../post/components/FeedPosts";
 import Comments from "./components/Comments";
-import PostComment from "./components/PostComment";
 import { UserContext } from "../../UserContext";
-import { createUser } from "../../firebase/signup";
 import AddComment from "./components/AddComment";
 
 const UserPost = (props) => {
-  const { rerender, currentUser } = useContext(UserContext);
-  const location = useLocation();
+  // context hook to grab rerender flag
+  const { rerender } = useContext(UserContext);
 
+  // Variables used to get unique ID of post based on URL.
   const postIDArray = window.location.href.split("/");
   const postID = postIDArray[postIDArray.length - 1];
 
-  // const userID = location.state.uid;
-
+  // Initial variable related to currently viewed post.
   const [userPost, setUserPost] = useState([]);
+
+  // gets all current post and all comments related to post
+  // sets the userPost state variable to the JSX mapped comments.
   const generatePostThread = async () => {
     try {
       const postData = await postThread(postID);
@@ -42,10 +41,12 @@ const UserPost = (props) => {
     }
   };
 
+  // renders thread on mount
   useEffect(() => {
     generatePostThread();
   }, []);
 
+  // On rerender change, rerenders thread
   useEffect(() => {
     generatePostThread();
   }, [rerender]);

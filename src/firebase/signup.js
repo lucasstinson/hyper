@@ -2,6 +2,7 @@ import { db, auth } from "./firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc, getDocs, collection } from "firebase/firestore";
 
+// Creates user on intial sign up and users Add user helper function
 const createUser = async (email, password, username) => {
   try {
     const credentials = await createUserWithEmailAndPassword(
@@ -23,7 +24,7 @@ const createUser = async (email, password, username) => {
   }
 };
 
-// Add user data to firestore with unique ID
+// Helper Function that adds user data to firestore with unique ID
 const addUser = async (username, email, uniqueID) => {
   const photoURL =
     "https://firebasestorage.googleapis.com/v0/b/hyper-fc336.appspot.com/o/default.png?alt=media&token=bccd07fe-4e34-4974-9c55-a8d67dbf3c59";
@@ -45,6 +46,7 @@ const addUser = async (username, email, uniqueID) => {
   }
 };
 
+// gets all emails on user creation, used in client side validation
 const getEmails = async () => {
   let emails = [];
   try {
@@ -59,6 +61,7 @@ const getEmails = async () => {
   return emails;
 };
 
+// gets all usernames on user creation, used in client side validation
 const getUsernames = async () => {
   let usernames = [];
   try {
@@ -75,6 +78,3 @@ const getUsernames = async () => {
 };
 
 export { createUser, addUser, getEmails, getUsernames };
-
-// default user image, then you need to have a call to the storage db
-// with the url and get the information back

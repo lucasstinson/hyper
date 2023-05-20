@@ -1,18 +1,7 @@
 import { db } from "./firebase";
-import {
-  doc,
-  updateDoc,
-  // collection,
-  // addDoc,
-  // getDocs,
-  getDoc,
-} from "firebase/firestore";
-import { async } from "@firebase/util";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 
-// mg3GwHGO7CdiTszy3Dq1U7wJrtI3 post user id
-// C4hPnDLgYFJVAAN1TEmx post id
-// 195AHns4rscdhJ258T3WCXEn6bB2
-
+// get identifying comment information and add to firebase
 const addComment = async (postText, postUserID, postID, currentUserID) => {
   const postRef = doc(db, "users/" + postUserID + "/posts", postID);
 
@@ -64,10 +53,9 @@ const addComment = async (postText, postUserID, postID, currentUserID) => {
   }
 };
 
+// get all profile details and text related to a post
 const getReplies = async (userID, PostID) => {
   let ReplyArray = [];
-  // const userRef = doc(db, "users/", userID);
-  // const userSnap = await getDoc(userRef);
   const postRef = doc(db, "users/" + userID + "/posts/", PostID);
   try {
     const postSnap = await getDoc(postRef);
@@ -112,4 +100,3 @@ const getReplies = async (userID, PostID) => {
 };
 
 export { addComment, getReplies };
-// export { addComment, getAllPosts, getAllCurrentUserPosts, postThread };

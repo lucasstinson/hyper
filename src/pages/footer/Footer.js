@@ -3,6 +3,7 @@ import githubLogo from "../../assets/images/github.png";
 import { Link } from "react-router-dom";
 import "./footer.css";
 
+// creates footer on webpage
 const Footer = () => {
   return (
     <div className="footer-container">

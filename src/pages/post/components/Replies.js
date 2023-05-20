@@ -4,8 +4,10 @@ import replyGreen from "../../../assets/images/reply-green.png";
 import { Link } from "react-router-dom";
 
 const Replies = (props) => {
+  // state variables of post
   const { post } = props;
 
+  // initial reply emoji is gray
   const [replyEmoji, setReplyEmoji] = useState(replyGray);
 
   return (

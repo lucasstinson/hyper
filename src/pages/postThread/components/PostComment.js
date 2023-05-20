@@ -3,26 +3,40 @@ import { UserContext } from "../../../UserContext";
 import { addComment } from "../../../firebase/comment";
 
 const PostComment = (props) => {
+  // context hook to grab state variables
   const { photoURL, setRerender, rerender, currentUser } =
     useContext(UserContext);
 
+  // state variable of post
   const { post } = props;
+
+  // unique ID of user who made post
   let postUserID = post.uniqueID;
+
+  // unique ID of post
   let postID = post.post.id;
+
+  // unique ID of current user
   let currentUserID = currentUser.uid;
 
+  // Initial state of submit button
   const [disabled, setDisabled] = useState(true);
 
+  // Initial character count of currently updating comment
   const [postCharacters, setPostCharacters] = useState(0);
 
+  // Initial text of currently updating comment
   const [postText, setPostText] = useState("");
 
+  // upon clicking the submit button, will add comment to firebase
+  // will close the comment modal and will update the rerender flag
   const createComment = async () => {
     addComment(postText, postUserID, postID, currentUserID);
     props.onClose();
     setRerender(!rerender);
   };
 
+  // will update the disabled status and text state based on change
   useEffect(() => {
     if (postCharacters > 0) {
       setDisabled(false);

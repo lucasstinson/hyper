@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import userWhite from "../../../assets/images/user-white.png";
-import repostGray from "../../../assets/images/repost-gray.png";
-import repostGreen from "../../../assets/images/repost-green.png";
-
 import shareGray from "../../../assets/images/share-gray.png";
 import shareGreen from "../../../assets/images/share-green.png";
 import Likes from "./Likes";
 import Replies from "./Replies";
 
 const FeedPosts = (props) => {
+  // state variables of post
   const { post } = props;
 
+  // initial visibility status for clipboard note
   const [visibility, setVisibility] = useState("hidden");
 
+  // upon clicking the copy button a tool tip will be made visibil
+  // and the link to the post and thread will be copied.
+  // this tool tip will disappear after 2 seconds
   const handleClick = (e) => {
     const toolTip = e.target.nextSibling;
     const postLink = `https://lucasstinson.github.io/hyper/#/post/${post.post.id}`;

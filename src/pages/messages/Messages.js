@@ -6,6 +6,7 @@ import { getConversations } from "../../firebase/messages";
 import Conversations from "./components/Conversations";
 
 const Messages = () => {
+  // context hook to current logged in user info.
   const { currentUser } = useContext(UserContext);
 
   return (

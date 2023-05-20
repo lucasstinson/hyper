@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 
-// Sign in with email and password after creation
+// Allows user to sign in with email
 const logIn = async (email, password) => {
   try {
     const credentials = await signInWithEmailAndPassword(auth, email, password);

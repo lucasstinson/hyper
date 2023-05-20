@@ -20,22 +20,33 @@ import "./app.css";
 import ChatRoom from "./pages/messages/components/ChatRoom";
 
 const App = () => {
+  // gets status of current user, logged In | Not logged In
   const currentUser = useAuth();
 
+  // Initial bio for a user
   const [bio, setBio] = useState("");
 
+  // Initial name for a user
   const [name, setName] = useState("");
 
+  // Initial photo for a user
   const [photoURL, setPhotoURL] = useState(userWhite);
 
+  // Initial photo for a username
   const [username, setUserName] = useState("");
 
+  // Additional flag that may be used to rerender
   const [rerender, setRerender] = useState(false);
 
+  // Unread notificaiton count for users when they sign in
   const [notificationCount, setNotificationCount] = useState("");
 
+  // Unread messageCount count for users when they sign in
   const [messageCount, setMessageCount] = useState("");
 
+  // On Mount, if current User is a logged in user
+  // load the profile, notification and message data
+  // delay the run by 1 second to allow the current user to load
   useEffect(() => {
     setTimeout(() => {
       if (currentUser) {
@@ -65,6 +76,8 @@ const App = () => {
     }, [1000]);
   }, [currentUser, bio, name, photoURL]);
 
+  // if a current user exists, allow the user to access specific routes
+  // else restrict direct interaction with users.
   if (currentUser) {
     return (
       <div className="App">

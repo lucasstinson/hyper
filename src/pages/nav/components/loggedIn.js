@@ -14,17 +14,31 @@ import Post from "../../post/Post";
 import { UserContext } from "../../../UserContext";
 
 const LoggedIn = () => {
+  // context hook to current logged in user info.
   const { photoURL, currentUser, notificationCount, messageCount } =
     useContext(UserContext);
+
+  // Initial flag on whether to show a post modal
   const [showPost, setShowPost] = useState(false);
+
+  // grabs the current URL
   const location = useLocation();
+
+  // Initial url variable
   const [url, setUrl] = useState(null);
+
+  // Initial user id set to current logged in user id.
   const userID = currentUser.uid;
 
+  // Initial visibility on notification count
   const [notificationVisibility, setNotificaitonVisibility] =
     useState("hidden");
+
+  // Initial visibility on message count
+
   const [messageVisibility, setMessageVisibility] = useState("hidden");
 
+  // checks to see if there are unseen notifications. > 0 notifies user.
   const notificationCheck = () => {
     if (notificationCount > 0) {
       setNotificaitonVisibility("visible");
@@ -33,6 +47,7 @@ const LoggedIn = () => {
     }
   };
 
+  // checks to see if there are unseen messages. > 0 notifies user.
   const messageCheck = () => {
     if (messageCount > 0) {
       setMessageVisibility("visible");
@@ -41,18 +56,23 @@ const LoggedIn = () => {
     }
   };
 
+  // sets URL if location changes
   useEffect(() => {
     setUrl(location.pathname);
   }, [location]);
 
+  // runs each time the unseen notification count updates
   useEffect(() => {
     notificationCheck();
   }, [notificationCount]);
 
+  // runs each time the unseen message count updates
   useEffect(() => {
     messageCheck();
   }, [messageCount]);
 
+  // renders the navigation bar and adds an underline to the current
+  // tab location based on the path name
   return (
     <div className="directory-container">
       <div className="directory-profile-container">

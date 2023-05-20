@@ -6,13 +6,9 @@ import {
   addDoc,
   getDocs,
   getDoc,
-  query,
-  where,
-  collectionGroup,
 } from "firebase/firestore";
-import { connectAuthEmulator } from "firebase/auth";
-import { async } from "@firebase/util";
 
+// adds post to firebase with identifying information
 const addPost = async (postText) => {
   const userRef = doc(db, "users", auth.currentUser.uid);
 
@@ -62,6 +58,7 @@ const addPost = async (postText) => {
   }
 };
 
+// gets all posts related to the currently viewed users unique ID
 const getAllCurrentUserPosts = async (userID) => {
   let allPosts = [];
 
@@ -100,6 +97,7 @@ const getAllCurrentUserPosts = async (userID) => {
   return allPosts;
 };
 
+// gets all made posts and attaches the connected profile ID to it.
 const getAllPosts = async () => {
   let allPosts = [];
   let newPosts = [];
@@ -138,6 +136,7 @@ const getAllPosts = async () => {
   return newPosts;
 };
 
+// Helper function that gathers all user posts
 const getPosts = async (uniqueID, name, username, photoURL, userID) => {
   let postsRef = collection(db, "users/" + uniqueID + "/posts");
   let posts = [];
@@ -159,35 +158,8 @@ const getPosts = async (uniqueID, name, username, photoURL, userID) => {
   return posts;
 };
 
-// const postThread = async (userID, postID) => {
-//   let postArray = [];
-//   const userRef = doc(db, "users/", userID);
-//   const postRef = doc(db, "users/" + userID + "/posts/", postID);
-//   try {
-//     const userSnap = await getDoc(userRef);
-//     let username = userSnap.data().username;
-//     let name = userSnap.data().name;
-//     let photoURL = userSnap.data().photoURL;
-//     let uniqueID = userID;
-
-//     const postSnap = await getDoc(postRef);
-//     let post = postSnap.data();
-
-//     const postData = {
-//       uniqueID: uniqueID,
-//       username: username,
-//       name: name,
-//       photoURL: photoURL,
-//       post: post,
-//     };
-//     postArray.push(postData);
-//   } catch (error) {
-//     const errorMessage = error.message;
-//   }
-//   // console.log(postArray);
-//   return postArray;
-// };
-
+// gets thread and profile information related to a post
+// and based on the posts unique ID
 const postThread = async (postID) => {
   let postArray = [];
   let userIDs = [];
@@ -230,6 +202,7 @@ const postThread = async (postID) => {
   return postArray;
 };
 
+// helper function that gathers the specific post data
 const postSnap = async (userID, postID) => {
   const postRef = doc(db, "users/" + userID + "/posts/", postID);
   try {

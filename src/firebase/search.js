@@ -1,6 +1,7 @@
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase";
 
+// gets users' identifying profile information
 const getUserInfo = async () => {
   let usernames = [];
   try {

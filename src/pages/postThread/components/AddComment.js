@@ -5,9 +5,17 @@ import { UserContext } from "../../../UserContext";
 import { Link } from "react-router-dom";
 
 const AddComment = (props) => {
+  // context hook to current logged in user info.
   const { currentUser } = useContext(UserContext);
+
+  // state variables of post
   const { post } = props;
+
+  // Initial flag on whether to show a comment modal
   const [showPost, setShowPost] = useState(false);
+
+  // If the current user is logged in, allow the user to add a comment.
+  // else the user will be ased to log in
   if (currentUser) {
     return (
       <div className="add-comment-container">

@@ -8,16 +8,23 @@ import {
   deletefollower,
 } from "../../../firebase/followers";
 import { findConversation } from "../../../firebase/messages";
-import { async } from "@firebase/util";
 
 const ProfileButtons = () => {
-  const { currentUser, rerender, setRerender, set } = useContext(UserContext);
+  // context hook to grab current user data
+  const { currentUser, rerender, setRerender } = useContext(UserContext);
+
+  // Variables used to get unique ID of current profile based on URL.
   const profileIDArray = window.location.href.split("/");
   const profileID = profileIDArray[profileIDArray.length - 1];
-  const [followStatus, setFollowStatus] = useState(false);
-  const [followButton, setFollowButton] = useState("Follow");
-  const [conversationID, setConversationID] = useState("");
 
+  // Initial follow status on profile.
+  const [followStatus, setFollowStatus] = useState(false);
+
+  // Initial follow button text.
+  const [followButton, setFollowButton] = useState("Follow");
+
+  // Funtion that gets amount of followers, finds if currentLogged
+  // in user follows and updates the follow status and button text.
   const handleFollow = async (profileID) => {
     try {
       const IDs = await getFollowers(profileID);
@@ -32,6 +39,9 @@ const ProfileButtons = () => {
       const errorMessage = error.message;
     }
   };
+
+  // updates Follow button color based on if the current user is
+  // logged in and follows user.
   const updateColor = () => {
     if (profileID != currentUser.uid) {
       const followElement = document.querySelector(".follow-button");
@@ -45,6 +55,9 @@ const ProfileButtons = () => {
     }
   };
 
+  // handles click of follow button. When clicked, depending on
+  // if the current logged in user follows another user they will
+  // unfollow or follow and the status, button text and color updates
   const handleClick = () => {
     if (followStatus) {
       deletefollower(profileID, currentUser.uid);
@@ -60,6 +73,8 @@ const ProfileButtons = () => {
     setRerender(!rerender);
   };
 
+  // clicking the message button will either find the current
+  // direct message with that user or create a chat room to message.
   const messageClick = async () => {
     try {
       const conversationUID = await findConversation(
@@ -72,18 +87,23 @@ const ProfileButtons = () => {
     }
   };
 
+  // gets the follow status if a user is logged in
   useEffect(() => {
     if (currentUser) {
       handleFollow(profileID);
     }
   }, [currentUser]);
 
+  // updates the color based on the follow status if the status updates
+  // or the page is being rerendered.
   useEffect(() => {
     if (currentUser) {
       updateColor();
     }
   }, [followStatus, rerender]);
 
+  // The buttons that appear are based on if a user is logged in
+  // or logged out,  and if it is current logged in users profile.
   if (currentUser) {
     if (profileID == currentUser.uid) {
       return (

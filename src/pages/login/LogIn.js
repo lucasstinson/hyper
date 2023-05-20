@@ -12,7 +12,7 @@ const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Validates all inputs and enables/disables button based on results
+  // Validates all inputs and enables/disables submit button
   const validInputs = () => {
     if (email.length > 0 && password.length > 0) {
       setDisabled(false);

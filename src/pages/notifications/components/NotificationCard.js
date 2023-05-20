@@ -8,8 +8,10 @@ import { getNotifications } from "../../../firebase/notifications";
 import { UserContext } from "../../../UserContext";
 
 const NotificationCard = (props) => {
+  // state variables of notifications
   const { notification, userID } = props;
 
+  // generate notification based on type [like, reply, follow]
   if (notification.type == "like") {
     return (
       <Link

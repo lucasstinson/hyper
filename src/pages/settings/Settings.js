@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./settings.css";
-import { upload } from "../../firebase/firebase";
+// import { upload } from "../../firebase/firebase";
 import camera from "../../assets/images/camera.png";
-import { updateSettings } from "../../firebase/firebase";
+// import { updateSettings } from "../../firebase/firebase";
+import { updateSettings, upload } from "../../firebase/users";
 import { UserContext } from "../../UserContext";
 
 const Settings = () => {

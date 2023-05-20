@@ -5,10 +5,14 @@ import { Link } from "react-router-dom";
 import ConversationContainer from "./ConversationContainer";
 
 const Conversations = (props) => {
+  // context hook to current logged in user info.
   const { currentUser } = props;
 
+  // Initial conversation value
   const [conversations, setConversations] = useState([]);
 
+  // gets all conversations for the current logged in user,
+  // then maps the JSX data to the conversations variable.
   const generateConversations = async () => {
     try {
       const conversations = await getConversations(currentUser.uid);
@@ -24,12 +28,14 @@ const Conversations = (props) => {
     }
   };
 
+  // on CurrentUser change, will get the pending messages
   useEffect(() => {
     if (currentUser) {
       pendingMessages(currentUser.uid);
     }
   }, [currentUser]);
 
+  //  on CurrentUser change, will generate all user conversations
   useEffect(() => {
     generateConversations();
   }, [currentUser]);

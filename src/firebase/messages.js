@@ -2,7 +2,6 @@ import { db, auth } from "./firebase";
 import {
   collection,
   doc,
-  setDoc,
   addDoc,
   updateDoc,
   getDocs,
@@ -11,6 +10,7 @@ import {
 
 import { getProfileData } from "./users";
 
+// Helper function that creates a chatroom between two users
 const createConversation = async (currentUserID, OtherUserID) => {
   const users = [currentUserID, OtherUserID];
   try {
@@ -27,6 +27,8 @@ const createConversation = async (currentUserID, OtherUserID) => {
   }
 };
 
+// finds conversation between two users, if conversation does not exist
+// runs helper function to create a conversation chat room
 const findConversation = async (currentUserID, OtherUserID) => {
   const conversationRef = collection(db, "conversations/");
   let flag = false;
@@ -51,6 +53,7 @@ const findConversation = async (currentUserID, OtherUserID) => {
   }
 };
 
+// gets profile data of other user in a conversation
 const getChatData = async (chatRoomID, currentUserID) => {
   const conversationRef = doc(db, "conversations/", chatRoomID);
   let userID = "";
@@ -69,6 +72,7 @@ const getChatData = async (chatRoomID, currentUserID) => {
   }
 };
 
+// writes message to firebase
 const sendMessage = async (text, currentUserID, chatRoomID) => {
   const timestampExtended = new Date().toISOString().split("T").join(" ");
   const timestampDate = new Date();
@@ -129,6 +133,7 @@ const sendMessage = async (text, currentUserID, chatRoomID) => {
   }
 };
 
+// gets Messages of conversation from firebase
 const getMessages = async (chatRoomID) => {
   const messagesRef = collection(
     db,
@@ -154,6 +159,7 @@ const getMessages = async (chatRoomID) => {
   }
 };
 
+// gets all conversations that exist for the current logged in user
 const getConversations = async (currentUserID) => {
   const conversationRef = collection(db, "conversations/");
 
@@ -201,6 +207,7 @@ const getConversations = async (currentUserID) => {
   }
 };
 
+// gets the last message for each conversation to display in messages window
 const getLastMessage = async (chatRoomID, currentUserID) => {
   const messagesRef = collection(
     db,
@@ -251,6 +258,7 @@ const getLastMessage = async (chatRoomID, currentUserID) => {
   }
 };
 
+// gets count of conversations that are pending logged in user response
 const pendingMessages = async (currentUserID) => {
   const conversationRef = collection(db, "conversations/");
   let conversationIDs = [];
@@ -283,6 +291,7 @@ const pendingMessages = async (currentUserID) => {
   }
 };
 
+// finds messages based on if they have been read or not
 const updatePendingMessages = async (chatRoomID, currentUserID) => {
   const messagesRef = collection(
     db,
@@ -309,6 +318,7 @@ const updatePendingMessages = async (chatRoomID, currentUserID) => {
   }
 };
 
+// helper function that updates passed pending messages
 const updateReadMessages = async (chatRoomID, id) => {
   const messageRef = doc(db, "conversations/" + chatRoomID + "/messages", id);
   try {

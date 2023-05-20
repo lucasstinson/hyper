@@ -5,14 +5,9 @@ import {
   getDocs,
   updateDoc,
   collection,
-  update,
-  arrayUnion,
-  arrayRemove,
-  Timestamp,
 } from "firebase/firestore";
-import { storage } from "./firebase";
-import { getUsernames } from "./signup";
 
+// get all notifications for a user with helper functions
 const getNotifications = async (currentUserID) => {
   let notifications = [];
   let count = 0;
@@ -44,6 +39,7 @@ const getNotifications = async (currentUserID) => {
   }
 };
 
+// helper function that gets all likes on users posts
 const getLikes = async (currentUserID) => {
   let likes = [];
   const postsRef = collection(db, "users/" + currentUserID + "/posts");
@@ -64,6 +60,7 @@ const getLikes = async (currentUserID) => {
   }
 };
 
+// helper function that gets all replies/comments on users posts
 const getReplies = async (currentUserID) => {
   let replies = [];
   const postsRef = collection(db, "users/" + currentUserID + "/posts");
@@ -84,6 +81,7 @@ const getReplies = async (currentUserID) => {
   }
 };
 
+// helper function that gets all users followers
 const getFollowers = async (currentUserID) => {
   let followers = [];
   const followRef = doc(db, "users", currentUserID);
@@ -101,6 +99,8 @@ const getFollowers = async (currentUserID) => {
   }
 };
 
+// gets notifications and tags each notification with the associated
+// user profile data.
 const getUserNotifications = async (currentUserID) => {
   let updatedNotifications = [];
 
@@ -114,6 +114,7 @@ const getUserNotifications = async (currentUserID) => {
   }
 };
 
+// helper function that tags each notification with user data.
 const getUserInfo = async (notifications) => {
   let allNotifications = [];
   try {
@@ -132,6 +133,7 @@ const getUserInfo = async (notifications) => {
   return allNotifications;
 };
 
+// updates Read flag of all notifications using helper functions
 const updateRead = async (currentUserID) => {
   try {
     const likesRead = await updateLikesRead(currentUserID);
@@ -142,6 +144,7 @@ const updateRead = async (currentUserID) => {
   }
 };
 
+// helper function that gets all likes and updates likes
 const updateLikesRead = async (currentUserID) => {
   const postsRef = collection(db, "users/" + currentUserID + "/posts");
 
@@ -170,6 +173,7 @@ const updateLikesRead = async (currentUserID) => {
   }
 };
 
+// helper function that updates likes in firebase
 const updateLikes = async (currentUserID, postID, updatedLikes) => {
   const postRef = doc(db, "users/" + currentUserID + "/posts", postID);
 
@@ -182,6 +186,7 @@ const updateLikes = async (currentUserID, postID, updatedLikes) => {
   }
 };
 
+// helper function that gets all replies and updates replies
 const updateRepliesRead = async (currentUserID) => {
   const postsRef = collection(db, "users/" + currentUserID + "/posts");
 
@@ -210,6 +215,7 @@ const updateRepliesRead = async (currentUserID) => {
   }
 };
 
+// helper function that updates replies in firebase
 const updateReplies = async (currentUserID, postID, updatedReplies) => {
   const postRef = doc(db, "users/" + currentUserID + "/posts", postID);
 
@@ -222,6 +228,7 @@ const updateReplies = async (currentUserID, postID, updatedReplies) => {
   }
 };
 
+// helper function that gets all follows and updates follows
 const updateFollowsRead = async (currentUserID) => {
   let updatedFollowers = [];
   const followRef = doc(db, "users", currentUserID);

@@ -113,7 +113,7 @@ const SignUp = () => {
     }
   };
 
-  // Validates all inputs and enables/disables button based on results
+  // Validates all inputs and enables/disables submit button
   const validInputs = () => {
     if (emailValid && passwordValid && usernameValid) {
       setDisabled(false);

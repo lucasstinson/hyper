@@ -6,9 +6,14 @@ import { getAllPosts } from "../../firebase/posts";
 import FeedPosts from "../post/components/FeedPosts";
 
 const Feed = () => {
+  // context hook to grab rerender flag
   const { rerender } = useContext(UserContext);
+
+  // Initial varibale of all posts
   const [userPosts, setUserPosts] = useState([]);
 
+  // gets all posts made, sorts them and then maps
+  // them to the userPosts varaible
   const generateAllPosts = async () => {
     try {
       const posts = await getAllPosts();
@@ -35,11 +40,15 @@ const Feed = () => {
       const errorMessage = error.message;
     }
   };
+
+  // upon rerender flag change, generates posts after 1 sec delay.
   useEffect(() => {
     setTimeout(() => {
       generateAllPosts();
     }, [1000]);
   }, [rerender]);
+
+  // On Mount, generates posts after 1 sec delay.
   useEffect(() => {
     setTimeout(() => {
       generateAllPosts();

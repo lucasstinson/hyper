@@ -8,10 +8,14 @@ import { UserContext } from "../../../UserContext";
 import NotificationCard from "./NotificationCard";
 
 const NotificationsList = () => {
+  // context hook to current logged in user info.
   const { currentUser, setNotificationCount } = useContext(UserContext);
 
+  // initial notifications variable
   const [notifications, setNotifications] = useState([]);
 
+  // gets all notifications for current user, orders them by time
+  // and maps them to the notifications variable
   const generateNotifications = async () => {
     try {
       const notifications = await getUserNotifications(currentUser.uid);
@@ -35,6 +39,8 @@ const NotificationsList = () => {
     }
   };
 
+  // upon seeing a notifications change, generate the notifications and
+  // update the count of unseen notification to 0 after a .5 sec delay
   useState(() => {
     generateNotifications();
     if (currentUser) {
@@ -45,6 +51,8 @@ const NotificationsList = () => {
     }
   }, [notifications]);
 
+  // on mount, update the notification count after 5 sec delay
+  // this makes sure the current count is in line with firebase
   useState(() => {
     setTimeout(() => {
       const loadNotifications = async () => {

@@ -1,6 +1,7 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
+// adds follower to firebase for currently viewed profile
 const addfollower = async (profileID, userID) => {
   const userRef = doc(db, "/users", profileID);
 
@@ -22,6 +23,7 @@ const addfollower = async (profileID, userID) => {
   }
 };
 
+// removes follower from firebase for currently viewed profile
 const deletefollower = async (profileID, userID) => {
   const userRef = doc(db, "/users", profileID);
 
@@ -41,6 +43,7 @@ const deletefollower = async (profileID, userID) => {
   }
 };
 
+// gets followers IDs of currently viewed profile
 const getFollowers = async (profileID) => {
   const userRef = doc(db, "/users", profileID);
 

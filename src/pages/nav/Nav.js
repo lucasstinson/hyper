@@ -2,15 +2,15 @@ import React, { useContext, useEffect } from "react";
 import "./nav.css";
 import hyperLogo from "../../assets/images/hyper-logo-green.png";
 import LoggedIn from "./components/loggedIn";
-import { useState } from "react";
-import { Link, useRouteLoaderData } from "react-router-dom";
-import { useAuth } from "../../firebase/firebase";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import SearchBar from "./components/SearchBar";
 
 const Nav = () => {
+  // context hook to current logged in user info.
   const { currentUser } = useContext(UserContext);
 
+  // renders nav bar, while taking into account if a user is logged in.
   return (
     <div className="nav">
       <div className="logo-container">

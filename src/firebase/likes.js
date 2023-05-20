@@ -1,13 +1,7 @@
-import { auth, db } from "./firebase";
-import {
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-  collection,
-} from "firebase/firestore";
-import { storage } from "./firebase";
+import { db } from "./firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
+// create identifying details for like and add it to firebase
 const addLike = async (usersID, usersPostID, currentUserID) => {
   const postRef = doc(db, "users/" + usersID + "/posts", usersPostID);
 
@@ -57,6 +51,7 @@ const addLike = async (usersID, usersPostID, currentUserID) => {
   }
 };
 
+// remove identified like from firebase
 const deleteLike = async (usersID, usersPostID, currentUserID) => {
   const postRef = doc(db, "users/" + usersID + "/posts", usersPostID);
 
@@ -78,6 +73,7 @@ const deleteLike = async (usersID, usersPostID, currentUserID) => {
   }
 };
 
+// create identifying details for comment like and add it to firebase
 const addCommentLike = async (
   usersID,
   usersPostID,
@@ -142,6 +138,7 @@ const addCommentLike = async (
   }
 };
 
+// remove identified comment like from firebase
 const deleteCommentLike = async (
   usersPostID,
   postID,

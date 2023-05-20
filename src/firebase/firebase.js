@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-import { getFirestore, updateDoc, doc } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,39 +26,7 @@ const db = getFirestore(app);
 // Initialize Storage
 const storage = getStorage(app);
 
-// updates User Settings
-
-const updateProfileImage = async (photo) => {
-  const profileImage = photo;
-  const userRef = doc(db, "users", auth.currentUser.uid);
-
-  try {
-    const update = await updateDoc(userRef, {
-      photoURL: profileImage,
-    });
-  } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
-
-const updateSettings = async () => {
-  const name = document.querySelector(".settings-profile-usersname").value;
-  const bio = document.querySelector(".settings-bio-text").value;
-  const userRef = doc(db, "users", auth.currentUser.uid);
-
-  try {
-    const update = await updateDoc(userRef, {
-      name: name,
-      bio: bio,
-    });
-    alert("Your account has been updated");
-  } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
-
+// Gets currentUser details based on logged in | logged out
 const useAuth = () => {
   const [currentUser, setCurrentUser] = useState();
 
@@ -68,26 +36,4 @@ const useAuth = () => {
   return currentUser;
 };
 
-// Storage
-const upload = async (file, currentUser) => {
-  const fileRef = ref(storage, currentUser.uid + ".png");
-  try {
-    const snapshot = await uploadBytes(fileRef, file);
-    const photoURL = await getDownloadURL(fileRef);
-    updateProfile(auth.currentUser, { photoURL: photoURL });
-    updateProfileImage(photoURL);
-  } catch (error) {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-  }
-};
-
-export {
-  auth,
-  db,
-  useAuth,
-  updateSettings,
-  upload,
-  storage,
-  updateProfileImage,
-};
+export { auth, db, useAuth, storage };
